@@ -58,3 +58,14 @@ button a {
   color: #fff;
   text-transform: uppercase;
 }
+
+.sale {
+  font-size: 17px;
+  color: #fff;
+  position: absolute;
+  top: -50px;
+  left: -45px;
+  background: red;
+  padding: 9px;
+  border-radius: 4px;
+}
