@@ -1,0 +1,56 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  margin: 50px;
+  border: 1px solid black;
+}
+
+h2 {
+  text-align: center;
+  margin: 20px;
+  font-size: 30px;
+}
+
+img {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+}
+
+b {
+  font-size: 25px;
+}
+
+p {
+  margin: 10px;
+}
+
+.free-ship {
+  color: grey;
+}
+
+a {
+  color: black;
+}
+
+li {
+  margin-left: 50px;
+}
+
+button {
+  font-size: 16px;
+  margin-top: 20px;
+  border: none;
+  padding: 5px;
+  background: #000;
+}
+
+button a {
+  color: #fff;
+  text-transform: uppercase;
+}
