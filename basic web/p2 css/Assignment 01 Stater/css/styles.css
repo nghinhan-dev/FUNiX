@@ -1,0 +1,142 @@
+/* SHARED COMPONENTS */
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.cv-document {
+  box-sizing: border-box;
+  border: none;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  vertical-align: baseline;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: arial, sans-serif, tahoma;
+  font-size: 10pt;
+}
+
+.cv-page {
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  text-decoration: none;
+  width: 900px;
+  min-height: 900px;
+  margin: 0 auto;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  position: relative;
+  padding: 40px;
+}
+
+h1 {
+  color: #0e2452;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.line {
+  width: 1px;
+  height: 85%;
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 10px;
+  left: 11px;
+}
+
+.section-title {
+  border-bottom: 1px solid black;
+  text-transform: uppercase;
+  padding: 5px 0px;
+  margin-bottom: 10px;
+}
+
+.section-item {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 5px 0px;
+}
+
+.item-title {
+  position: relative;
+}
+
+span {
+  font-weight: 700;
+}
+
+p {
+  line-height: 20px;
+}
+
+ul,
+ol {
+  margin-left: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* EACH COMPONENTS */
+/* INFO SECTION START */
+#info img {
+  width: 113px;
+  height: 113px;
+  position: absolute;
+  top: 45px;
+  right: 45px;
+}
+
+#info span {
+  display: inline-block;
+  width: 9%;
+}
+
+#info p {
+  margin-top: 8px;
+}
+/* INFO SECTION END */
+
+/* EXPERIENCE & EDUCATION START */
+#experience .section-content,
+#education .section-content {
+  padding-left: 25px;
+  position: relative;
+}
+
+#experience .item-title::before,
+#education .item-title::before {
+  position: absolute;
+  content: "";
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  top: 13px;
+  left: -19px;
+  background: #000;
+}
+/* EXPERIENCE & EDUCATION END */
+
+/* PROJECTS START */
+#project .section-content {
+  padding: 10px 5px;
+}
+
+#project .section-content > div {
+  margin-bottom: 15px;
+}
+
+#project ul {
+  margin-top: 8px;
+}
+/* PROJECTS END */
