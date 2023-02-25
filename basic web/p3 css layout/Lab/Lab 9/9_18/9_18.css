@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
+}
+
+body {
+  margin: 50px;
+  border: 1px solid black;
+}
+
+.container {
+  position: relative;
+}
+
+.clear {
+  clear: both;
+}
+
+h2 {
+  text-align: center;
+  padding: 10px;
+  font-size: 30px;
+  background: grey;
+}
+
+img {
+  width: 400px;
+  height: auto;
+  object-fit: cover;
+  margin-right: 30px;
+}
+
+b {
+  font-size: 25px;
+}
+
+p {
+  margin: 10px;
+  display: inline-block;
+}
+
+.free-ship {
+  color: grey;
+  margin-top: 20px;
+}
+
+a {
+  color: black;
+}
+
+li {
+  margin-left: 50px;
+}
+
+button {
+  font-size: 16px;
+  border: none;
+  padding: 5px;
+  background: #000;
+  width: 100%;
+  cursor: pointer;
+}
+
+button a {
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.sale {
+  font-size: 17px;
+  color: #fff;
+  position: absolute;
+  top: -20px;
+  left: -25px;
+  background: red;
+  padding: 9px;
+  border-radius: 4px;
+}
+
+.product-info {
+  width: 300px;
+  margin-right: 20px;
+}
+
+.color-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.square {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+.square:nth-child(1) {
+  background: black;
+}
+
+.square:nth-child(2) {
+  background: blue;
+}
+
+.square:nth-child(3) {
+  background: red;
+}
+
+.square:nth-child(4) {
+  background: yellow;
+}
+
+.square:nth-child(5) {
+  background: green;
+}
+
+.square:nth-child(6) {
+  background: brown;
+}
+
+.flex-box {
+  display: flex;
+}
