@@ -1,0 +1,49 @@
+** start of undefined **
+
+<link rel="stylesheet" href="styles.css" />
+
+<nav id="navbar">
+  <p>simulate navbar</p>
+  <a href="#" id="profile-link" target="_blank"></a>
+</nav>
+
+<section id="welcome-section">
+  <h1>Welcome to my page!</h1>
+</section>
+
+<section id="projects">
+  <div class="projects-item">
+    <div class="project-tile">This is prj 1!</div>
+    <a href="#prj1">Link to my project!</a>
+  </div>
+  <div class="projects-item">
+    <div class="project-tile">This is prj 2!</div>
+    <a href="#prj2">Link to my project!</a>
+  </div>
+  <div class="projects-item">
+    <div class="project-tile">This is prj 3!</div>
+    <a href="#prj3">Link to my project!</a>
+  </div>
+  <div class="projects-item">
+    <div class="project-tile">This is prj 4!</div>
+    <a href="#prj4">Link to my project!</a>
+  </div>
+</section>
+
+
+** end of undefined **
+
+** start of undefined **
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+#navbar {
+  position: fixed;
+}
+
+** end of undefined **
+

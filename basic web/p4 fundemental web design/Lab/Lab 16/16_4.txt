@@ -1,0 +1,126 @@
+** start of undefined **
+
+<link rel="stylesheet" href="styles.css" />
+
+<main id="main-doc">
+  <nav id="navbar">
+    <header>img logo</header>
+    <ul>
+      <li>
+        <a href="#HTML" class="nav-link">HTML</a>
+      </li>
+      <li>
+        <a href="#CSS" class="nav-link">CSS</a>
+      </li>
+      <li>
+        <a href="#Javascript" class="nav-link">Javascript</a>
+      </li>
+      <li>
+        <a href="#Javascript_Library" class="nav-link">Javascript Library</a>
+      </li>
+      <li>
+        <a href="#NodeJs" class="nav-link">NodeJs</a>
+      </li>
+    </ul>
+  </nav>
+
+  <section class="main-section" id="HTML">
+    <header id="HTML">HTML</header>
+    <code>What</code>
+    <p>is this?</p>
+    <code>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+      repudiandae.
+    </code>
+    <br />
+    <ul>
+      <li>List nth</li>
+    </ul>
+    <code>Why</code>
+    <p>is because?</p>
+    <code>Lorem ipsum dolor sit amet.</code>
+    <code>Lorem ipsum dolor sit amet.v2</code>
+  </section>
+  <section class="main-section" id="CSS">
+    <header id="CSS">CSS</header>
+    <code>What</code>
+    <p>is this?</p>
+    <code>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+      repudiandae.
+    </code>
+    <br />
+    <ul>
+      <li>List nth</li>
+    </ul>
+    <code>Why</code>
+    <p>is because?</p>
+    <code>Lorem ipsum dolor sit amet.</code>
+    <code>Lorem ipsum dolor sit amet.v2</code>
+  </section>
+  <section class="main-section" id="Javascript">
+    <header id="Javascript">Javascript</header>
+    <code>What</code>
+    <p>is this?</p>
+    <code>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+      repudiandae.
+    </code>
+    <br />
+    <ul>
+      <li>List nth</li>
+    </ul>
+    <code>Why</code>
+    <p>is because?</p>
+    <code>Lorem ipsum dolor sit amet.</code>
+    <code>Lorem ipsum dolor sit amet.v2</code>
+  </section>
+  <section class="main-section" id="Javascript_Library">
+    <header id="Javascript_Library">Javascript Library</header>
+    <code>What</code>
+    <p>is this?</p>
+    <code>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+      repudiandae.
+    </code>
+    <br />
+    <ul>
+      <li>List nth</li>
+    </ul>
+    <code>Why</code>
+    <p>is because?</p>
+    <code>Lorem ipsum dolor sit amet.</code>
+    <code>Lorem ipsum dolor sit amet.v2</code>
+  </section>
+  <section class="main-section" id="NodeJs">
+    <header id="NodeJs">NodeJs</header>
+    <code>What</code>
+    <p>is this?</p>
+    <code>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque,
+      repudiandae.
+    </code>
+    <br />
+    <ul>
+      <li>List nth</li>
+    </ul>
+    <code>Why</code>
+    <p>is because?</p>
+    <code>Lorem ipsum dolor sit amet.</code>
+    <code>Lorem ipsum dolor sit amet.v2</code>
+  </section>
+</main>
+
+
+** end of undefined **
+
+** start of undefined **
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+** end of undefined **
+
