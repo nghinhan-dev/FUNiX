@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Boostrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/font.css" />
+    <link rel="stylesheet" href="./css/media.css" />
+
+    <title>Assignment 03</title>
+  </head>
+  <body>
+    <div id="banner">
+      <div class="avatar">
+        <div class="avt_frame">
+          <img src="./images/default-avatar.webp" alt="" />
+        </div>
+        <div class="outlet-frame"></div>
+      </div>
+    </div>
+
+    <section id="nav-bar">
+      <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <div class="container-sm">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item">
+                <a class="nav-link d-md-flex" href="#"
+                  ><i class="icon-user"></i> <span>Thông tin</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-md-flex" href="#"
+                  ><i class="icon-doc-text-inv"></i> <span>Lý lịch</span></a
+                >
+              </li>
+              <li class="nav-item .d-sm-none .d-md-block mx-blank"></li>
+              <li class="nav-item">
+                <a class="nav-link d-md-flex" href="#"
+                  ><i class="icon-mail-alt"></i> <span>Chứng chỉ</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link d-md-flex" href="#"
+                  ><i class="icon-star-1"></i> <span>Dự Án</span></a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </section>
+
+    <section id="about" class="bg-grey">
+      <div class="container">
+        <div id="target">
+          <h1 class="section-title">Mục tiêu nghề nghiệp</h1>
+          <p>
+            Là một sinh viên đã hoàn thành chương trình chứng chỉ Doanh Nghiệp
+            của FUNiX. Em mong muốn mình sẽ được làm việc với vị trí Fullstack
+            Developer, có thể vận dụng những kiến thức đã được trau dồi và không
+            ngừng học hỏi để phát triển bản thân, cũng như hoàn thành tốt nhất
+            công việc được giao.
+          </p>
+        </div>
+        <div id="personal-info">
+          <h1 class="section-title">Thông tin cá nhân</h1>
+          <ul>
+            <li><span>Họ tên</span> : Nguyễn Văn A</li>
+            <li><span>Giới tính</span> : Nam</li>
+            <li><span>Ngày sinh</span> : 19/05/2000</li>
+            <li><span>Điện thoại</span> : (+84) 912398xxx</li>
+            <li><span>Email</span> : sinhvien@funix.edu.vn</li>
+            <li><span>Địa chỉ</span> : Số 10, đường 10, Hà Nội</li>
+            <li><span>Website</span> : https://abc.tech</li>
+          </ul>
+          <div class="icon-contact">
+            <i class="icon-twitter"></i>
+            <i class="icon-facebook"></i>
+            <i class="icon-gplus"></i>
+            <i class="icon-linkedin"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="job-info">
+      <div class="container">
+        <div class="job-container">
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Kinh nghiệm</h1>
+              <i class="ic-toolbox"></i>
+            </div>
+            <div class="job-desc job-time">
+              <div>
+                <span>Full Stact Developer - Công ty Y</span>
+                <p class="time">05/2022 - <i class="hightlight">Hiện tại</i></p>
+                <p>
+                  - Xây dựng, phát triển Website dựa trên thiết kế và yêu cầu đã
+                  có.
+                </p>
+                <p>
+                  - Phân tích và thiết kế Database, sử dụng các hệ quản trị CSDL
+                  (MySQL, SQLServer, NoSQL, ...) và viết được các câu truy vấn.
+                </p>
+                <p>
+                  - Sử dụng ngôn ngữ server-side (Python, Java, ...) để xây dựng
+                  các Web Service
+                </p>
+              </div>
+              <div>
+                <span>Web Designer- Công ty X</span>
+                <p class="time">06/2021 - 04/2022</p>
+                <p>- Thiết kế Website dựa trên yêu cầu của khách hàng.</p>
+                <p>- Sử dụng các công cụ : Figma, Canva, PTS.</p>
+              </div>
+            </div>
+          </div>
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Học vấn</h1>
+              <i class="ic-pencil"></i>
+            </div>
+            <div class="job-desc job-time">
+              <div>
+                <span>FUNiX</span>
+                <p class="time">06/2021 - 05/2022</p>
+                <p>- Tốt nghiệp chứng chỉ doanh nghiệp nhánh Fullstact.</p>
+                <p>- GPA : 9/10</p>
+              </div>
+              <div>
+                <span>Cử nhân - ĐH FPT</span>
+                <p class="time">08/2016 - 07/2019</p>
+                <p>- Chuyên ngành: Kỹ thuật phần mềm</p>
+                <p>- GPA : 3.2 / 4</p>
+              </div>
+            </div>
+          </div>
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Hoạt động</h1>
+              <i class="ic-toolbox"></i>
+            </div>
+            <div class="job-desc job-time">
+              <div>
+                <span>FPT Edu Hackathon 2019</span>
+                <p class="time">03/2019 - 05/2019</p>
+                <p>- Giải 3 bảng A</p>
+                <p>- Đề tài : Trang Web về phân loại rác thải</p>
+              </div>
+              <div>
+                <span>Câu lạc bộ Z</span>
+                <p class="time">08/2016 - 08/2017</p>
+                <p>- Trưởng ban chuyên môn</p>
+              </div>
+            </div>
+          </div>
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Sở thích</h1>
+              <i class="ic-telescope"></i>
+            </div>
+            <div class="job-desc hobby">
+              <div class="hobby-item">
+                <i class="ic-megaphone"></i>
+                <p>Âm nhạc</p>
+              </div>
+              <div class="hobby-item">
+                <i class="ic-strategy"></i>
+                <p>Chơi game</p>
+              </div>
+              <div class="hobby-item">
+                <i class="ic-hotairballoon"></i>
+                <p>Du lịch</p>
+              </div>
+              <div class="hobby-item">
+                <i class="ic-basket"></i>
+                <p>Nấu ăn</p>
+              </div>
+            </div>
+          </div>
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Ngôn ngữ</h1>
+              <i class="ic-mic"></i>
+            </div>
+            <div class="job-desc">
+              <div>
+                <span>Tiếng Anh - IELTS 7.0</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                  <div class="bar"></div>
+                </div>
+              </div>
+              <div>
+                <span>Tiếng Nhật - JPNT N4</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="job-item">
+            <div class="job-title">
+              <h1>Kỹ năng</h1>
+              <i class="ic-tools-2"></i>
+            </div>
+            <div class="job-desc">
+              <div>
+                <span>HTML/CSS</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                </div>
+              </div>
+              <div>
+                <span>Javascript</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                </div>
+              </div>
+              <div>
+                <span>NodeJs</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                  <div class="bar blue"></div>
+                </div>
+              </div>
+              <div>
+                <span>Boostrap 5</span>
+                <div class="skill">
+                  <div class="bar blue"></div>
+                  <div class="bar"></div>
+                  <div class="bar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificate" class="bg-grey">
+      <div class="container">
+        <h1 class="section-title">Chứng chỉ - Giải thưởng</h1>
+        <div class="cert-item">
+          <div class="cert-item-container">
+            <img src="./images/Cert_WEB.png" alt="Chứng nhập WEB.jpg" />
+            <div class="cert-desc">
+              <span>CHỨNG CHỈ LẬP TRÌNH WEB - FUNIX</span>
+              <p>- Chứng chỉ thuộc chương trình CCDN</p>
+              <p>- GPA : 9.5</p>
+            </div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-item-container">
+            <img src="./images/Cert_PRF.png" alt="Chứng nhập WEB.jpg" />
+            <div class="cert-desc">
+              <span>CHỨNG CHỈ LẬP TRÌNH JAVASCRIPT - FUNIX</span>
+              <p>- Chứng chỉ thuộc chương trình CCDN</p>
+              <p>- GPA : 9.5</p>
+            </div>
+          </div>
+        </div>
+        <div class="line"></div>
+        <div class="cert-item">
+          <div class="cert-item-container">
+            <img src="./images/Cert_DBI.png" alt="Chứng nhập WEB.jpg" />
+            <div class="cert-desc">
+              <span>CHỨNG CHỈ THIẾT KẾ DATABASE - FUNIX</span>
+              <p>- Chứng chỉ thuộc chương trình CCDN</p>
+              <p>- GPA : 8.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="project">
+      <div class="container">
+        <h1 class="section-title">Dự án</h1>
+        <div class="project-container">
+          <div class="project-item">
+            <img src="./images/project_1.png" alt="CV Cá Nhân.jpg" />
+            <h3>CV Cá Nhân</h3>
+            <div class="prj-timeline">
+              <i class="hightlight">2021</i>
+              <div>
+                <i class="icon-user-1"></i>
+                <span>FUNiX</span>
+              </div>
+              <div>
+                <i class="icon-lamp"></i>
+                <span>Developer</span>
+              </div>
+            </div>
+            <div class="prj-desc">
+              <p>Mô tả</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Nhiệm vụ</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Công nghệ</p>
+              <p>- HTML/CSS</p>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="./images/project_2.png"
+              alt="TRANG WEB QUẢN LÝ THÚ CƯNG.jpg"
+            />
+            <h3>TRANG WEB QUẢN LÝ THÚ CƯNG</h3>
+            <div class="prj-timeline">
+              <i class="hightlight">2021</i>
+              <div>
+                <i class="icon-user-1"></i>
+                <span>FUNiX</span>
+              </div>
+              <div>
+                <i class="icon-lamp"></i>
+                <span>Developer</span>
+              </div>
+            </div>
+            <div class="prj-desc">
+              <p>Mô tả</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Nhiệm vụ</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Công nghệ</p>
+              <p>- HTML, CSS, Javascript</p>
+            </div>
+          </div>
+          <div class="project-item">
+            <img src="./images/project_3.png" alt="TRANG WEB XEM TIN TỨC.jpg" />
+            <h3>TRANG WEB XEM TIN TỨC</h3>
+            <div class="prj-timeline">
+              <i class="hightlight">2021</i>
+              <div>
+                <i class="icon-user-1"></i>
+                <span>FUNiX</span>
+              </div>
+              <div>
+                <i class="icon-lamp"></i>
+                <span>Developer</span>
+              </div>
+            </div>
+            <div class="prj-desc">
+              <p>Mô tả</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Nhiệm vụ</p>
+              <p>
+                - Lorem ipsum dolor sit amet consectetur adipisicing elit. Est
+                itaque molestiae ab distinctio beatae corrupti, fuga dicta.
+              </p>
+            </div>
+            <div class="prj-desc">
+              <p>Công nghệ</p>
+              <p>- HTML, CSS, Javascript</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="footer" class="bg-grey">
+      <div class="container">
+        <ul>
+          <li>
+            <i class="icon-facebook"></i>
+            <h6 class="d-none d-md-block">Facebook</h6>
+          </li>
+          <li>
+            <i class="icon-linkedin"></i>
+            <h6 class="d-none d-md-block">Linkedin</h6>
+          </li>
+          <li>
+            <i class="icon-github-circled"></i>
+            <h6 class="d-none d-md-block">Github</h6>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- jQuery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"
+      integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Boostrap link -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
