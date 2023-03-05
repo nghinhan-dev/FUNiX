@@ -1,0 +1,21 @@
+Lab 5.5. Lặp trong array, break và continue (15 phút)
+
+Hãy lấy lại array 'populations' từ bài lab trước.
+Sử dụng vòng lặp for để tạo array 'percentages2' chứa phần trăm dân số thế giới cho 4 giá trị population. Sử dụng hàm 'percentageOfWorld1' mà bạn đã tạo trước đó.
+Xác nhận rằng 'percentages2' chứa chính xác các giá trị trong array 'percentages' mà chúng ta đã tạo theo cách thủ công ở lab trước, để xem giải pháp này tốt hơn như thế nào.
+Lab 5.6. Vòng lặp ngược và Vòng lặp trong vòng lặp (15 phút)
+
+Lưu trữ array của những array này vào biến 'listOfNeighbours' [['Canada', 'Mexico'], ['Spain'], ['Norway', 'Sweden', 'Russia']];
+Nếu như các mảng con có nhiều hơn hai phần tử, in ra lần lượt phần tử từ thứ 2 trở đi. Ví dụ với dữ liệu như trên sẽ in ra
+Mexico
+
+Sweden
+
+Russia
+
+3. Bạn sẽ cần một vòng lặp bên trong vòng lặp cho điều này. Điều này thực sự hơi phức tạp, vì vậy đừng lo lắng nếu nó quá khó đối với bạn! Bạn sẽ giải quyết được vấn đề này. 
+
+Lab 5.7. Vòng lặp While (10 phút)
+
+Với đề bài tương tự Lab 5.5 Lặp trong array, break và continue, nhưng lần này hãy sử dựng vòng lặp while (gọi array 'percentages3').
+Bạn thích giải pháp nào hơn cho nhiệm vụ này: vòng lặp for hay vòng lặp while?
