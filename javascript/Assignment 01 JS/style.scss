@@ -1,0 +1,122 @@
+#menu-bar {
+  width: 80px;
+  height: 52px;
+  cursor: pointer;
+
+  .no-animation {
+    animation: none;
+  }
+
+  &.active {
+    color: red;
+
+    .top {
+      animation: moveDown 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+    }
+
+    .mid {
+      margin: 14px 0px;
+      animation: shrink 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+    }
+
+    .bottom {
+      animation: moveUp 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+    }
+  }
+}
+
+.bar {
+  width: 100%;
+  height: 8px;
+  background-color: #fff;
+  left: 50%;
+  border-radius: 3px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+}
+
+.top {
+  animation: moveBackUp 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+}
+
+.mid {
+  margin: 14px 0px;
+  animation: rev-shrink 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+}
+
+.bottom {
+  animation: moveBackDown 1.4s cubic-bezier(0.3, 1, 0.7, 1) forwards;
+}
+
+@keyframes shrink {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes rev-shrink {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+  50% {
+    transform: translate3d(0, 22px, 0) rotate(0);
+  }
+
+  100% {
+    transform: translate3d(0, 22px, 0) rotate(45deg);
+  }
+}
+
+@keyframes moveBackUp {
+  0% {
+    transform: translate3d(0, 22px, 0) rotate(45deg);
+  }
+  50% {
+    transform: translate3d(0, 22px, 0) rotate(0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    top: 4px;
+  }
+  50% {
+    transform: translate3d(0, -22px, 0) rotate(0);
+  }
+
+  100% {
+    transform: translate3d(0, -22px, 0) rotate(-45deg);
+  }
+}
+
+@keyframes moveBackDown {
+  0% {
+    transform: translate3d(0, -22px, 0) rotate(-45deg);
+  }
+  50% {
+    transform: translate3d(0, -22px, 0) rotate(0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0);
+  }
+}

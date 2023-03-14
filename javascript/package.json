@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "prompt-sync": "^4.2.0"
-  }
+    "file-saver": "^2.0.5",
+    "prompt-sync": "^4.2.0",
+    "validator": "^13.9.0"
+  },
+  "type": "module"
 }
