@@ -23,8 +23,6 @@ let taskNum2 = new Task(2, "Embiyun", false);
 let taskNum3 = new Task(3, "Art Center", false);
 let todoList = [taskNum1, taskNum2, taskNum3];
 
-weed = {
-  ...weed,
-  todoList,
-};
-console.log("weed:", weed);
+todoList.forEach((item, index) => {
+  console.log(todoList[index]);
+});

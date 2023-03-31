@@ -22,7 +22,6 @@ let getURL = () => {
 let getNews = async () => {
   let url = getURL();
   let respond = await fetch(url);
-  console.log("url:", url);
   let data = await respond.json();
 
   return data;
@@ -99,4 +98,3 @@ prevBtn.addEventListener("click", () => {
     renderNews(data.articles);
   });
 });
-// document.getElementById("btn-prev").style.display = "none";

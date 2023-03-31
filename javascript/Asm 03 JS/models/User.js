@@ -9,9 +9,9 @@ class User {
 }
 
 class Task {
-  constructor(_id, _task, _isCompleted) {
+  constructor(_id, _taskContent, _isCompleted) {
     this.id = _id;
-    this.task = _task;
+    this.taskContent = _taskContent;
     this.isCompleted = _isCompleted;
   }
 }
