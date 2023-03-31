@@ -18,7 +18,7 @@ let checkId = (id, data) => {
 };
 
 let checkEmty = (field, str) => {
-  if (validator.isEmpty(str)) {
+  if (validator.isEmpty(str) || str == "P000") {
     errAlert(field.toUpperCase(), "Cannot be empty!");
     return false;
   }
@@ -55,6 +55,7 @@ let findString = (str, seed) => {
 
 let checkPetSubmit = (pet, list) => {
   let result =
+    checkEmty("ID", pet.id) &&
     checkId(pet.id, list) &&
     checkEmty("Name", pet.name) &&
     checkValue("Age", pet.age, 1, 15) &&

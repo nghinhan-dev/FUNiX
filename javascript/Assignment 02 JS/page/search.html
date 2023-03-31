@@ -108,7 +108,8 @@
                       type="text"
                       class="form-control"
                       id="input-id"
-                      placeholder="Input ID"
+                      placeholder="P___"
+                      value="P"
                     />
                   </div>
                   <label for="input-name" class="col-sm-2 col-form-label"
@@ -133,7 +134,7 @@
                       id="input-type"
                       onchange="changeType()"
                     >
-                      <option value="">Select Type</option>
+                      <option value="0">Select Type</option>
                       <option value="Dog">Dog</option>
                       <option value="Cat">Cat</option>
                     </select>
@@ -142,8 +143,12 @@
                     >Breed</label
                   >
                   <div class="col-sm-4">
-                    <select class="form-control" id="input-breed">
-                      <option value="0">Select Breed</option>
+                    <select
+                      class="form-control"
+                      id="input-breed"
+                      style="width: 120%"
+                    >
+                      <option value="0">Select type first</option>
                     </select>
                   </div>
                 </div>

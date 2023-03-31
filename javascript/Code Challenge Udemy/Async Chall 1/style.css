@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#jafa {
+  background-color: #7f53ac;
+  background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  position: relative;
+  top: 0px;
+  height: 100px;
+  width: 100px;
+  background-color: #cdc1ff;
+  background-image: linear-gradient(316deg, #cdc1ff 0%, #e5d9f2 74%);
+}

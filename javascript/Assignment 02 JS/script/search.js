@@ -1,5 +1,5 @@
 let getSearchData = () => {
-  let id = document.getElementById("input-id").value * 1;
+  let id = document.getElementById("input-id").value;
   let name = document.getElementById("input-name").value;
   let type = document.getElementById("input-type").value;
   let breed = document.getElementById("input-breed").value;
@@ -25,38 +25,91 @@ let getSearchData = () => {
   return pet;
 };
 
+let searchResult = (inputPet, currentPet) => {
+  // check if ID is the same or valid
+  if (!validator.contains(currentPet.id, inputPet.id)) {
+    return false;
+  }
+
+  // check name
+  if (!validator.contains(currentPet.name, inputPet.name)) {
+    return false;
+  }
+
+  // check type
+  if (inputPet.type == "0") {
+    return true;
+  } else if (inputPet.type != currentPet.type) {
+    return false;
+  }
+
+  // check breed
+  if (inputPet.breed == "0") {
+    return true;
+  } else if (inputPet.breed != currentPet.breed) {
+    return false;
+  }
+
+  // check healthy state
+
+  let isVaccinated = inputPet.vaccinated ? 1 : 0;
+  let isDewormed = inputPet.dewormed ? 3 : 0;
+  let isSterilized = inputPet.sterilized ? 5 : 0;
+
+  let result = isVaccinated + isDewormed + isSterilized;
+  if (result == 0) {
+    return true;
+  } else {
+    switch (result) {
+      case 1:
+        if (currentPet.vaccinated) {
+          return true;
+        } else return false;
+      case 3:
+        if (currentPet.dewormed) {
+          return true;
+        } else return false;
+      case 4:
+        if (currentPet.dewormed && currentPet.vaccinated) {
+          return true;
+        } else return false;
+      case 5:
+        if (currentPet.sterilized) {
+          return true;
+        } else return false;
+      case 6:
+        if (currentPet.sterilized && currentPet.vaccinated) {
+          return true;
+        } else return false;
+      case 8:
+        if (currentPet.sterilized && currentPet.dewormed) {
+          return true;
+        } else return false;
+      case 9:
+        if (
+          currentPet.sterilized &&
+          currentPet.vaccinated &&
+          currentPet.dewormed
+        ) {
+          return true;
+        } else return false;
+    }
+  }
+
+  return true;
+};
+
 let findBtn = document.getElementById("find-btn");
 findBtn.addEventListener("click", () => {
-  console.log("im clicked");
-
-  let searchedList = [];
+  let searchList = [];
   let foundedPet = getSearchData();
   // console.log("foundedPet:", foundedPet);
-  petList.map((pet) => {
-    let searchIsValid = true;
-
-    // check ID
-    searchIsValid &&= findString(pet.id + "", foundedPet.id + "");
-    console.log("check ID:", searchIsValid);
-
-    // check Name
-    searchIsValid &&= findString(pet.name, foundedPet.name);
-    console.log("check Name:", searchIsValid);
-
-    // check Type
-    searchIsValid &&= pet.type == foundedPet.type || foundedPet.type == "";
-    console.log("check Type:", searchIsValid);
-
-    // check Breed
-    searchIsValid &&= pet.breed == foundedPet.breed || foundedPet.breed == "0";
-    console.log("check Breed:", searchIsValid);
-
-    searchIsValid &&= searchByHealthy(pet, foundedPet);
-
-    if (searchIsValid) {
-      searchedList.push(pet);
+  for (let i = 0; i < petList.length; i++) {
+    if (searchResult(foundedPet, petList[i])) {
+      searchList.push(petList[i]);
     }
-  });
+    // searchResult(foundedPet, petList[i]);
+  }
 
-  renderList("Search Pet", searchedList);
+  renderList("Search Pet", searchList);
 });

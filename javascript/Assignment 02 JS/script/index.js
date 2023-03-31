@@ -31,11 +31,21 @@ healthyBtn.addEventListener("click", () => {
 
 // Delet button
 let deleteFunction = (id) => {
-  // id = id.trim().toUpperCase();
-  // console.log("id:", id);
   let index = petList.findIndex((item) => item.id == id);
 
-  petList.splice(index, 1);
-  savePetListToLocalStorage();
-  renderList("Pet Management", petList);
+  // get user confirm to execute the delete function
+  Swal.fire({
+    html: `Confirm delete`,
+    confirmButtonText: "Cancel",
+    showDenyButton: true,
+    denyButtonText: `Delete`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      return;
+    } else if (result.isDenied) {
+      petList.splice(index, 1);
+      savePetListToLocalStorage();
+      renderList("Pet Management", petList);
+    }
+  });
 };

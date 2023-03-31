@@ -70,7 +70,7 @@ let getFormData = () => {
   let sterilized = document.getElementById("input-sterilized").checked;
 
   let pet = new Pet(
-    id,
+    `P00${id}`,
     name,
     age,
     type,
@@ -115,7 +115,7 @@ let renderList = (page, list) => {
       let currentItem = list[index];
       let rowContent = `
     <tr>
-      <th scope="row">P00${currentItem.id}</th>
+      <th scope="row">${currentItem.id}</th>
       <td>${currentItem.name}</td>
       <td>${currentItem.age}</td>
       <td>${currentItem.type}</td>
@@ -144,11 +144,11 @@ let renderList = (page, list) => {
       ${
         page == "Search Pet"
           ? ""
-          : `<td>${currentItem.getBMI()}</td>
+          : `<td class="bmi">?</td>
       <td>${
         page == "Pet Management"
-          ? `<button onclick="deleteFunction(${currentItem.id})" type="button" class="btn btn-danger">Delete</button>`
-          : `<button onclick="editFunction(${currentItem.id})" type="button" class="btn btn-warning">Edit</button>`
+          ? `<button onclick="deleteFunction('${currentItem.id}')" type="button" class="btn btn-danger">Delete</button>`
+          : `<button onclick="editFunction('${currentItem.id}')" type="button" class="btn btn-warning">Edit</button>`
       }
         
       </td>`
