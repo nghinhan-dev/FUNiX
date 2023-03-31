@@ -47,14 +47,15 @@ let displayChangePage = (total) => {
 
 let renderNews = (list) => {
   let content = ``;
-  content += list.map((item) => {
-    return `    
+  content += list
+    .map((item) => {
+      return `    
       <div class="card mb-3">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img src="${item.urlToImage}" class="card-img" alt="${
-      item.title
-    }" />
+        item.title
+      }" />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -68,7 +69,8 @@ let renderNews = (list) => {
         </div>
       </div>    
     `;
-  });
+    })
+    .join("");
 
   document.getElementById("news-container").innerHTML = content;
 };

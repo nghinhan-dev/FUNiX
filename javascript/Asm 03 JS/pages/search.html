@@ -48,7 +48,7 @@
 								<div class="col-sm-9">
 									<input type="text" class="form-control" id="input-query" placeholder="Search for news">
 								</div class="col-sm-3">
-									<button type="button" class="btn btn-primary" id="btn-submit">Search</button>
+									<button type="button" onclick="search()" class="btn btn-primary" id="btn-submit">Search</button>
 								</div>
 							</div>
 						</form>
@@ -73,6 +73,10 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Sweet Arlet -->
+    <!-- Use to alert in a fancy way what user did  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<script src="../models/User.js"></script>
 	<script src="../scripts/storage.js"></script>
