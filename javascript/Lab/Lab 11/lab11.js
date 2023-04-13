@@ -2,40 +2,55 @@ const result = [0, 0, 0, 0];
 
 let numberOfVotes = (value) => {
   result[value] += 1;
-
-  console.log(result);
 };
 
 let displayResult = () => {
   document.getElementById("result").classList.remove("hidden");
-  document.getElementById("arrayResult").innerText = result;
+  document.getElementById("arrayResult").innerText = `[${result}]`;
   document.getElementById("stringResult").innerText =
     "Poll results are " + result.toString();
 };
 
 async function getData() {
-  const inputOptions = {
-    0: "0 JavaScript",
-    1: "1 Python",
-    2: "2 Rust",
-    3: "3 C++",
-  };
-
-  const { value: color } = await Swal.fire({
+  const { value: code } = await Swal.fire({
     title: "What is your favourite programming language? ",
-    input: "radio",
-    inputOptions: inputOptions,
+    input: "number",
+
+    allowOutsideClick: false,
+    inputLabel: "(Write option number)",
+    html: `<ul>
+      <li>0 Javascript</li>
+      <li>1 Python</li>
+      <li>2 Rust</li>
+      <li>3 C++</li>
+    </ul>`,
     inputValidator: (value) => {
-      if (!value) {
-        return "You need to choose something!";
+      if (value * 1 < 0 || value * 1 > 3) {
+        Swal.fire({
+          allowOutsideClick: false,
+          icon: "error",
+          title: "Options Error",
+          text: "0 <= option <= 3!",
+          confirmButtonText: "Choose Again",
+          confirmButtonAriaLabel: "Choose Again",
+          showDenyButton: true,
+          denyButtonText: `Stop`,
+        }).then((result) => {
+          if (result.isConfirmed) {
+            return getData();
+          } else if (result.isDenied) {
+            displayResult();
+          }
+        });
       }
-      numberOfVotes(value);
+      numberOfVotes(value * 1);
     },
   });
 
-  if (color) {
+  if (code) {
     Swal.fire({
-      html: `You selected: ${color}`,
+      allowOutsideClick: false,
+      html: `You selected: ${code}`,
       confirmButtonText: "Choose Again",
       confirmButtonAriaLabel: "Choose Again",
       showDenyButton: true,
@@ -44,13 +59,11 @@ async function getData() {
       if (result.isConfirmed) {
         return getData();
       } else if (result.isDenied) {
-        // Swal.fire({
-        //   html: `You selected: ${color}`,
-        // });
         displayResult();
       }
     });
   }
 }
 
+// run at start
 getData();

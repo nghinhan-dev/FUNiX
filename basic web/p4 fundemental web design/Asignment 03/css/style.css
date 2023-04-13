@@ -319,14 +319,16 @@ p {
 }
 
 .project-item {
-  border-top: 1px solid rgb(109, 122, 134);
+  border: 1px solid rgb(109, 122, 134);
 }
 
 .project-item > * {
   border-bottom: 1px solid rgb(109, 122, 134);
-  border-left: 1px solid rgb(109, 122, 134);
-  border-right: 1px solid rgb(109, 122, 134);
   padding: 10px 0;
+}
+
+.prj-desc:last-child {
+  border-bottom: none;
 }
 
 .project-item img {
@@ -376,6 +378,7 @@ p {
   justify-content: center;
   align-items: center;
   padding: 25px 0;
+  margin-bottom: 0;
 }
 
 #footer li {

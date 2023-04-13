@@ -1,3 +1,4 @@
+/* Mobile */
 @media screen and (max-width: 768px) {
   .section-title {
     padding-top: 40px;
@@ -77,6 +78,7 @@
   }
 }
 
+/* Tablet */
 @media screen and (max-width: 992px) {
   #job-info .job-container {
     grid-template-columns: repeat(2, minmax(250px, 1fr));

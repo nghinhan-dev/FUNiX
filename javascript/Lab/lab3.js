@@ -1,4 +1,15 @@
-// 3.1.1 sai rất nhiều :"D
+// 3.1
+// "9" - "5";
+
+// "19" - "13" + "17";
+
+// "19" - "13" + 17;
+
+// "123" < 57;
+
+// 5 + 6 + "4" + 9 - 4 - 2;
+console.log("123" == 57);
+
 const prompt = require("prompt-sync")();
 
 // let numNeighbours = prompt(
