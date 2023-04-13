@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import expenses from "./Data";
 import ExpenseItem from "./ExpenseItem/ExpenseItem";
 import ExpenseForm from "./ExpenseForm/ExpenseForm";
+import ExpenseCreate from "./ExpenseForm/ExpenseCreate";
 import ExpenseFilter from "./ExpenseFilter/ExpenseFilter";
 import "./style.css";
 
 export default function Lab() {
   const [expenseList, setExpenseList] = useState(expenses);
   const [filterValue, setFilterValue] = useState("All");
+  const [isCreate, setIsCreate] = useState(true);
 
   let addExpense = (item) => {
     let newItem = { ...item, id: `e${expenseList.length + 1}` };
@@ -72,16 +74,33 @@ export default function Lab() {
             changeTiltle={() => updateTitle(item.id)}
           />
         );
+      } else {
+        return "";
       }
     }
   });
 
+  function isFullOfEmptyStrings(arr) {
+    return arr.every((str) => typeof str === "string" && str.trim() === "");
+  }
+
+  function createHandle() {
+    setIsCreate((prevState) => !prevState);
+  }
+
   return (
     <>
-      <ExpenseForm addExpense={addExpense} />
+      {isCreate ? (
+        <ExpenseCreate create={createHandle} />
+      ) : (
+        <ExpenseForm create={createHandle} addExpense={addExpense} />
+      )}
       <div className="expenses">
         <ExpenseFilter onChangeFilter={filterHandle} />
         {renderExpensesList}
+        {isFullOfEmptyStrings(renderExpensesList) ? (
+          <h2 className="found-result">Found no expenses.</h2>
+        ) : null}
       </div>
     </>
   );

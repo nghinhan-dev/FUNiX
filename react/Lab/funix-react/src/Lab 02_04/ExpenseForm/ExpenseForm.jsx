@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "./ExpenseForm.css";
 
-export default function ExpenseForm({ addExpense }) {
+export default function ExpenseForm({ addExpense, create }) {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
     addExpense(data);
@@ -40,6 +40,9 @@ export default function ExpenseForm({ addExpense }) {
           </div>
           <div className="new-expense__actions">
             <button type="submit">Submit</button>
+            <button onClick={create} className="cancelBtn" type="submit">
+              Cancel
+            </button>
           </div>
         </div>
       </div>

@@ -23,12 +23,13 @@
 
 .new-expense__actions {
   text-align: right;
+  /* align-items: center; */
 }
 
 .new-expense__actions button {
   position: relative;
   bottom: -25px;
-  right: -290px;
+  right: -170px;
 }
 
 .new-expense {
@@ -68,4 +69,24 @@
 .new-expense button.alternative:hover,
 .new-expense button.alternative:active {
   background-color: #ddb3f8;
+}
+
+.new-expense__actions .addFormBtn {
+  position: relative;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  margin: 0 auto;
+  /* justify-self: center; */
+}
+
+.new-expense__actions .cancelBtn {
+  background: hsla(0, 100%, 50%, 0.575);
+  border: transparent;
+  transition: all 0.5s;
+}
+
+.new-expense__actions .cancelBtn:hover {
+  background: red;
+  border: transparent;
 }

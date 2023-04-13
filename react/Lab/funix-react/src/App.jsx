@@ -1,4 +1,7 @@
-import Lab from "./Lab2_3/Lab";
+// import Lab from "./Lab 02_04/Lab";
+// Lab 2, 3 ,4
+import Lab from "./Lab 05/Lab";
+// Lab 5
 
 function App() {
   return (
