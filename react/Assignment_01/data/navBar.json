@@ -1,27 +1,27 @@
 [
-	{
-		"type": "Stays",
-		"icon": "fa-bed",
-		"active": true
-	},
-	{
-		"type": "Flights",
-		"icon": "fa-plane",
-		"active": false
-	},
-	{
-		"type": "Car rentals",
-		"icon": "fa-car",
-		"active": false
-	},
-	{
-		"type": "Attractions",
-		"icon": "fa-bed",
-		"active": false
-	},
-	{
-		"type": "Airport taxis",
-		"icon": "fa-taxi",
-		"active": false
-	}
+  {
+    "title": "Stays",
+    "icon": "fa fa-bed",
+    "active": true
+  },
+  {
+    "title": "Flights",
+    "icon": "fa fa-plane",
+    "active": false
+  },
+  {
+    "title": "Car rentals",
+    "icon": "fa fa-car",
+    "active": false
+  },
+  {
+    "title": "Attractions",
+    "icon": "fa fa-bed",
+    "active": false
+  },
+  {
+    "title": "Airport taxis",
+    "icon": "fa fa-taxi",
+    "active": false
+  }
 ]
