@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function NavbarItem({ title, icon, active }) {
+export default function NavbarItem({ title, icon, active, itemOnclick }) {
   return (
-    <div className={active && "active"}>
+    <div onClick={itemOnclick} className={active ? "active" : null}>
       <i className={`${icon}`}></i>
       <p>{title}</p>
     </div>
