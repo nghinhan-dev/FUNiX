@@ -26,7 +26,7 @@ export default function Lab() {
     <div className="container">
       <div className="grid">
         <UserInput onAddUser={addUser} />
-        <div>
+        <div className="user__list">
           <h2>User List</h2>
           <ul>{renderUserList}</ul>
         </div>

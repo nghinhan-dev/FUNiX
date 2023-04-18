@@ -11,3 +11,17 @@ h2 {
   text-align: center;
   color: hsl(60, 100%, 47%);
 }
+
+.grid {
+  margin-top: 20px;
+}
+
+.user__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+li {
+  margin: 10px 0;
+}
