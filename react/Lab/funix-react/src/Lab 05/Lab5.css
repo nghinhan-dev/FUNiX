@@ -9,7 +9,8 @@
   max-width: 90%;
   margin: 3rem auto;
   padding: 2rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 12px rgba(139, 0, 93, 0.2);
+  background: white;
   border-radius: 10px;
 }
 
@@ -19,6 +20,7 @@
 
 html {
   font-family: sans-serif;
+  background-color: rgb(31, 31, 31);
 }
 
 body {
