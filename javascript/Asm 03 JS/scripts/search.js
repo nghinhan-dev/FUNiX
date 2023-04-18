@@ -7,7 +7,7 @@ let qSearch;
 let url;
 
 let getStr = () => {
-  let str = document.getElementById("input-query").value;
+  let str = document.getElementById("input-search").value;
 
   if (str == "") {
     Swal.fire({
@@ -22,8 +22,10 @@ let getStr = () => {
   return encodedStr;
 };
 
+// handle when user click the Search btn
 let search = () => {
   qSearch = getStr();
+  if (qSearch == false) return;
   url = getURL(qSearch);
   getSearchNews(url).then((data) => {
     displayChangePage(data.totalResults);
@@ -39,8 +41,27 @@ let getURL = (txt) => {
   }
 };
 
+const inputField = document.querySelector("#input-search");
+// handle when user press enter
+inputField.addEventListener("keydown", (event) => {
+  if (event.keyCode === 13 || event.which === 13) {
+    event.preventDefault(); // prevent form submission
+    console.log(1);
+    search();
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  if (event.keyCode === 13 || event.which === 13) {
+    // Enter key was pressed
+    // add your code here
+  }
+});
+
+// get the newspaper data from server
 let getSearchNews = async (url) => {
   let respond = await fetch(url);
+
   let data = await respond.json();
 
   return data;
