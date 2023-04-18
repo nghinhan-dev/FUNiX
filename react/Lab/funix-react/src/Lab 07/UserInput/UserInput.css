@@ -1,0 +1,13 @@
+p {
+  color: #bf1650;
+}
+
+p::before {
+  display: inline;
+  content: "⚠ ";
+}
+
+h2 {
+  text-align: center;
+  color: hsl(60, 100%, 47%);
+}
