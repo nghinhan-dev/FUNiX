@@ -1,0 +1,211 @@
+.background {
+  position: relative;
+  background-image: url(./images/lab9-vishwas-katti-unsplash.jpg);
+  background: no-repeat center cover;
+  background-size: 100% 100%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.background::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: hsla(206, 30%, 9%, 0.745);
+  z-index: 2;
+}
+
+.background * {
+  position: relative;
+  z-index: 3;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#navbar {
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+.row * {
+  margin: 0;
+  padding: 0;
+}
+
+.brand .logo {
+  display: inline-block;
+  height: 85px;
+  width: 85px;
+  object-fit: cover;
+  /* box-shadow: 0 0 5px #c5d9e8; */
+}
+
+.navbrand {
+  font-size: 32px;
+  font-family: "Gloria Hallelujah", cursive;
+  color: #c5d9e8;
+  animation: glowingBrand 0.7s ease-in-out infinite alternate-reverse;
+}
+
+.cart {
+  font-size: 19px;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid #c5d9e8;
+  color: #c5d9e8;
+  border-radius: 50px;
+  animation: glowingCart 0.7s ease-in-out infinite alternate-reverse;
+  cursor: pointer;
+}
+
+.meal__list {
+  padding: 0 20px;
+  box-shadow: 0 0 20px #c5d9e8;
+}
+
+.meal__img {
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+  box-shadow: 0 0 15px rgba(35, 61, 107);
+}
+
+.avaiMeal .grid {
+  align-items: center;
+}
+
+.meal__img img {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.meal__img p {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 700;
+}
+
+.meal__item {
+  padding-bottom: 6px;
+  border-bottom: 2px solid #c5d9e87e;
+  margin: 10px 0;
+}
+
+.meal__form label {
+  width: fit-content;
+  display: inline-block;
+}
+
+.meal__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.meal__form input {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+  padding-left: 6px;
+  display: inline-block;
+  margin: 0;
+  margin-left: 7px;
+}
+
+.meal__form button {
+  width: 60%;
+  transition: all 0.5s;
+  padding: 3px 6px;
+  margin: 0 auto;
+  margin-top: 20px;
+  font-size: 14px;
+  background: rgba(35, 61, 107);
+  border-color: transparent;
+}
+
+.meal__form button:hover {
+  background: #f0ae22;
+}
+
+.meal__info * {
+  text-shadow: 0 0 5px #f0ae22;
+  transition: all 0.2s;
+}
+
+.meal__item:hover .meal__info p {
+  color: #f0af22e1;
+  text-shadow: 0 0 10px rgb(14, 37, 77);
+}
+
+.meal__info h3 {
+  font-size: 25px;
+  color: #f0ae22;
+}
+
+.meal__info .desc {
+  font-size: 16px;
+  margin-top: -5px;
+}
+
+.meal__form label,
+.meal__form input {
+  font-size: 16px;
+}
+
+.cart:hover * {
+  color: #618eb0;
+  text-shadow: 0 0 5px #618eb0;
+}
+
+.cart h5 {
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.cart .cartNum {
+  font-size: 13px;
+  height: 22px;
+  width: 22px;
+  display: inline-block;
+  border: 1px solid #c5d9e8;
+  border-radius: 50%;
+  text-align: center;
+}
+
+@keyframes glowingBrand {
+  0% {
+    text-shadow: 0 0 10px #c5d9e8;
+  }
+  100% {
+    text-shadow: 0 0 20px #c5d9e8;
+  }
+}
+
+@keyframes glowingCart {
+  0% {
+    box-shadow: 0 0 5px #c5d9e8;
+  }
+  100% {
+    box-shadow: 0 0 10px #618eb0;
+  }
+}
+
+.typingFx {
+  text-align: center;
+  font-size: 12px;
+}
+
+.typingFx span {
+  font-family: "Gloria Hallelujah", cursive;
+  text-shadow: 0 0 20px #c5d9e8;
+}
