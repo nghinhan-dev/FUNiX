@@ -1,17 +1,7 @@
-import "@picocss/pico/css/pico.min.css";
-// import Lab from "./Lab 02_04/Lab";
-// Lab 2, 3 ,4
+// import "@picocss/pico/css/pico.min.css";
+import Lab from "./Lab 12/Lab";
 
-// import Lab from "./Lab 05/Lab";
-// Lab 5
-
-// import Lab from "./Lab 07/Lab";
-// Lab 7
-
-import Lab from "./Lab 09/Lab";
-// Lab 9
-
-function App() {
+export default function App() {
   return (
     <div>
       {/* Lab 1, 2
@@ -21,4 +11,15 @@ function App() {
   );
 }
 
-export default App;
+// Those comments below is for Lab
+// import Lab from "./Lab 02_04/Lab";
+
+// import Lab from "./Lab 05/Lab";
+
+// import Lab from "./Lab 07/Lab";
+
+// import Lab from "./Lab 09/Lab";
+
+// import Lab from "./Lab 10/Lab";
+
+// import Lab from "./Lab 11/Lab";
