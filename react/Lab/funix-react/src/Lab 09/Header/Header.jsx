@@ -1,6 +1,11 @@
 import { TypeAnimation } from "react-type-animation";
+import { CartContext } from "../Context/CartContext";
+import { useContext } from "react";
+import Cart from "../Cart/Cart";
 
 export default function Header() {
+  const cartState = useContext(CartContext);
+
   return (
     <section id="navbar">
       <div className="container row">
@@ -12,11 +17,7 @@ export default function Header() {
           />
           <h2 className="navbrand">foodie_whale</h2>
         </div>
-        <div className="cart row">
-          <i className="fa fa-cart-plus"></i>
-          <h5>Your Cart</h5>
-          <p className="cartNum row">4</p>
-        </div>
+        <Cart cartState={cartState} />
       </div>
 
       <div className="container typingFx">

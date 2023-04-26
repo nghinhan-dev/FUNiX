@@ -1,4 +1,4 @@
-.background {
+#background {
   position: relative;
   background-image: url(./images/lab9-vishwas-katti-unsplash.jpg);
   background: no-repeat center cover;
@@ -8,7 +8,7 @@
   overflow: hidden;
 }
 
-.background::after {
+#background::after {
   position: absolute;
   content: "";
   top: 0;
@@ -19,7 +19,7 @@
   z-index: 2;
 }
 
-.background * {
+#background * {
   position: relative;
   z-index: 3;
 }
@@ -55,6 +55,19 @@
   animation: glowingBrand 0.7s ease-in-out infinite alternate-reverse;
 }
 
+@keyframes clickCart {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.click__cart {
+  animation: clickCart 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
 .cart {
   font-size: 19px;
   padding: 5px 10px;
@@ -62,7 +75,7 @@
   border: 1px solid #c5d9e8;
   color: #c5d9e8;
   border-radius: 50px;
-  animation: glowingCart 0.7s ease-in-out infinite alternate-reverse;
+  box-shadow: 0 0 10px #618eb0;
   cursor: pointer;
 }
 
@@ -114,7 +127,7 @@
 
 .meal__form input {
   height: 30px;
-  width: 30px;
+  width: 40px;
   padding: 0;
   padding-left: 6px;
   display: inline-block;
@@ -191,15 +204,6 @@
   }
 }
 
-@keyframes glowingCart {
-  0% {
-    box-shadow: 0 0 5px #c5d9e8;
-  }
-  100% {
-    box-shadow: 0 0 10px #618eb0;
-  }
-}
-
 .typingFx {
   text-align: center;
   font-size: 12px;
@@ -208,4 +212,118 @@
 .typingFx span {
   font-family: "Gloria Hallelujah", cursive;
   text-shadow: 0 0 20px #c5d9e8;
+}
+
+#cart {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.outer__side {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.541);
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.cart__container {
+  background: #c5d9e8;
+  height: fit-content;
+  width: 470px;
+  position: absolute;
+  z-index: 5;
+  top: -38.5%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.cart__item {
+  display: flex;
+  color: rgb(14, 37, 77);
+  justify-content: space-between;
+  margin: 0;
+  margin-bottom: 10px;
+  border-bottom: 2px solid rgb(14, 37, 77);
+  padding: 0;
+  padding-bottom: 10px;
+}
+
+.cart__item .item__info {
+  display: flex;
+  flex-direction: column;
+  width: 170px;
+}
+
+.cart__item .item__price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item__price .amount {
+  background-color: #11191f;
+  font-size: 11px;
+  color: hsl(205, 16%, 77%);
+  border-radius: 6px;
+  padding: 5px 10px;
+  margin: 0;
+}
+.amount span {
+  font-size: 16px;
+}
+
+.cart__item .price {
+  font-weight: 700;
+  color: #f0ae22;
+  margin: 0;
+}
+
+.item__modify {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+.btn {
+  margin: 0 5px;
+  padding: 0px 7px;
+  cursor: pointer;
+  border: 3px solid rgb(14, 37, 77);
+  border-radius: 5px;
+}
+
+.cart__total {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart__total p {
+  color: rgb(14, 37, 77);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.cart__orderBtn {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.cart__orderBtn .btn {
+  color: rgb(14, 37, 77);
+  border-width: 2px;
+}
+
+.btn.order {
+  color: hsl(205, 16%, 77%);
+  background-color: rgb(14, 37, 77);
 }

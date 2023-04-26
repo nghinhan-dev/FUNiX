@@ -1,12 +1,16 @@
-import "./style.css";
 import Header from "./Header/Header";
 import AvailableMeals from "./AvailableMeals/AvailableMeals";
+import { CartProvider } from "./Context/CartContext";
+import { createPortal } from "react-dom";
+import "./style.css";
 
 export default function Lab() {
   return (
-    <div className="background">
-      <Header />
-      <AvailableMeals />
-    </div>
+    <CartProvider>
+      <div id="background">
+        <Header />
+        <AvailableMeals />
+      </div>
+    </CartProvider>
   );
 }
