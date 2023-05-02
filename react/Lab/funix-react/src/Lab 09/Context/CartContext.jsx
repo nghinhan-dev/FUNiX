@@ -80,6 +80,13 @@ function cartReducer(cartState, action) {
       };
     }
 
+    case "ORDER": {
+      return {
+        items: [],
+        totalAmount: 0,
+      };
+    }
+
     default: {
       throw Error("Unknown action: " + action.type);
     }
