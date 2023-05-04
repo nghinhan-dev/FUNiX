@@ -1,8 +1,8 @@
 const API_KEY = "a41e04665d0188e4b15ad25b23931766";
 
 const requests = {
-  fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_network=123&with_original_language=en`,
+  fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
   fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   fetchActionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28`,
   fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35`,
@@ -12,11 +12,33 @@ const requests = {
   fetchSearch: `/search/movie?api_key=${API_KEY}&language=en-US`,
 };
 
-export async function getRespond(str) {
-  let endPoint = requests[str];
+export async function getData() {
+  const endpoints = Object.values(requests).filter(
+    (endpoint) => !endpoint.includes("search/movie")
+  );
 
-  let url = `https://api.themoviedb.org/3${endPoint}`;
-  const respond = await fetch(url);
+  const promises = Object.values(endpoints).map(async (endpoint) => {
+    const url = `https://api.themoviedb.org/3${endpoint}&language=en-US`;
+    const response = await fetch(url);
 
-  return respond;
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return response.json();
+  });
+
+  const results = await Promise.allSettled(promises);
+
+  const data = results.reduce((acc, result, index) => {
+    if (result.status === "fulfilled") {
+      const key = Object.keys(requests)[index];
+      acc[key] = result.value.results;
+    } else {
+      console.error(result.reason);
+    }
+    return acc;
+  }, {});
+
+  return data;
 }

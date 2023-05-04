@@ -12,7 +12,7 @@
 
 body {
   font-family: "Montserrat", sans-serif;
-  background-color: hsla(0, 0%, 0%, 0.881);
+  background-color: hsla(0, 0%, 0%, 0.9);
   height: 2000px;
 }
 
@@ -22,10 +22,12 @@ a {
 }
 
 .container {
+  overflow: hidden;
   padding: 20px;
 }
 
 #navbar .container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,17 +38,21 @@ a {
   font-weight: 900;
   color: var(--sub-color);
 }
+#navbar .container i {
+  color: white;
+}
 
 #navbar {
   background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
+  z-index: 3;
   top: 0;
   width: 100%;
   transition: background-color 0.7s;
 }
 
 .isScrolled {
-  background: hsla(0, 0%, 0%, 0.881) !important;
+  background: hsla(0, 0%, 0%, 0.9) !important;
 }
 
 #banner {
@@ -56,12 +62,14 @@ a {
   background-position: center;
 }
 #banner .banner_container {
-  padding-top: 50vh;
+  width: 40%;
+  padding-top: 45vh;
   color: white;
 }
 #banner h3 {
   font-size: 40px;
   margin-bottom: 20px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 #banner .btn {
   background: rgba(0, 0, 0, 0.8);
@@ -71,7 +79,77 @@ a {
   border-radius: 4px;
   margin-right: 10px;
 }
-#banner p {
+#banner .overview {
   margin-top: 15px;
-  width: 30%;
+  overflow: hidden;
+  height: 60px;
+}
+#banner p {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  text-overflow: ellipsis;
+}
+
+.poster__container {
+  width: 3500px;
+  position: relative;
+  width: 100%;
+  top: -50px;
+  cursor: pointer;
+}
+.poster__container .poster {
+  width: 175px;
+  height: 250px;
+  margin-right: 20px;
+}
+.poster__container .poster img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(1);
+  transition: all ease-in-out 0.4s;
+}
+.poster__container .poster img:hover {
+  position: relative;
+  z-index: 4;
+  transform: scale(1.1);
+}
+
+.cate__img {
+  height: 161px;
+  width: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: relative;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all ease-in-out 0.4s;
+}
+.cate__img:hover {
+  position: relative;
+  z-index: 4;
+  transform: scale(1.1);
+}
+
+.cate__title {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  font-size: 27px;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.cate__item {
+  margin: 25px 0;
+}
+
+.swiper,
+.swiper-container {
+  overflow: visible !important;
+}
+
+#portal {
+  height: 200px;
+  width: 100%;
+  background: yellow;
 }/*# sourceMappingURL=style.css.map */

@@ -1,30 +1,5 @@
-import { useEffect, useState } from "react";
-import { getRespond } from "../../../service/moiveAPI";
-
-export default function Banner() {
-  const [banner, setBanner] = useState(null);
-
-  useEffect(() => {
-    let active = true;
-    const fetchData = async () => {
-      const respond = await getRespond("fetchNetflixOriginals");
-      const rawData = await respond.json();
-      console.log("rawData:", rawData);
-      const newData = rawData.results[Math.floor(Math.random() * 20 - 1)];
-
-      if (active) {
-        console.log(newData);
-        setBanner(newData);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
+/* eslint-disable react/prop-types */
+export default function Banner({ banner }) {
   return (
     <section
       id="banner"
@@ -37,7 +12,9 @@ export default function Banner() {
           <h3>{banner?.name}</h3>
           <button className="btn">Play</button>
           <button className="btn">My List</button>
-          <p>{banner?.overview} </p>
+          <div className="overview">
+            <p>{banner?.overview} </p>
+          </div>
         </div>
       </div>
     </section>
