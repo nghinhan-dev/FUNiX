@@ -13,7 +13,6 @@
 body {
   font-family: "Montserrat", sans-serif;
   background-color: hsla(0, 0%, 0%, 0.9);
-  height: 2000px;
 }
 
 a {
@@ -28,6 +27,7 @@ a {
 
 #navbar .container {
   position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -53,6 +53,17 @@ a {
 
 .isScrolled {
   background: hsla(0, 0%, 0%, 0.9) !important;
+}
+
+#error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: white;
 }
 
 #banner {
@@ -111,7 +122,6 @@ a {
 }
 .poster__container .poster img:hover {
   position: relative;
-  z-index: 4;
   transform: scale(1.1);
 }
 
@@ -187,8 +197,22 @@ a {
   height: 400px;
 }
 
+#searchPage .poster__container {
+  top: 50px;
+  padding: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#searchPage .poster {
+  width: 175px;
+  height: 250px;
+  margin-right: 20px;
+  margin: 10px;
+}
+
 #search-form {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 #search-form input,
 #search-form .btn {
