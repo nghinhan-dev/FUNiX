@@ -190,6 +190,12 @@ a {
   font-size: 14px;
 }
 
+.movie_mv p {
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}
+
 .portal__img {
   width: 100%;
   -o-object-fit: cover;
