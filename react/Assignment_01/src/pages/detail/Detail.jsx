@@ -1,11 +1,8 @@
 import detailData from "/data/detail.json";
-import Navbar from "../home/Components/Navbar";
-import Footer from "../home/Components/Footer";
 
 export default function Detail() {
   return (
     <>
-      <Navbar />
       <section id="detail">
         <div className="container">
           <div className="address__info">
@@ -24,8 +21,8 @@ export default function Detail() {
           <p className="price">{detailData.price}</p>
 
           <div className="img__layout">
-            {detailData.photos.map((photo) => (
-              <img src={`${photo}`} />
+            {detailData.photos.map((photo, index) => (
+              <img key={index + "photo"} src={`${photo}`} />
             ))}
           </div>
 
@@ -51,7 +48,6 @@ export default function Detail() {
           </div>
         </div>
       </section>
-      <Footer />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import navData from "/data/navBar.json";
-import NavbarItem from "../NavbarItem/NavbarItem";
+import NavbarItem from "./NavbarItem/NavbarItem";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {

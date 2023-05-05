@@ -1,6 +1,6 @@
 import SearchForm from "../SearchForm/SearchForm";
 
-export default function LandingPage() {
+export default function Hero() {
   return (
     <div id="landingPage">
       <div className="container">

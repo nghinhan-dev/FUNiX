@@ -1,16 +1,13 @@
 import React from "react";
-import Navbar from "./Components/Navbar";
-import LandingPage from "./LandingPage/LandingPage";
-import Carousel from "./Components/Carousel";
-import Footer from "./Components/Footer";
+
+import Hero from "./Hero/Hero";
+import Carousel from "./Carousel/Carousel";
 
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <LandingPage />
+      <Hero />
       <Carousel />
-      <Footer />
     </>
   );
 }
