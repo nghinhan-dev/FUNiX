@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export default function MovieList({ data }) {
@@ -15,17 +15,111 @@ export default function MovieList({ data }) {
   const [portalData, setPortalData] = useState({
     destinate: "",
     data: {},
+    video: {},
   });
 
-  function displayPortal(newId, obj) {
-    newId == obj.id && obj.isShow
-      ? // click on the same image (same id) && portal is already show
-        setShowPortal((prevState) => ({ ...prevState, isShow: false }))
-      : setShowPortal((prevState) => ({
-          ...prevState,
-          id: newId,
-          isShow: true,
-        }));
+  useEffect(() => {
+    let active = true;
+    const fetchVideo = async () => {
+      try {
+        const respond = await fetch(
+          `https://api.themoviedb.org/3/movie/${showPortal?.id}/videos?api_key=a41e04665d0188e4b15ad25b23931766`
+        );
+
+        if (!respond.ok) {
+          setPortalData((prevState) => ({
+            ...prevState,
+            video: [],
+          }));
+          throw new Error(`${showPortal?.id} is doomed`);
+        }
+
+        const vidData = await respond.json();
+
+        if (active) {
+          setPortalData((prevState) => ({
+            ...prevState,
+            video: vidData.results,
+          }));
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchVideo();
+
+    return () => {
+      active = false;
+    };
+  }, [showPortal.id]);
+
+  function renderPortalVideo() {
+    let arrayVideo = portalData.video;
+    if (arrayVideo == []) {
+      return (
+        <img
+          className="portal__img"
+          src={`https://image.tmdb.org/t/p/w500${portalData.data.backdrop_path}`}
+          alt={portalData.data.name + "jpg"}
+          draggable={false}
+        />
+      );
+    }
+
+    let findTrailerIndex = arrayVideo.findIndex(
+      (vid) => vid.type === "Trailer"
+    );
+
+    if (findTrailerIndex != -1) {
+      return (
+        <iframe
+          width="100%"
+          height="400"
+          src={`https://www.youtube.com/embed/${arrayVideo[findTrailerIndex].key}`}
+        ></iframe>
+      );
+    } else {
+      let findTeaserIndex = arrayVideo.findIndex(
+        (vid) => vid.type === "Teaser"
+      );
+
+      if (findTeaserIndex != -1) {
+        return (
+          <iframe
+            width="100%"
+            height="400"
+            src={`https://www.youtube.com/embed/${arrayVideo[findTrailerIndex].key}`}
+          ></iframe>
+        );
+      } else {
+        return (
+          <img
+            className="portal__img"
+            src={`https://image.tmdb.org/t/p/w500${portalData.data.backdrop_path}`}
+            alt={portalData.data.name + "jpg"}
+            draggable={false}
+          />
+        );
+      }
+    }
+  }
+
+  function displayPortal(movie, obj) {
+    if (movie.id == obj.id && obj.isShow) {
+      // click on the same image (same id) && portal is already show
+      setShowPortal((prevState) => ({ ...prevState, isShow: false }));
+    } else {
+      setShowPortal((prevState) => ({
+        ...prevState,
+        id: movie.id,
+        isShow: true,
+      }));
+      setPortalData((prevState) => ({
+        ...prevState,
+        data: movie,
+      }));
+    }
   }
 
   function renderMovieList(list, isPoster) {
@@ -34,7 +128,7 @@ export default function MovieList({ data }) {
         <SwiperSlide className={isPoster ? "poster" : null} key={movie.id}>
           {!isPoster ? (
             <img
-              onClick={() => displayPortal(movie.id, showPortal)}
+              onClick={() => displayPortal(movie, showPortal)}
               className="cate__img"
               src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
               alt={movie.name + "jpg"}
@@ -42,7 +136,7 @@ export default function MovieList({ data }) {
             />
           ) : (
             <img
-              onClick={() => displayPortal(movie.id, showPortal)}
+              onClick={() => displayPortal(movie, showPortal)}
               src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
               alt={movie.name + "jpg"}
               draggable={false}
@@ -109,7 +203,23 @@ export default function MovieList({ data }) {
 
       {showPortal.isShow &&
         createPortal(
-          <div id="portal">hello nigga</div>,
+          <div id="portal">
+            <div className="portal__container">
+              <div className="movie_desc">
+                <h3>
+                  {portalData.data?.original_name ||
+                    portalData.data?.original_title}
+                </h3>
+                <hr />
+                <p>Release Date: {portalData.data.release_date}</p>
+                <p>Vote: {portalData.data.vote_average}/10</p>
+                <p className="overview">{portalData.data.overview}</p>
+              </div>
+              <div className="movie_mv">
+                {portalData.video && renderPortalVideo()}
+              </div>
+            </div>
+          </div>,
           document.getElementById(portalData.destinate)
         )}
     </>
