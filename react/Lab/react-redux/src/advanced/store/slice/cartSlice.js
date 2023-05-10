@@ -6,9 +6,15 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     totalQuantity: 0,
+    changed: false,
   },
   reducers: {
+    replaceCart(state, action) {
+      state.totalQuantity = action.payload.totalQuantity;
+      state.items = action.payload.items;
+    },
     addItem(state, action) {
+      state.changed = true;
       const newItem = action.payload;
       const existedItemIndex = state.items.findIndex(
         (item) => item?.id === newItem.id
@@ -30,6 +36,7 @@ const cartSlice = createSlice({
       }
     },
     removeItem(state, action) {
+      state.changed = true;
       const removedItemId = action.payload;
       const removedItemIndex = state.items.findIndex(
         (item) => item.id === removedItemId
@@ -63,7 +70,10 @@ export const sendData = (cart) => {
         "https://react-funix-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json",
         {
           method: "PUT",
-          body: JSON.stringify(cart),
+          body: JSON.stringify({
+            items: cart.items,
+            totalQuantity: cart.totalQuantity,
+          }),
         }
       );
 
@@ -87,6 +97,42 @@ export const sendData = (cart) => {
           status: "error",
           title: "Error!",
           mesg: "Sending cart failed!",
+        })
+      );
+    }
+  };
+};
+
+export const fetchCartData = () => {
+  return async (dispatch) => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://react-funix-default-rtdb.asia-southeast1.firebasedatabase.app/cart.json`
+      );
+
+      if (!response.ok) {
+        throw new Error("Can not fetch data");
+      }
+
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      const cartData = await fetchData();
+      dispatch(
+        cartActions.replaceCart({
+          items: cartData.items || [],
+          totalQuantity: cartData.totalQuantity,
+        })
+      );
+    } catch (error) {
+      dispatch(
+        uiActions.showNoti({
+          status: "error",
+          title: "Error!",
+          mesg: "Fetching cart data failed!",
         })
       );
     }
