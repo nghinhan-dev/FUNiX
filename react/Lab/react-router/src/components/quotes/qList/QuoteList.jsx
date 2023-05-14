@@ -1,21 +1,28 @@
 /* eslint-disable react/prop-types */
-// import QuoteItem from "../qItem/QuoteItem";
-// import classes from "./QuoteList.module.css";
+import classes from "./QuoteList.module.css";
+import { useLoaderData, Link } from "react-router-dom";
 
 export default function QuoteList() {
+  const data = useLoaderData();
+
   return (
-    <>
-      <h1>Hello quotes!</h1>
-      {/* <ul className={classes.list}>
-        {props.quotes.map((quote) => (
-          <QuoteItem
-            key={quote.id}
-            id={quote.id}
-            author={quote.author}
-            text={quote.text}
-          />
-        ))}
-      </ul> */}
-    </>
+    <div className={classes.main}>
+      <ul className={classes.list}>
+        {data.map((quote) => {
+          return (
+            <li key={quote.id} className={classes.item}>
+              <figure>
+                <blockquote>
+                  <p>{quote.content}</p>
+                </blockquote>
+              </figure>
+              <Link className="btn" to={`/${quote.id}`}>
+                View Fullscreen
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

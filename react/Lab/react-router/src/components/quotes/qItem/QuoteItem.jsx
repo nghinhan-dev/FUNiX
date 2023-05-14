@@ -1,19 +1,31 @@
-import classes from './QuoteItem.module.css';
+import { useLoaderData } from "react-router-dom";
 
-const QuoteItem = (props) => {
+export default function QuoteItem() {
+  const data = useLoaderData();
+  const { [Object.keys(data)[0]]: quote } = data;
+
   return (
-    <li className={classes.item}>
-      <figure>
-        <blockquote>
-          <p>{props.text}</p>
-        </blockquote>
-        <figcaption>{props.author}</figcaption>
-      </figure>
-      <a className='btn'>
-        View Fullscreen
-      </a>
-    </li>
+    <figure
+      style={{
+        textAlign: "center",
+        marginTop: "40px",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "22px",
+          fontWeight: "bolder",
+        }}
+      >
+        {quote.content}
+      </p>
+      <p
+        style={{
+          fontStyle: "italic",
+        }}
+      >
+        - {quote.author} -
+      </p>
+    </figure>
   );
-};
-
-export default QuoteItem;
+}
