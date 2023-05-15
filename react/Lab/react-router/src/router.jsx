@@ -4,6 +4,7 @@ import NoFound from "./components/quotes/noFound/NoFound";
 import QuoteList from "./components/quotes/qList/QuoteList";
 import { loader as allQuoteLoader } from "./components/quotes/qList/loader";
 import QuoteForm from "./components/quotes/qForm/QuoteForm";
+import { action as addQuoteAction } from "./components/quotes/qForm/action";
 import QuoteItem from "./components/quotes/qItem/QuoteItem";
 import { loader as singleQuoteLoader } from "./components/quotes/qItem/loader";
 
@@ -14,14 +15,22 @@ const router = createBrowserRouter([
     errorElement: <NoFound />,
     children: [
       {
-        path: "all",
+        path: "",
+        id: "all-quote",
         loader: allQuoteLoader,
-        element: <QuoteList />,
+        children: [
+          {
+            path: "all",
+            element: <QuoteList />,
+          },
+          {
+            path: "add",
+            action: addQuoteAction,
+            element: <QuoteForm />,
+          },
+        ],
       },
-      {
-        path: "add",
-        element: <QuoteForm />,
-      },
+
       {
         path: ":qouteId",
         loader: singleQuoteLoader,

@@ -1,37 +1,40 @@
-import { useRef } from "react";
 import Card from "../../UI/Card";
 import classes from "./QuoteForm.module.css";
+import { Form, useActionData, useRouteLoaderData } from "react-router-dom";
 
 export default function QuoteForm() {
-  const authorInputRef = useRef();
-  const textInputRef = useRef();
-
-  function submitFormHandler(event) {
-    event.preventDefault();
-
-    const enteredAuthor = authorInputRef.current.value;
-    console.log("enteredAuthor:", enteredAuthor);
-    const enteredText = textInputRef.current.value;
-    console.log("enteredText:", enteredText);
-
-    // optional: Could validate here
-  }
+  const errors = useActionData();
+  const loadedData = useRouteLoaderData("all-quote");
 
   return (
     <Card>
-      <form className={classes.form} onSubmit={submitFormHandler}>
+      <Form method="POST" className={classes.form}>
+        <input
+          style={{ display: "none" }}
+          type="text"
+          name="id"
+          defaultValue={`q${loadedData.length + 1}`}
+        />
         <div className={classes.control}>
           <label htmlFor="author">Author</label>
-          <input type="text" id="author" ref={authorInputRef} />
+          <input type="text" id="author" name="author" defaultValue={""} />
+          {errors?.author && <p style={{ color: "red" }}>{errors.author}</p>}
         </div>
         <div className={classes.control}>
           <label htmlFor="text">Text</label>
-          <textarea id="text" rows="5" ref={textInputRef}></textarea>
+          <textarea
+            id="text"
+            rows="5"
+            name="content"
+            defaultValue={""}
+          ></textarea>
+          {errors?.content && <p style={{ color: "red" }}>{errors.content}</p>}
         </div>
+
         <div className={classes.actions}>
           <button className="btn">Add Quote</button>
         </div>
-      </form>
+      </Form>
     </Card>
   );
 }
