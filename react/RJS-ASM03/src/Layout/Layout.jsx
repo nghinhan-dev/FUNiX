@@ -1,12 +1,12 @@
-/* eslint-disable react/prop-types */
-import Navbar from "./Navbar";
+import MyNavbar from "./MyNavbar";
 import Footer from "./Footer";
+import { Outlet } from "react-router-dom";
 
-export default function Layout({ children }) {
+export default function Layout() {
   return (
     <>
-      <Navbar />
-      {children}
+      <MyNavbar />
+      <Outlet />
       <Footer />
     </>
   );
