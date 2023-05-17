@@ -1,11 +1,12 @@
-import classes from './StartingPageContent.module.css';
+import { useAuth } from "../../context/AuthContext";
+import classes from "./StartingPageContent.module.css";
 
-const StartingPageContent = () => {
+export default function StartingPageContent() {
+  const currentUser = useAuth();
+
   return (
     <section className={classes.starting}>
-      <h1>Welcome on Board!</h1>
+      <h1>Welcome {currentUser?.displayName}!</h1>
     </section>
   );
-};
-
-export default StartingPageContent;
+}

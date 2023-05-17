@@ -1,14 +1,16 @@
+/* eslint-disable react/prop-types */
 import { Outlet } from "react-router-dom";
+import AuthProvider from "../../context/AuthProvider";
 import MainNavigation from "./MainNavigation";
 
-const Layout = (props) => {
+export default function Layout({ children }) {
   return (
     <>
-      <MainNavigation />
-      <main>{props.children}</main>
-      <Outlet />
+      <AuthProvider>
+        <MainNavigation />
+        <main>{children}</main>
+        <Outlet />
+      </AuthProvider>
     </>
   );
-};
-
-export default Layout;
+}

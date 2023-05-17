@@ -1,28 +1,37 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
-import classes from './MainNavigation.module.css';
+import classes from "./MainNavigation.module.css";
+import { useAuth } from "../../context/AuthContext";
+import { auth } from "../../firebase/config";
+import { signOut } from "firebase/auth";
 
-const MainNavigation = () => {
+export default function MainNavigation() {
+  const currentUser = useAuth();
+  const navigate = useNavigate();
+
   return (
     <header className={classes.header}>
-      <Link to='/'>
+      <Link to="/">
         <div className={classes.logo}>React Auth</div>
       </Link>
       <nav>
         <ul>
-          <li>
-            <Link to='/auth'>Login</Link>
-          </li>
-          <li>
-            <Link to='/profile'>Profile</Link>
-          </li>
-          <li>
-            <button>Logout</button>
-          </li>
+          {!currentUser ? (
+            <li>
+              <Link to="/auth">Login | Sign Up</Link>
+            </li>
+          ) : (
+            <li>
+              <button onClick={logOutHanlde}>Logout</button>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
   );
-};
 
-export default MainNavigation;
+  function logOutHanlde() {
+    signOut(auth).catch((error) => console.log(error));
+    navigate("/auth");
+  }
+}
