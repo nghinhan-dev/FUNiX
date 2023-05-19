@@ -48,7 +48,7 @@ export default function MyNavbar() {
             <NavLink
               to="/cart"
               className={({ isActive }) =>
-                isActive ? "active nav-link pe-5" : "nav-link pe-5"
+                isActive ? "active nav-link" : "nav-link"
               }
               style={({ isActive }) => {
                 return {
@@ -64,7 +64,7 @@ export default function MyNavbar() {
             <NavLink
               to="/login"
               className={({ isActive }) =>
-                isActive ? "active pe-5 nav-link" : "pe-5 nav-link"
+                isActive ? "active ps-1 nav-link " : "ps-1 nav-link "
               }
               style={({ isActive }) => {
                 return {
