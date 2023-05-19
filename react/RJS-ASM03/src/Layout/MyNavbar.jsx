@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 export default function MyNavbar() {
   // !!! NavLink from "react-router-dom" NOT from"react-bootstrap"
   return (
-    <Navbar className="fw-bold" sticky="top" bg="light" expand="lg">
+    <Navbar className="fw-bold" sticky="top" expand="lg">
       <Container>
         <Row className="g-0 align-items-center w-100">
           <Col>
