@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { forwardRef, useRef, useState } from "react";
 
-export default function ProductList({ data, cate }) {
+export default function ProductList({ data, cate, sortStyle = "default" }) {
   const [dialogData, setDialogData] = useState([0]);
   const dialogRef = useRef(null);
   let productList;
