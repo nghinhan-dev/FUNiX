@@ -3,7 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import ProductList from "../../Shared/ProductList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function DetailPage() {
   const data = useRouteLoaderData("root");
@@ -14,6 +14,12 @@ export default function DetailPage() {
   ] = data.filter((item) => item._id.$oid === param.productID);
 
   const [currentImg, setCurrentImg] = useState(img1);
+
+  // make sure the first img get re-render if user chose related item
+  useEffect(() => {
+    setCurrentImg(img1);
+  }, [img1]);
+
   const [quantity, setQuantity] = useState(1);
 
   // modify long-desc

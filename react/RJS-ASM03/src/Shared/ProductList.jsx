@@ -13,6 +13,7 @@ const ProductList = memo(function ProductList({
   sortStyle = "default",
   search = "",
 }) {
+  console.log(1);
   const navigate = useNavigate();
   const [dialogData, setDialogData] = useState([0]);
   const dialogRef = useRef(null);
