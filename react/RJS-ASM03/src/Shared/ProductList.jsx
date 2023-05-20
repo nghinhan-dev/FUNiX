@@ -1,24 +1,52 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { memo } from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { forwardRef, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function ProductList({ data, cate, sortStyle = "default" }) {
+const ProductList = memo(function ProductList({
+  data,
+  cate,
+  sortStyle = "default",
+  search = "",
+}) {
+  const navigate = useNavigate();
   const [dialogData, setDialogData] = useState([0]);
   const dialogRef = useRef(null);
   let productList;
 
-  if (cate == "trending") {
+  if (cate === "trending") {
     productList = data.slice(0, 8);
+  } else if (cate === "all") {
+    productList = data;
   } else {
-    productList = data.filter((item) => (item.category = cate));
+    productList = data.filter((item) => item.category === cate);
+  }
+
+  if (search !== "") {
+    productList = productList.filter((item) =>
+      item.name.toLowerCase().includes(search)
+    );
+  }
+
+  if (sortStyle !== "default") {
+    productList =
+      sortStyle === "asc"
+        ? productList.sort((a, b) => a.price - b.price)
+        : productList.sort((a, b) => b.price - a.price);
   }
 
   const showDialog = (id) => {
     const logData = data.filter((item) => item._id.$oid === id);
     setDialogData(logData);
     dialogRef.current.showModal();
+  };
+
+  const navigateToDetail = (id) => {
+    navigate(`/detail/${id}`);
   };
 
   const renderProductList = productList.map((item) => {
@@ -29,7 +57,7 @@ export default function ProductList({ data, cate, sortStyle = "default" }) {
         image={item.img1}
         name={item.name}
         price={item.price}
-        handleClick={showDialog}
+        handleClick={cate === "trending" ? showDialog : navigateToDetail}
       />
     );
   });
@@ -37,10 +65,12 @@ export default function ProductList({ data, cate, sortStyle = "default" }) {
   return (
     <>
       <Row style={{ gap: "0px" }}>{renderProductList}</Row>
-      <Dialog data={dialogData} ref={dialogRef} />
+      {cate === "trending" && <Dialog data={dialogData} ref={dialogRef} />}
     </>
   );
-}
+});
+
+export default ProductList;
 
 function CartHolder({ id, name, price, image, handleClick }) {
   return (
