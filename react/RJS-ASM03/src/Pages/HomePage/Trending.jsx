@@ -1,9 +1,9 @@
-import { useLoaderData } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
 import ProductList from "../../Shared/ProductList";
 import Container from "react-bootstrap/Container";
 
 export default function Trending() {
-  const data = useLoaderData();
+  const data = useRouteLoaderData("root");
 
   return (
     <Container className="py-5">
