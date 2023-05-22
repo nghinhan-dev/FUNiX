@@ -90,6 +90,10 @@ dialog {
   cursor: pointer;
 }
 
+.icon-logout {
+  cursor: pointer;
+}
+
 /* FOOTER */
 
 #footer p {
@@ -173,4 +177,57 @@ dialog {
 #detail-container i,
 #detail-container img {
   cursor: pointer;
+}
+
+input#quantity:focus {
+  outline-width: 0;
+  cursor: default;
+}
+
+/* AUTH FORM */
+#authForm {
+  position: relative;
+  left: 20%;
+  width: 400px;
+  text-align: center;
+}
+
+#authForm input {
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  border: none;
+}
+
+#authForm input:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.514);
+}
+
+#authForm input[type="submit"] {
+  margin-top: 20px;
+}
+
+#authForm form {
+  margin-top: 15px;
+}
+
+#authForm .formContainer {
+  border: 1px solid rgba(0, 0, 0, 0.514);
+  padding: 0;
+}
+
+#authForm .d-flex > *,
+#authForm .formContainer {
+  margin: 0;
+}
+
+#authForm span {
+  color: blue;
+  cursor: pointer;
+  transition: 0.4s all;
+}
+
+#authForm span:hover {
+  text-decoration: underline;
 }
