@@ -96,17 +96,15 @@ export default function LoginPage() {
       const newUser = { id: uuidv4(), ...formData };
       setUserArr((prevState) => [...prevState, newUser]);
 
-      // Convert the userArr to a JSON string
-      const userArrJson = JSON.stringify(userArr);
-
       // Save the userArr to localStorage
-      localStorage.setItem("userArr", userArrJson);
+      localStorage.setItem("userArr", JSON.stringify(userArr));
       setIsLogin(true);
     }
 
     setErr(errors);
   };
 
+  // login handle
   const logIn = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
@@ -114,7 +112,9 @@ export default function LoginPage() {
     let isAuth = true;
     const index = userArr.findIndex((user) => user.email === email);
 
-    if (!userArr[index] || !userArr[index].password === password) {
+    console.log(userArr[index]);
+
+    if (!userArr[index] || userArr[index].password !== password) {
       isAuth = false;
       setErr((prevState) => ({
         ...prevState,
@@ -124,6 +124,7 @@ export default function LoginPage() {
 
     if (isAuth) {
       setCurrentUser(userArr[index]);
+      localStorage.setItem("CURRENT_USER", JSON.stringify(userArr[index]));
       navigate("/");
     }
   };

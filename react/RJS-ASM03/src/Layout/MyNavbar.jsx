@@ -77,7 +77,13 @@ export default function MyNavbar() {
                   <i
                     style={{ color: "#dfb44f" }}
                     className="fa-solid fa-arrow-right-from-bracket icon-logout"
-                    onClick={() => setCurrentUser(null)}
+                    onClick={() => {
+                      localStorage.setItem(
+                        "CURRENT_USER",
+                        JSON.stringify(null)
+                      );
+                      setCurrentUser(null);
+                    }}
                   ></i>
                 </div>
               </>
