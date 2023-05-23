@@ -231,3 +231,19 @@ input#quantity:focus {
 #authForm span:hover {
   text-decoration: underline;
 }
+
+/* cartTable */
+#cartTable {
+  max-width: 100%;
+  text-align: center;
+}
+
+.img-table {
+  height: 115px;
+  width: 115px;
+  object-fit: cover;
+}
+
+.price {
+  font-size: 17px;
+}

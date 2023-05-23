@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { useParams, useRouteLoaderData } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { cartAction } from "../../store/store";
+// bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+// shared component
 import ProductList from "../../Shared/ProductList";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { cartAction } from "../../store/store";
 
 export default function DetailPage() {
   // react-router-doom
@@ -40,7 +42,7 @@ export default function DetailPage() {
 
   const [quantity, setQuantity] = useState(1);
 
-  //add cart hanlder
+  // add cart hanlder
   const addCart = () => {
     dispatch(
       cartAction.ADD_CART({
@@ -48,6 +50,7 @@ export default function DetailPage() {
         name: name,
         price: price,
         quantity: quantity,
+        img1: img1,
       })
     );
   };
@@ -114,9 +117,8 @@ export default function DetailPage() {
               />
               <div className="px-3 d-flex align-items-center">
                 <i
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (quantity > 0) {
+                  onClick={() => {
+                    if (quantity > 1) {
                       setQuantity((prevState) => prevState - 1);
                     }
                   }}
@@ -124,8 +126,7 @@ export default function DetailPage() {
                 ></i>
                 <p className="px-2">{quantity ? quantity : 1}</p>
                 <i
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     setQuantity((prevState) => prevState + 1);
                   }}
                   className="fa-solid fa-chevron-right"
