@@ -1,11 +1,23 @@
-import { useRef, useState, useEffect, useContext } from "react";
+/* eslint-disable no-prototype-builtins */
+import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../Context/context";
+import { UserArr } from "../../Context/context";
 import { v4 as uuidv4 } from "uuid";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { cartAction } from "../../store/store";
+import { currentUserIndexAction } from "../../store/store";
 
 export default function LoginPage() {
-  // eslint-disable-next-line no-unused-vars
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+
+  // Initialize the state with the initial value
   const { setCurrentUser } = useContext(CurrentUserContext);
+  const { userArr, setUserArr } = useContext(UserArr);
+
+  // Login UI state
   const [isLogin, setIsLogin] = useState(true);
   const [err, setErr] = useState({
     errFullName: "",
@@ -13,16 +25,7 @@ export default function LoginPage() {
     errPassword: "",
     errPhone: "",
   });
-  const initialUserArr = JSON.parse(localStorage.getItem("userArr")) || [];
   const navigate = useNavigate();
-
-  // Initialize the state with the initial value
-  const [userArr, setUserArr] = useState(initialUserArr);
-
-  // Update localStorage whenever userArr changes
-  useEffect(() => {
-    localStorage.setItem("userArr", JSON.stringify(userArr));
-  }, [userArr]);
 
   // form's refs
   const fullNameRef = useRef(null);
@@ -93,11 +96,11 @@ export default function LoginPage() {
     });
 
     if (isValid) {
-      const newUser = { id: uuidv4(), ...formData };
-      setUserArr((prevState) => [...prevState, newUser]);
+      const newUser = { id: uuidv4(), cart: cart, ...formData };
+      setUserArr((prevState) => {
+        return [...prevState, newUser];
+      });
 
-      // Save the userArr to localStorage
-      localStorage.setItem("userArr", JSON.stringify(userArr));
       setIsLogin(true);
     }
 
@@ -112,8 +115,6 @@ export default function LoginPage() {
     let isAuth = true;
     const index = userArr.findIndex((user) => user.email === email);
 
-    console.log(userArr[index]);
-
     if (!userArr[index] || userArr[index].password !== password) {
       isAuth = false;
       setErr((prevState) => ({
@@ -124,7 +125,10 @@ export default function LoginPage() {
 
     if (isAuth) {
       setCurrentUser(userArr[index]);
+
       localStorage.setItem("CURRENT_USER", JSON.stringify(userArr[index]));
+      dispatch(cartAction.UPDATE_CART(userArr[index].cart));
+      dispatch(currentUserIndexAction.UPDATE_INDEX(index));
       navigate("/");
     }
   };
