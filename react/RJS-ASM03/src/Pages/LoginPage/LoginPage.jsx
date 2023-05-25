@@ -1,5 +1,6 @@
 /* eslint-disable no-prototype-builtins */
 import { useRef, useState, useContext } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../Context/context";
 import { UserArr } from "../../Context/context";
@@ -102,6 +103,7 @@ export default function LoginPage() {
       });
 
       setIsLogin(true);
+      toast.success("Account created", { icon: "🥰" });
     }
 
     setErr(errors);
@@ -134,96 +136,105 @@ export default function LoginPage() {
   };
 
   return (
-    <div
-      id="homepage_banner"
-      className="d-flex flex-column align-items-start justify-content-center"
-    >
-      <div id="authForm">
-        <h3>{isLogin ? "Sign In" : "Sign Up"}</h3>
-        <form className="h-auto d-flex flex-column">
-          <div className="formContainer">
-            {!isLogin && (
-              <>
-                <input
-                  type="text"
-                  id="fullName"
-                  name="fullName"
-                  placeholder="Full Name"
-                  ref={fullNameRef}
-                />
-                {err.fullName !== "" && (
-                  <p className="text-danger bg-warning">{err.fullName}</p>
-                )}
-              </>
-            )}
-            {err.loginState !== "" && (
-              <p className="text-danger bg-warning">{err.loginState}</p>
-            )}
+    <>
+      <div
+        id="homepage_banner"
+        className="d-flex flex-column align-items-start justify-content-center"
+      >
+        <div id="authForm">
+          <h3>{isLogin ? "Sign In" : "Sign Up"}</h3>
+          <form className="h-auto d-flex flex-column">
+            <div className="formContainer">
+              {!isLogin && (
+                <>
+                  <input
+                    type="text"
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Full Name"
+                    ref={fullNameRef}
+                  />
+                  {err.fullName !== "" && (
+                    <p className="text-danger bg-warning">{err.fullName}</p>
+                  )}
+                </>
+              )}
+              {err.loginState !== "" && (
+                <p className="text-danger bg-warning">{err.loginState}</p>
+              )}
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                ref={emailRef}
+              />
+              {err.email !== "" && (
+                <p className="text-danger bg-warning">{err.email}</p>
+              )}
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                minLength={8}
+                ref={passwordRef}
+              />
+              {err.password !== "" && (
+                <p className="text-danger bg-warning">{err.password}</p>
+              )}
+              {!isLogin && (
+                <>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="Phone"
+                    ref={phoneRef}
+                  />
+                  {err.phone !== "" && (
+                    <p className="text-danger bg-warning">{err.phone}</p>
+                  )}
+                </>
+              )}
+            </div>
+          </form>
+          {isLogin ? (
             <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              ref={emailRef}
+              className="bg-dark mb-2 text-white"
+              type="submit"
+              value={"Sign In"}
+              onClick={logIn}
             />
-            {err.email !== "" && (
-              <p className="text-danger bg-warning">{err.email}</p>
-            )}
+          ) : (
             <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              minLength={8}
-              ref={passwordRef}
+              className="bg-dark mb-2 text-white"
+              type="submit"
+              value={"Sign Up"}
+              onClick={createAccount}
             />
-            {err.password !== "" && (
-              <p className="text-danger bg-warning">{err.password}</p>
-            )}
-            {!isLogin && (
-              <>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="Phone"
-                  ref={phoneRef}
-                />
-                {err.phone !== "" && (
-                  <p className="text-danger bg-warning">{err.phone}</p>
-                )}
-              </>
-            )}
-          </div>
-        </form>
-        {isLogin ? (
-          <input
-            className="bg-dark mb-2 text-white"
-            type="submit"
-            value={"Sign In"}
-            onClick={logIn}
-          />
-        ) : (
-          <input
-            className="bg-dark mb-2 text-white"
-            type="submit"
-            value={"Sign Up"}
-            onClick={createAccount}
-          />
-        )}
+          )}
 
-        {isLogin ? (
-          <p>
-            Create an account?{" "}
-            <span onClick={() => setIsLogin(false)}>Sign Up</span>
-          </p>
-        ) : (
-          <p>
-            Already have account?{" "}
-            <span onClick={() => setIsLogin(true)}>Sign in</span>
-          </p>
-        )}
+          {isLogin ? (
+            <p>
+              Create an account?{" "}
+              <span onClick={() => setIsLogin(false)}>Sign Up</span>
+            </p>
+          ) : (
+            <p>
+              Already have account?{" "}
+              <span onClick={() => setIsLogin(true)}>Sign in</span>
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+      <ToastContainer
+        position="top-right"
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={700}
+        theme="light"
+      />
+    </>
   );
 }

@@ -10,7 +10,21 @@ h3 {
   font-style: italic;
 }
 
+.Toastify__toast {
+  font-style: normal !important;
+}
+
 /* Nav-link */
+nav.isScrolled {
+  background-color: black;
+  color: white;
+}
+
+nav.isScrolled .navbar-brand,
+nav.isScrolled .nav-link {
+  color: white;
+}
+
 .nav-link {
   color: rgba(0, 0, 0, 0.801);
 }
@@ -257,4 +271,26 @@ input#quantity:focus {
 #cartTable i:hover,
 .cartNav > div:hover {
   color: #dfb44f;
+}
+
+/* checkoutForm */
+
+#checkoutForm label,
+#checkoutForm input {
+  width: 100%;
+}
+
+#checkoutForm label {
+  margin-bottom: 7px;
+}
+
+#checkoutForm input {
+  margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.514);
+}
+
+#checkoutForm button {
+  border-radius: 0;
+  margin-top: 15px;
 }

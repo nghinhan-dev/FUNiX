@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../Context/context";
+import { ToastContainer, toast } from "react-toastify";
 // bootstrap
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -11,6 +14,7 @@ import { cartAction } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
+  const { currentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const { items: cartList, totalPrice } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -31,6 +35,7 @@ export default function CartPage() {
             <i
               onClick={() => {
                 dispatch(cartAction.MINUS_CART(item.id));
+                toast.success("Minus item", { icon: "➖" });
               }}
               className="fa-solid fa-chevron-left"
             ></i>
@@ -46,6 +51,7 @@ export default function CartPage() {
                     img1: item.img1,
                   })
                 );
+                toast.success("Added to cart");
               }}
               className="fa-solid fa-chevron-right"
             ></i>
@@ -61,6 +67,7 @@ export default function CartPage() {
           <i
             onClick={() => {
               dispatch(cartAction.REMOVE_CART(item.id));
+              toast.info("Remove from cart", { icon: "🗑" });
             }}
             className="fa-solid fa-trash-can"
           ></i>
@@ -138,7 +145,8 @@ export default function CartPage() {
               </div>
               <div
                 onClick={() => {
-                  navigate("/checkout");
+                  currentUser !== null && navigate("/checkout");
+                  currentUser === null && toast.warning("Must login first");
                 }}
                 className="d-flex align-items-center justify-content-between"
               >
@@ -149,6 +157,13 @@ export default function CartPage() {
           </Col>
         </Row>
       </Container>
+      <ToastContainer
+        position="top-right"
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={700}
+        theme="light"
+      />
     </>
   );
 }
