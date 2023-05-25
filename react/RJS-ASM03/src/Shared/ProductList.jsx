@@ -108,6 +108,9 @@ const Dialog = forwardRef(function Dialog(props, ref) {
             </Col>
             <Col className="d-flex flex-column justify-content-center p-3">
               <p className="fw-bold">{data?.name}</p>
+              <p className="fs-5 opacity-75">
+                {data?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </p>
               <p className="p-4">{data?.short_desc}</p>
               <button
                 className="btn bg-black text-white"
