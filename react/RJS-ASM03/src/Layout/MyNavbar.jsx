@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../Context/context";
 import { useDispatch } from "react-redux";
 import { cartAction } from "../store/store";
+import { useState, useEffect } from "react";
 
 export default function MyNavbar() {
   const dispatch = useDispatch();
@@ -16,8 +17,30 @@ export default function MyNavbar() {
   // eslint-disable-next-line no-unused-vars
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
+  const [isScrolled, setIsScroll] = useState(false);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.pageYOffset > 50) {
+        setIsScroll(true);
+      } else {
+        setIsScroll(false);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <Navbar className="fw-bold" sticky="top" expand="lg">
+    <Navbar
+      className={`fw-bold ${isScrolled ? "isScrolled" : null}`}
+      sticky="top"
+      expand="lg"
+    >
       <Container>
         <Row className="g-0 align-items-center w-100">
           <Col>
@@ -30,7 +53,7 @@ export default function MyNavbar() {
                 }
                 style={({ isActive }) => {
                   return {
-                    color: isActive ? "#dfb44f" : "#000",
+                    color: isActive && "#dfb44f",
                   };
                 }}
               >
@@ -43,7 +66,7 @@ export default function MyNavbar() {
                 }
                 style={({ isActive }) => {
                   return {
-                    color: isActive ? "#dfb44f" : "#000",
+                    color: isActive && "#dfb44f",
                   };
                 }}
               >
@@ -62,7 +85,7 @@ export default function MyNavbar() {
               }
               style={({ isActive }) => {
                 return {
-                  color: isActive ? "#dfb44f" : "#000",
+                  color: isActive && "#dfb44f",
                 };
               }}
             >
@@ -106,7 +129,7 @@ export default function MyNavbar() {
                 }
                 style={({ isActive }) => {
                   return {
-                    color: isActive ? "#dfb44f" : "#000",
+                    color: isActive && "#dfb44f",
                   };
                 }}
               >
