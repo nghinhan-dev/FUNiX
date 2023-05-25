@@ -109,6 +109,10 @@ dialog {
 }
 
 /* FOOTER */
+#footer {
+  position: relative;
+  z-index: 1;
+}
 
 #footer p {
   font-size: 20px;
@@ -293,4 +297,44 @@ input#quantity:focus {
 #checkoutForm button {
   border-radius: 0;
   margin-top: 15px;
+}
+
+/* chatRoom */
+#chatToggle {
+  position: fixed;
+  right: 20px;
+  cursor: pointer;
+  font-size: 35px;
+  top: 90vh;
+  z-index: 2;
+}
+
+#chatToggle.isScrolled {
+  color: #dfb44f;
+}
+
+#chatRoom {
+  position: fixed;
+  right: 60px;
+  top: 37vh;
+  height: 375px;
+  width: 315px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.514);
+}
+
+#chatRoom p {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#chatRoom {
+  border: none;
+}
+
+#chatRoom .card-footer input {
+  flex-grow: 1;
+}
+
+#chatRoom .card-footer i {
+  margin-left: 10px;
 }
