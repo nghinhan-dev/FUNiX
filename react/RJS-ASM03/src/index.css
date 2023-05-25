@@ -247,3 +247,14 @@ input#quantity:focus {
 .price {
   font-size: 17px;
 }
+
+#cartTable i,
+.cartNav > div {
+  cursor: pointer;
+  transition: 0.4s all;
+}
+
+#cartTable i:hover,
+.cartNav > div:hover {
+  color: #dfb44f;
+}

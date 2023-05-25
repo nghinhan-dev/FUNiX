@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 // bootstrap
 import Row from "react-bootstrap/Row";
@@ -7,9 +7,13 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 // shared component
 import OtherBanner from "../../Shared/OtherBanner";
+import { cartAction } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
+  const navigate = useNavigate();
   const { items: cartList, totalPrice } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const couponRef = useRef();
 
   const renderCartList = cartList.map((item) => {
@@ -24,9 +28,27 @@ export default function CartPage() {
         </td>
         <td>
           <div className="px-3 d-flex align-items-center">
-            <i className="fa-solid fa-chevron-left"></i>
+            <i
+              onClick={() => {
+                dispatch(cartAction.MINUS_CART(item.id));
+              }}
+              className="fa-solid fa-chevron-left"
+            ></i>
             <p className="px-2">{item.quantity}</p>
-            <i className="fa-solid fa-chevron-right"></i>
+            <i
+              onClick={() => {
+                dispatch(
+                  cartAction.ADD_CART({
+                    id: item.id,
+                    name: item.name,
+                    price: item.price,
+                    quantity: 1,
+                    img1: item.img1,
+                  })
+                );
+              }}
+              className="fa-solid fa-chevron-right"
+            ></i>
           </div>
         </td>
         <td>
@@ -36,7 +58,12 @@ export default function CartPage() {
           VND
         </td>
         <td>
-          <i className="fa-solid fa-trash-can"></i>
+          <i
+            onClick={() => {
+              dispatch(cartAction.REMOVE_CART(item.id));
+            }}
+            className="fa-solid fa-trash-can"
+          ></i>
         </td>
       </tr>
     );
@@ -47,6 +74,7 @@ export default function CartPage() {
       <OtherBanner bigTitle={"CART"} smallTitle={"CART"} />
       {/* cart UI */}
       <Container className="py-4">
+        <h5 className="py-3">SHOPPING CART</h5>
         <Row className="flex-nowrap">
           {/* cart detail */}
           <Col md="8" xl="8">
@@ -93,6 +121,30 @@ export default function CartPage() {
                 <i className="fa-solid fa-gift me-2"></i>
                 Apply coupon
               </button>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="8" xl="8">
+            <div className="bg-light py-3 cartNav d-flex align-items-center justify-content-between">
+              <div
+                onClick={() => {
+                  navigate("/shop");
+                }}
+                className="d-flex align-items-center justify-content-between"
+              >
+                <i className="ps-2 fa-solid fa-arrow-left"></i>
+                <p className="px-3">Continue Shopping</p>
+              </div>
+              <div
+                onClick={() => {
+                  navigate("/checkout");
+                }}
+                className="d-flex align-items-center justify-content-between"
+              >
+                <p className="px-3">Proceed to checkout</p>
+                <i className="pe-2 fa-solid fa-arrow-right"></i>
+              </div>
             </div>
           </Col>
         </Row>
