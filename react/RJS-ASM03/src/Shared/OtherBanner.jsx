@@ -7,7 +7,7 @@ export default function OtherBanner({ bigTitle, smallTitle, subName = "" }) {
   return (
     <div className="bg-light" id="other-banner">
       <Container>
-        <Row>
+        <Row className="px-2">
           <Col>
             <h3>{bigTitle}</h3>
           </Col>
