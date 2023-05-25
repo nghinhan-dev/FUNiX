@@ -5,8 +5,12 @@ import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { CurrentUserContext } from "../Context/context";
+import { useDispatch } from "react-redux";
+import { cartAction } from "../store/store";
 
 export default function MyNavbar() {
+  const dispatch = useDispatch();
+
   // !!! NavLink from "react-router-dom" NOT from"react-bootstrap"
   // const currentUser = useContext(Curre)
   // eslint-disable-next-line no-unused-vars
@@ -83,6 +87,13 @@ export default function MyNavbar() {
                         JSON.stringify(null)
                       );
                       setCurrentUser(null);
+                      dispatch(
+                        cartAction.UPDATE_CART({
+                          items: [],
+                          totalQuantity: 0,
+                          totalPrice: 0,
+                        })
+                      );
                     }}
                   ></i>
                 </div>
