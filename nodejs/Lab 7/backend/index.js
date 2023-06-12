@@ -1,14 +1,26 @@
 const express = require("express");
-const app = express();
-const bodyParser = require("body-parser");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
+const app = express();
+
+// config
 app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
-app.use(cors());
+// routes
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
+app.use(adminRoutes);
+app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.status(404).render("404", { pageTitle: "Page Not Found" });
+  res.send("Heiyo");
 });
 
 app.listen(3000, () => console.log("Lab 7 on http://localhost:3000/"));
