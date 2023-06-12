@@ -1,3 +1,5 @@
+// getLoginForm data, then validate, then login
+
 function getLoginForm() {
   let id = document.getElementById("input-username").value;
   let password = document.getElementById("input-password").value;

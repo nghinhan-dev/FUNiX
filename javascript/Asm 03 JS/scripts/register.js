@@ -10,7 +10,7 @@ let getFormInput = () => {
   return { user, confirmPassword };
 };
 
-// VALIDATE INPUT
+// THEN VALIDATE INPUT
 let validateInput = (newUser, confirmPw) => {
   if (newUser.firstName == "") {
     Swal.fire({
@@ -80,10 +80,9 @@ let validateInput = (newUser, confirmPw) => {
   return true;
 };
 
-// REGISTER
+// THEN REGISTER NEW ACCOUNT
 let registerBtn = document.getElementById("btn-register");
 registerBtn.addEventListener("click", () => {
-  console.log(1);
   let newUser = getFormInput().user;
   let confirmPw = getFormInput().confirmPassword;
 
