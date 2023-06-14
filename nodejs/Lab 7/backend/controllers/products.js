@@ -1,9 +1,8 @@
 const Book = require("../model/books");
 
 exports.postNewBook = (req, res, next) => {
-  console.log(req.body);
-
   const newBook = new Book(
+    req.body.id,
     req.body.title,
     req.body.price,
     "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",

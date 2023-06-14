@@ -23,6 +23,14 @@ export default function Layout() {
             >
               Add Product
             </NavLink>
+            <NavLink
+              to={"/cart"}
+              className={({ isActive }) =>
+                isActive ? "active main-header__item" : "main-header__item"
+              }
+            >
+              Cart
+            </NavLink>
           </ul>
         </nav>
       </header>

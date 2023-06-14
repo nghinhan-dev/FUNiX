@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, Link, Form } from "react-router-dom";
 
 export default function Shop() {
   const bookList = useLoaderData();
@@ -11,6 +11,7 @@ export default function Shop() {
         </header>
         <div className="card__image">
           <img
+            className="img"
             src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png"
             alt="A Book"
           />
@@ -20,7 +21,15 @@ export default function Shop() {
           <p className="product__description">{book.desc}</p>
         </div>
         <div className="card__actions">
-          <button className="btn">Add to Cart</button>
+          <button className="btn">
+            <Link to={`/${book.id}`}>Detail</Link>
+          </button>
+          <Form style={{ display: "inline" }} method="POST">
+            <input type="hidden" name="price" value={book.price} />
+            <button type="submit" className="btn" name="id" value={book.id}>
+              Add to Cart
+            </button>
+          </Form>
         </div>
       </article>
     );
@@ -30,7 +39,9 @@ export default function Shop() {
     <>
       <main>
         <h1>My Products</h1>
-        <div className="grid">{renderBookList}</div>
+        <div className="grid">
+          {bookList.length > 0 ? renderBookList : <h1>No books found</h1>}
+        </div>
       </main>
     </>
   );

@@ -8,7 +8,8 @@ const p = path.join(
 );
 
 module.exports = class Book {
-  constructor(_title, _price, _imageUrl, _desc) {
+  constructor(_id, _title, _price, _imageUrl, _desc) {
+    this.id = _id;
     this.title = _title;
     this.price = _price;
     this.imageUrl = _imageUrl;
@@ -34,6 +35,18 @@ module.exports = class Book {
         callback([]);
       } else {
         callback(JSON.parse(fileContent));
+      }
+    });
+  }
+
+  static fetchBook(id, callback) {
+    fs.readFile(p, (err, fileContent) => {
+      if (err) {
+        callback([]);
+      } else {
+        const bookList = JSON.parse(fileContent);
+        const resBook = bookList.find((b) => b.id === id);
+        callback(resBook);
       }
     });
   }
