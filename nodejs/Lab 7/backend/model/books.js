@@ -1,11 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  "data",
-  "products.json"
-);
+const mainModulePath = require.main.filename;
+const p = path.join(path.dirname(mainModulePath), "data", "products.json");
 
 module.exports = class Book {
   constructor(_id, _title, _price, _imageUrl, _desc) {
@@ -16,13 +13,21 @@ module.exports = class Book {
     this.desc = _desc;
   }
 
-  save() {
+  save(id) {
     fs.readFile(p, (err, fileContent) => {
       let bookList = [];
       if (!err) {
         bookList = JSON.parse(fileContent);
       }
-      bookList.push(this);
+
+      const isExistedIndex = bookList.findIndex((book) => book.id === id);
+      if (isExistedIndex !== -1) {
+        let updatedBook = this;
+        bookList[isExistedIndex] = updatedBook;
+      } else {
+        bookList.push(this);
+      }
+
       fs.writeFile(p, JSON.stringify(bookList), (err) => {
         console.log("error", err);
       });

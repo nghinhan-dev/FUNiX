@@ -5,6 +5,12 @@ let getSettingForm = () => {
   return { pageSize, category };
 };
 
+function getSettingFormCurrentUser() {
+  document.getElementById("input-page-size").value = currentUser[0].pageSize;
+  document.getElementById("input-category").value = currentUser[0].category;
+}
+getSettingFormCurrentUser();
+
 function setting() {
   // update currentUser
   currentUser[0] = {

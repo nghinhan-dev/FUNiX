@@ -9,13 +9,13 @@ export default function Shop() {
         <header className="card__header">
           <h1 className="product__title">{book.title}</h1>
         </header>
-        <div className="card__image">
-          <img
-            className="img"
-            src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png"
-            alt="A Book"
-          />
-        </div>
+
+        <img
+          className="img"
+          src="https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png"
+          alt="A Book"
+        />
+
         <div className="card__content">
           <h2 className="product__price">${book.price}</h2>
           <p className="product__description">{book.desc}</p>
@@ -24,9 +24,12 @@ export default function Shop() {
           <button className="btn">
             <Link to={`/${book.id}`}>Detail</Link>
           </button>
+
           <Form style={{ display: "inline" }} method="POST">
+            <input type="hidden" name="id" value={book.id} />
+            <input type="hidden" name="title" value={book.title} />
             <input type="hidden" name="price" value={book.price} />
-            <button type="submit" className="btn" name="id" value={book.id}>
+            <button type="submit" className="btn" name="intent" value="add">
               Add to Cart
             </button>
           </Form>

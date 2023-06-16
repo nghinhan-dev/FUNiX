@@ -92,10 +92,10 @@ holdBtn.addEventListener("click", () => {
 
 // winner valid
 let winnerCheck = (score) => {
-  if (score >= 100) {
+  if (score >= 50) {
     currentPlayer == 0
-      ? console.log("Player 0 is the winner!")
-      : console.log("Player 1 is the winner!");
+      ? console.log("Player 1 is the winner!")
+      : console.log("Player 2 is the winner!");
   }
 };
 

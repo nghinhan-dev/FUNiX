@@ -1,7 +1,7 @@
-import { useLoaderData } from "react-router-dom";
+import { useRouteLoaderData, Link } from "react-router-dom";
 
 export default function Detail() {
-  const book = useLoaderData();
+  const book = useRouteLoaderData("id");
 
   return (
     <div
@@ -34,7 +34,10 @@ export default function Detail() {
           {book.desc}
         </p>
       </div>
-      <button className="btn">Add to Cart</button>
+
+      <button className="btn">
+        <Link to={`edit`}>Edit</Link>
+      </button>
     </div>
   );
 }

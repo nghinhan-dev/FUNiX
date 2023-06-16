@@ -4,7 +4,7 @@ function renderHomePage() {
     document.getElementById("login-modal").style.display = "none";
     document.getElementById("main-content").style.display = "block";
     document.getElementById("welcome-message").innerText = `
-    Welcome ${currentUser[0].userName}!`;
+    Welcome ${currentUser[0].firstName}!`;
   } else {
     document.getElementById("login-modal").style.display = "block";
     document.getElementById("main-content").style.display = "none";

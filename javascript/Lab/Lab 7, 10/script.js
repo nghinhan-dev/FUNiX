@@ -5,13 +5,13 @@ let life_point = 20;
 let highscore = (num) => {
   if (num > high_score) {
     high_score = num;
-    document.getElementById("highscore").innerText = high_score;
+    document.querySelector(".highscore").innerText = high_score;
   }
 };
 
 let minusScore = () => {
   life_point--;
-  document.getElementById("score").innerText = life_point;
+  document.querySelector("score").innerText = life_point;
 
   if (life_point == 0) {
     document.getElementById("message").innerText = "GAME OVER!";

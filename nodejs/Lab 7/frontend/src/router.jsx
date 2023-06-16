@@ -6,8 +6,11 @@ import { action as postNewBookAction } from "./AddProduct/action";
 import Shop from "./Shop/Shop";
 import { loader as bookListLoader } from "./Shop/loader";
 import Detail from "./Detail/Detail";
+import Edit from "./Detail/Edit";
+import { action as editAction } from "./Detail/action";
 import { loader as getSingleBook } from "./Detail/loader";
 import Cart from "./Cart/Cart";
+import { loader as cartLoader } from "./Cart/loader";
 // util
 import { action as addCart } from "./util/addCart";
 
@@ -28,13 +31,27 @@ const router = createBrowserRouter([
         action: postNewBookAction,
       },
       {
+        id: "id",
         path: "/:bookId",
-        element: <Detail />,
         loader: getSingleBook,
+        children: [
+          {
+            index: true,
+            element: <Detail />,
+            action: addCart,
+          },
+          {
+            path: "edit",
+            element: <Edit />,
+            action: editAction,
+          },
+        ],
       },
       {
         path: "/cart",
         element: <Cart />,
+        loader: cartLoader,
+        action: addCart,
       },
     ],
   },
