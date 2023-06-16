@@ -1,0 +1,263 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,300;1,400;1,600;1,700&display=swap");
+:root {
+  --main-color: hsl(0, 0%, 0%);
+  --sub-color: red;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background-color: hsla(0, 0%, 0%, 0.9);
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.container {
+  overflow: hidden;
+  padding: 20px;
+}
+
+#navbar .container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#navbar .container .brand {
+  word-spacing: -2px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--sub-color);
+}
+#navbar .container i {
+  color: white;
+}
+
+#navbar {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  width: 100%;
+  transition: background-color 0.7s;
+}
+
+.isScrolled {
+  background: hsla(0, 0%, 0%, 0.9) !important;
+}
+
+#error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+  background: white;
+}
+
+#banner {
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+#banner .banner_container {
+  width: 40%;
+  padding-top: 45vh;
+  color: white;
+}
+#banner h3 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+#banner .btn {
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 7px;
+  border-color: transparent;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+#banner .overview {
+  margin-top: 15px;
+  overflow: hidden;
+  height: 60px;
+}
+#banner p {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+  text-overflow: ellipsis;
+}
+
+.poster__container {
+  width: 3500px;
+  position: relative;
+  width: 100%;
+  top: -50px;
+  cursor: pointer;
+}
+.poster__container .poster {
+  width: 175px;
+  height: 250px;
+  margin-right: 20px;
+}
+.poster__container .poster img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(1);
+  transition: all ease-in-out 0.4s;
+}
+.poster__container .poster img:hover {
+  position: relative;
+  transform: scale(1.1);
+}
+
+.cate__img {
+  height: 161px;
+  width: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  position: relative;
+  cursor: pointer;
+  transform: scale(1);
+  transition: all ease-in-out 0.4s;
+}
+.cate__img:hover {
+  position: relative;
+  z-index: 4;
+  transform: scale(1.1);
+}
+
+.cate__title {
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  font-size: 27px;
+  color: white;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.cate__item {
+  margin: 25px 0;
+}
+
+.swiper,
+.swiper-container {
+  overflow: visible !important;
+}
+
+#portal {
+  margin-top: 25px;
+  height: 400px;
+  width: 100%;
+  background: hsla(0, 0%, 0%, 0.849);
+}
+
+.portal__container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.movie_desc {
+  color: white;
+  padding: 40px 0;
+  padding-left: 15px;
+}
+.movie_desc h3 {
+  font-size: 26px;
+}
+.movie_desc hr {
+  margin: 20px 0;
+}
+.movie_desc p {
+  font-size: 18px;
+  margin-bottom: 7px;
+}
+.movie_desc p.overview {
+  font-size: 14px;
+}
+
+.movie_mv p {
+  font-size: 22px;
+  text-align: center;
+  color: white;
+}
+
+.portal__img {
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 400px;
+}
+
+#searchPage .poster__container {
+  top: 50px;
+  padding: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#searchPage .poster {
+  width: 175px;
+  height: 250px;
+  margin-right: 20px;
+  margin: 10px;
+}
+
+#search-form {
+  padding-top: 50px;
+}
+#search-form input,
+#search-form .btn {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin-left: 9px;
+  transition: all 0.4s ease-in-out;
+}
+#search-form input:hover,
+#search-form .btn:hover {
+  color: white;
+  background: rgba(232, 59, 56, 0.8470588235);
+}
+#search-form .search-form-container {
+  width: 45%;
+  margin: 0 auto;
+  background: #ebeded;
+  padding: 10px;
+}
+#search-form .button-grp {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+#search-form hr {
+  margin: 15px 0;
+  border: 2px solid #e83c38;
+}
+#search-form input[type=submit] {
+  background: #e83c38;
+  color: white;
+}
+#search-form label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+#search-form input[type=text] {
+  flex-grow: 1;
+  margin-right: 5px;
+}/*# sourceMappingURL=style.css.map */
