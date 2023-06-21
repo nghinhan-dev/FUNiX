@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { CurrentUserContext } from "./context";
-import { UserArr } from "./context";
+import { UserArr } from "./context"; // user array context
+import { CurrentUserContext } from "./context"; // current__user context
 import { useDispatch, useSelector } from "react-redux";
 import { cartAction } from "../store/store";
 
@@ -15,6 +15,7 @@ export default function UserProvider({ children }) {
     JSON.parse(localStorage.getItem("userArr")) || []
   );
 
+  // get the last user didn't log out
   useEffect(() => {
     const currentUser = JSON.parse(localStorage.getItem("CURRENT_USER"));
 
@@ -26,6 +27,7 @@ export default function UserProvider({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // save NEW current_user & user_arr state when cart change
   useEffect(() => {
     if (currentUser) {
       let updateCurrentUserArr = currentUser;
@@ -45,7 +47,7 @@ export default function UserProvider({ children }) {
   }, [cart]);
 
   useEffect(() => {
-    // Save the userArr to localStorage
+    // Save the userArr to localStorage when a new user sign-up
     localStorage.setItem("userArr", JSON.stringify(userArr));
   }, [userArr]);
 

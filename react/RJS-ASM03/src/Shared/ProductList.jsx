@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { forwardRef, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductList = memo(function ProductList({
   data,
@@ -112,15 +112,16 @@ const Dialog = forwardRef(function Dialog(props, ref) {
                 {data?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
               </p>
               <p className="p-4">{data?.short_desc}</p>
-              <button
+              <Link
                 className="btn bg-black text-white"
                 style={{ width: "fit-content" }}
                 id="confirmBtn"
                 value="default"
+                to={`detail/${data?._id?.$oid}`}
               >
                 <i className="fa-solid fa-cart-shopping pe-1"></i>
                 View Detail
-              </button>
+              </Link>
             </Col>
           </Row>
         </form>

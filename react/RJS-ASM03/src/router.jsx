@@ -26,27 +26,27 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/shop",
+        path: "shop",
         element: <ShopPage />,
       },
       {
-        path: "/detail/:productID",
+        path: "detail/:productID",
         element: <DetailPage />,
       },
       {
-        path: "/cart",
+        path: "cart",
         element: <CartPage />,
       },
       {
-        path: "/checkout",
+        path: "checkout",
         element: <CheckoutPage />,
       },
       {
-        path: "/login",
+        path: "login",
         element: <LoginPage />,
       },
       {
-        path: "/register",
+        path: "register",
         element: <RegisterPage />,
       },
     ],

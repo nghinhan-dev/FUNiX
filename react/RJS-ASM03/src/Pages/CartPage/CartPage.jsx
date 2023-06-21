@@ -130,6 +130,7 @@ export default function CartPage() {
               </button>
             </div>
           </Col>
+          {/**/}
         </Row>
         <Row>
           <Col md="8" xl="8">

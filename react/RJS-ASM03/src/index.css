@@ -311,15 +311,17 @@ input#quantity:focus {
 
 #chatToggle.isScrolled {
   color: #dfb44f;
+  z-index: 2;   
 }
 
 #chatRoom {
   position: fixed;
-  right: 60px;
+  right: 60px;  
   top: 37vh;
   height: 375px;
   width: 315px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.514);
+  z-index: 2;
 }
 
 #chatRoom p {

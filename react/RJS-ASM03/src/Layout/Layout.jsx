@@ -12,7 +12,7 @@ export default function Layout() {
 
   useEffect(() => {
     function handleScroll() {
-      if (window.pageYOffset > 2150) {
+      if (window.scrollY > 50) {
         setIsScroll(true);
       } else {
         setIsScroll(false);
