@@ -17,8 +17,12 @@ const movieRoutes = require("./routes/movie");
 
 app.use("/movies", movieRoutes);
 
+app.use((req, res, next) => {
+  res.status(404).send({ message: "Page not found on" });
+});
+
 app.use("/", (req, res, next) => {
-  res.sendStatus(200);
+  res.status(200).send({ message: "Hello World!" });
 });
 
 app.listen(3000);
