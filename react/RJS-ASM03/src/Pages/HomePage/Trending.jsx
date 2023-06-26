@@ -2,6 +2,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import ProductList from "../../Shared/ProductList";
 import Container from "react-bootstrap/Container";
 
+// use for render trending section
 export default function Trending() {
   const data = useRouteLoaderData("root");
 

@@ -13,9 +13,10 @@ app.use(
 );
 
 // routes
+const authUser = require("./middleware/auth");
 const movieRoutes = require("./routes/movie");
 
-app.use("/movies", movieRoutes);
+app.use("/movies", authUser, movieRoutes);
 
 app.use((req, res, next) => {
   res.status(404).send({ message: "Page not found on" });
