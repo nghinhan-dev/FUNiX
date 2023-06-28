@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import YouTube from "react-youtube";
 import { createPortal } from "react-dom";
 import SearchForm from "./SearchForm/SearchForm";
 
@@ -12,6 +13,7 @@ export default function Search() {
     isShow: false,
   });
   const [portalData, setPortalData] = useState({
+    destinate: "",
     data: {},
     video: {},
   });
@@ -27,23 +29,26 @@ export default function Search() {
       try {
         // a41e04665d0188e4b15ad25b23931766
         const respond = await fetch(
-          `https://api.themoviedb.org/3/search/movie?api_key=a41e04665d0188e4b15ad25b23931766&language=en-US&query=${q}&page=1&include_adult=false`
+          `http://localhost:3000/movies/search/?token=8qlOkxz4wq&query=${q}`,
+          {
+            method: "POST",
+          }
         );
 
         const searchResult = await respond.json();
 
         if (!respond.ok) {
           setResult([]);
-          setErrorMsg(searchResult.status_message);
+          setErrorMsg(searchResult.message);
         }
 
         if (active) {
-          if (searchResult.results.length === 0) {
+          if (searchResult.result.length === 0) {
             return setErrorMsg("Found no movie!");
           }
 
           setErrorMsg("");
-          setResult(searchResult.results);
+          setResult(searchResult.result);
         }
       } catch (error) {
         console.log(error.message);
@@ -59,43 +64,35 @@ export default function Search() {
 
   // use for fecth portal's data
   useEffect(() => {
-    let active = true;
-    const fetchVideoandScroll = async () => {
+    const fetchVideo = async () => {
       try {
         const respond = await fetch(
-          `https://api.themoviedb.org/3/movie/${showPortal?.id}/videos?api_key=a41e04665d0188e4b15ad25b23931766`
+          `http://localhost:3000/movies/trailer/?token=8qlOkxz4wq&id=${showPortal.id}`,
+          {
+            method: "POST",
+          }
         );
 
         if (!respond.ok) {
           setPortalData((prevState) => ({
             ...prevState,
-            video: [],
+            video: { message: "Not found" },
           }));
           throw new Error(`${showPortal?.id} is doomed`);
         }
 
         const vidData = await respond.json();
 
-        if (active) {
-          setPortalData((prevState) => ({
-            ...prevState,
-            video: vidData.results,
-          }));
-        }
-
-        // Scroll to 300px down after fetching the data
-        const list = document.getElementById("portal");
-        list.scrollIntoView({ behavior: "smooth" });
+        setPortalData((prevState) => ({
+          ...prevState,
+          video: vidData,
+        }));
       } catch (error) {
-        console.log(error.message);
+        showPortal.id !== "" && console.log(error.message);
       }
     };
 
-    fetchVideoandScroll();
-
-    return () => {
-      active = false;
-    };
+    showPortal.id !== "" && fetchVideo();
   }, [showPortal.id]);
 
   return (
@@ -103,9 +100,14 @@ export default function Search() {
       <div className="container">
         <SearchForm getQuery={getQuery} />
         <div className="poster__container">
-          {!errorMsg ? displaySearchResult(result) : <h1>{errorMsg}</h1>}
+          {!errorMsg ? (
+            displaySearchResult(result)
+          ) : (
+            <h1 style={{ color: "#FFCC00" }}>{errorMsg}</h1>
+          )}
         </div>
         {showPortal.isShow &&
+          !errorMsg &&
           createPortal(
             <div id="portal">
               <div className="portal__container">
@@ -165,8 +167,9 @@ export default function Search() {
   }
 
   function renderPortalVideo() {
-    let arrayVideo = portalData.video;
-    if (arrayVideo == []) {
+    let vid = portalData.video;
+
+    if (vid?.message) {
       return (
         <img
           className="portal__img"
@@ -175,43 +178,21 @@ export default function Search() {
           draggable={false}
         />
       );
-    }
-
-    let findTrailerIndex = arrayVideo.findIndex(
-      (vid) => vid.type === "Trailer"
-    );
-
-    if (findTrailerIndex != -1) {
-      return (
-        <iframe
-          width="100%"
-          height="400"
-          src={`https://www.youtube.com/embed/${arrayVideo[findTrailerIndex].key}`}
-        ></iframe>
-      );
     } else {
-      let findTeaserIndex = arrayVideo.findIndex(
-        (vid) => vid.type === "Teaser"
+      return (
+        <YouTube
+          videoId={`${vid.key}`}
+          style={{
+            width: "100%",
+          }}
+          onError={() => {
+            setPortalData((prevState) => ({
+              ...prevState,
+              video: { message: "Not found" },
+            }));
+          }}
+        />
       );
-
-      if (findTeaserIndex != -1) {
-        return (
-          <iframe
-            width="100%"
-            height="400"
-            src={`https://www.youtube.com/embed/${arrayVideo[findTrailerIndex].key}`}
-          ></iframe>
-        );
-      } else {
-        return (
-          <img
-            className="portal__img"
-            src={`https://image.tmdb.org/t/p/w500${portalData.data.backdrop_path}`}
-            alt={portalData.data.name + "jpg"}
-            draggable={false}
-          />
-        );
-      }
     }
   }
 }

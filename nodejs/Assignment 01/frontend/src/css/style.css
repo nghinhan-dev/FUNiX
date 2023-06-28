@@ -116,7 +116,7 @@ a {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transform: scale(1);
   transition: all ease-in-out 0.4s;
 }
@@ -129,7 +129,7 @@ a {
   height: 161px;
   width: 250px;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   position: relative;
   cursor: pointer;
   transform: scale(1);
@@ -160,7 +160,6 @@ a {
 
 #portal {
   margin-top: 25px;
-  height: 400px;
   width: 100%;
   background: hsla(0, 0%, 0%, 0.849);
 }
@@ -190,16 +189,10 @@ a {
   font-size: 14px;
 }
 
-.movie_mv p {
-  font-size: 22px;
-  text-align: center;
-  color: white;
-}
-
 .portal__img {
   width: 100%;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   height: 400px;
 }
 
@@ -248,7 +241,7 @@ a {
   margin: 15px 0;
   border: 2px solid #e83c38;
 }
-#search-form input[type=submit] {
+#search-form input[type="submit"] {
   background: #e83c38;
   color: white;
 }
@@ -257,7 +250,7 @@ a {
   align-items: center;
   justify-content: space-between;
 }
-#search-form input[type=text] {
+#search-form input[type="text"] {
   flex-grow: 1;
   margin-right: 5px;
-}/*# sourceMappingURL=style.css.map */
+} /*# sourceMappingURL=style.css.map */

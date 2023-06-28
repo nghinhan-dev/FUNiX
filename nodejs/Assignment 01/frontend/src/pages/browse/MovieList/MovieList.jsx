@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import YouTube from "react-youtube";
 
 // Import Swiper styles
 import "swiper/css";
@@ -19,20 +20,19 @@ export default function MovieList({ data }) {
   });
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
-
     const fetchVideo = async () => {
       try {
         const respond = await fetch(
-          `https://api.themoviedb.org/3/movie/${showPortal?.id}/videos?api_key=a41e04665d0188e4b15ad25b23931766`,
-          { signal }
+          `http://localhost:3000/movies/trailer/?token=8qlOkxz4wq&id=${showPortal.id}`,
+          {
+            method: "POST",
+          }
         );
 
         if (!respond.ok) {
           setPortalData((prevState) => ({
             ...prevState,
-            video: [],
+            video: { message: "Not found" },
           }));
           throw new Error(`${showPortal?.id} is doomed`);
         }
@@ -41,18 +41,14 @@ export default function MovieList({ data }) {
 
         setPortalData((prevState) => ({
           ...prevState,
-          video: vidData.results,
+          video: vidData,
         }));
       } catch (error) {
-        console.log(error.message);
+        showPortal.id !== "" && console.log(error.message);
       }
     };
 
-    fetchVideo();
-
-    return () => {
-      controller.abort();
-    };
+    showPortal.id !== "" && fetchVideo();
   }, [showPortal.id]);
 
   return (
@@ -74,15 +70,51 @@ export default function MovieList({ data }) {
                 <p>Vote: {portalData.data.vote_average}/10</p>
                 <p className="overview">{portalData.data.overview}</p>
               </div>
-              <div className="movie_mv">
-                {portalData.video && renderPortalVideo()}
-              </div>
+              <div className="movie_mv">{renderPortalVideo()}</div>
             </div>
           </div>,
           document.getElementById(portalData.destinate)
         )}
     </>
   );
+
+  function renderCategoryList(obj) {
+    return Object.keys(obj).map((keyName) => {
+      let title = keyName.includes("Movies")
+        ? keyName.replace("fetch", "").replace("Movies", "")
+        : keyName.replace("fetch", "");
+
+      return (
+        <div
+          id={keyName}
+          key={title}
+          className={`${
+            keyName === "fetchNetflixOriginals"
+              ? "poster__container"
+              : "cate__item"
+          } container`}
+        >
+          {!(keyName === "fetchNetflixOriginals") && (
+            <h3 className="cate__title">{title}</h3>
+          )}
+          <Swiper
+            onClick={() =>
+              setPortalData((prevState) => ({
+                ...prevState,
+                destinate: keyName,
+              }))
+            }
+            key={keyName}
+            spaceBetween={keyName === "fetchNetflixOriginals" ? 15 : 17}
+            slidesPerView={keyName === "fetchNetflixOriginals" ? 8 : 5}
+            loop={true}
+          >
+            {renderMovieList(obj[keyName], keyName === "fetchNetflixOriginals")}
+          </Swiper>
+        </div>
+      );
+    });
+  }
 
   function renderMovieList(list, isPoster) {
     let content = list.map((movie) => {
@@ -111,54 +143,6 @@ export default function MovieList({ data }) {
     return content;
   }
 
-  function renderCategoryList(obj) {
-    return Object.keys(obj).map((keyName) => {
-      let title = keyName.includes("Movies")
-        ? keyName.replace("fetch", "").replace("Movies", "")
-        : keyName.replace("fetch", "");
-      // Remove unused character to use for title of category section
-
-      if (keyName == "fetchNetflixOriginals") {
-        return (
-          <div id={keyName} key={title} className="poster__container container">
-            <Swiper
-              onClick={() =>
-                setPortalData((prevState) => ({
-                  ...prevState,
-                  destinate: keyName,
-                }))
-              }
-              spaceBetween={15}
-              slidesPerView={8}
-              loop={true}
-            >
-              {renderMovieList(obj[keyName], true)}
-            </Swiper>
-          </div>
-        );
-      }
-      return (
-        <div id={keyName} key={title} className="cate__item container">
-          <h3 className="cate__title">{title}</h3>
-          <Swiper
-            onClick={() =>
-              setPortalData((prevState) => ({
-                ...prevState,
-                destinate: keyName,
-              }))
-            }
-            key={keyName}
-            spaceBetween={17}
-            slidesPerView={5}
-            loop={true}
-          >
-            {renderMovieList(obj[keyName], false)}
-          </Swiper>
-        </div>
-      );
-    });
-  }
-
   function displayPortal(movie, obj) {
     if (movie.id == obj.id && obj.isShow) {
       // click on the same image (same id) && portal is already show
@@ -177,9 +161,9 @@ export default function MovieList({ data }) {
   }
 
   function renderPortalVideo() {
-    let arrayVideo = portalData.video;
+    let vid = portalData.video;
 
-    if (arrayVideo == []) {
+    if (vid?.message) {
       return (
         <img
           className="portal__img"
@@ -188,43 +172,21 @@ export default function MovieList({ data }) {
           draggable={false}
         />
       );
-    }
-
-    let findTrailerIndex = arrayVideo.findIndex(
-      (vid) => vid.type === "Trailer" && vid.site === "Youtube"
-    );
-
-    if (findTrailerIndex !== -1) {
-      return (
-        <iframe
-          width="100%"
-          height="400"
-          src={`https://www.youtube.com/embed/${arrayVideo[findTrailerIndex].key}`}
-        ></iframe>
-      );
     } else {
-      let findTeaserIndex = arrayVideo.findIndex(
-        (vid) => vid.type === "Teaser"
+      return (
+        <YouTube
+          videoId={`${vid.key}`}
+          style={{
+            width: "100%",
+          }}
+          onError={() => {
+            setPortalData((prevState) => ({
+              ...prevState,
+              video: { message: "Not found" },
+            }));
+          }}
+        />
       );
-
-      if (findTeaserIndex !== -1) {
-        return (
-          <iframe
-            width="100%"
-            height="400"
-            src={`https://www.youtube.com/embed/${arrayVideo[findTeaserIndex].key}`}
-          ></iframe>
-        );
-      } else {
-        return (
-          <img
-            className="portal__img"
-            src={`https://image.tmdb.org/t/p/w500${portalData.data.backdrop_path}`}
-            alt={portalData.data.name + "jpg"}
-            draggable={false}
-          />
-        );
-      }
     }
   }
 }
