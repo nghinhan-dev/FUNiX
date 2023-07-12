@@ -4,9 +4,9 @@ const Cart = require("../model/cart");
 exports.getSpecBook = (req, res, next) => {
   const reqID = req.params.bookId;
 
-  Book.fetchBook(reqID, (book) => {
-    res.send(book);
-  });
+  Book.findByPk(reqID)
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err));
 };
 
 exports.postToCart = (req, res, next) => {

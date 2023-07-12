@@ -13,6 +13,7 @@ import Cart from "./Cart/Cart";
 import { loader as cartLoader } from "./Cart/loader";
 // util
 import { action as addCart } from "./util/addCart";
+import { action as delBook } from "./util/delBook";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Detail />,
-            action: addCart,
+            action: delBook,
           },
           {
             path: "edit",

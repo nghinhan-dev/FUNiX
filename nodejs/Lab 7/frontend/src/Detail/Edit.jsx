@@ -36,7 +36,7 @@ export default function Detail() {
             style={{ marginTop: "10px", fontSize: "20px" }}
             className="product__description"
           >
-            {book.desc}
+            {book.description}
           </p>
         </div>
       </div>
@@ -58,12 +58,12 @@ export default function Detail() {
             id="price"
             defaultValue={book.price}
           />
-          <label htmlFor="desc">Description</label>
+          <label htmlFor="description">Description</label>
           <textarea
-            name="desc"
+            name="description"
             type="text"
             id="desc"
-            defaultValue={book.desc}
+            defaultValue={book.description}
           ></textarea>
         </div>
         <button className="btn" type="submit">

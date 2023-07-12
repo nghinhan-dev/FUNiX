@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const sequelize = require("./util/database");
 
 const app = express();
 
@@ -25,4 +26,9 @@ app.use("/", (req, res, next) => {
   res.send({ text: "Heiyo" });
 });
 
-app.listen(3000, () => console.log("Lab 7 on http://localhost:3000/"));
+sequelize
+  .sync()
+  .then(() => {
+    app.listen(3000, () => console.log("Lab 7 on http://localhost:3000/"));
+  })
+  .catch((err) => console.log(err));

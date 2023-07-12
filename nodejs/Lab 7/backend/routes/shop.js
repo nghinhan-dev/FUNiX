@@ -6,7 +6,7 @@ const shopController = require("../controllers/edit");
 
 router.get("/book_list", productsController.getBookList);
 router.get("/cart", productsController.getCart);
-router.post("/edit-book", productsController.postBook);
+router.post("/edit-book", productsController.updateBook);
 router.post("/add-cart", shopController.postToCart);
 router.post("/delete-item", shopController.delFromCart);
 

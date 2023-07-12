@@ -14,6 +14,9 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "nodemon": "^2.0.22"
+    "mysql2": "^3.4.3",
+    "nodemon": "^1.14.9",
+    "semver": "^7.5.3",
+    "sequelize": "^6.32.1"
   }
 }

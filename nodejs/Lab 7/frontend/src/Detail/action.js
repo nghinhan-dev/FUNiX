@@ -8,16 +8,20 @@ export async function action({ request }) {
     imageUrl:
       "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
     price: data.get("price"),
-    desc: data.get("desc"),
+    description: data.get("description"),
   };
+  console.log("newBookData:", newBookData);
 
-  const res = await fetch("http://localhost:3000/edit-book", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newBookData),
-  });
+  const res = await fetch(
+    `http://localhost:3000/edit-book?id=${newBookData.id}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBookData),
+    }
+  );
 
   if (!res.ok) {
     throw json(
