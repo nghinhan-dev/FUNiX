@@ -96,7 +96,8 @@ a {
   margin: 0 0.25rem;
 }
 
-.btn {
+.btn,
+button {
   font: inherit;
   border: 1px solid #00695c;
   color: #00695c;
@@ -106,7 +107,8 @@ a {
   margin-right: 5px;
 }
 
-.btn a {
+.btn a,
+button {
   color: #00695c;
 }
 

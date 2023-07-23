@@ -40,10 +40,12 @@ export default function Detail() {
           </p>
         </div>
 
-        <button className="btn">
-          <Link to={`edit`}>Edit</Link>
-        </button>
-        <button type="submit">Delete</button>
+        <div>
+          <button className="btn">
+            <Link to={`edit`}>Edit</Link>
+          </button>
+          <button type="submit">Delete</button>
+        </div>
       </div>
     </Form>
   );

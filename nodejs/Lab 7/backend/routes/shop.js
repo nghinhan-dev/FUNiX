@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const productsController = require("../controllers/products");
-const shopController = require("../controllers/edit");
+const booksController = require("../controllers/books");
+const shopController = require("../controllers/cart");
 
-router.get("/book_list", productsController.getBookList);
-router.get("/cart", productsController.getCart);
-router.post("/edit-book", productsController.updateBook);
+router.get("/book_list", booksController.getBookList);
+router.get("/cart", shopController.getCart);
+router.post("/edit-book", booksController.updateBook);
 router.post("/add-cart", shopController.postToCart);
 router.post("/delete-item", shopController.delFromCart);
 
