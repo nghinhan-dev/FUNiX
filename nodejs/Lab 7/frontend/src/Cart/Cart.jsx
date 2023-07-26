@@ -1,7 +1,14 @@
 import { useLoaderData, Form } from "react-router-dom";
 
 export default function Cart() {
-  const { products, totalPrice } = useLoaderData();
+  // Lab 7
+  // const { products, totalPrice } = useLoaderData();
+
+  const products = useLoaderData();
+  const totalPrice = products.reduce((acc, cur) => {
+    acc += cur.price * cur.cartItem.quantity;
+    return acc;
+  }, 0);
 
   const renderCart = products.map((book) => {
     return (
@@ -9,7 +16,7 @@ export default function Cart() {
         <div key={book.id} className="item_container">
           <div className="item_container">
             <p>{book.title}</p>
-            <p>Qty: {book.qty}</p>
+            <p>Quantity: {book.cartItem.quantity}</p>
           </div>
           <Form style={{ display: "inline" }} method="POST">
             <input type="hidden" name="id" value={book.id} />

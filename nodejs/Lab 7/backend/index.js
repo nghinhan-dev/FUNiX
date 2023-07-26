@@ -25,7 +25,7 @@ const detailRoutes = require("./routes/detail");
 // middleware
 app.use(async (req, res, next) => {
   try {
-    const user = await User.findByPk(1);
+    const user = await User.findByPk(2);
     req.user = user;
     next();
   } catch (err) {
@@ -52,12 +52,16 @@ Book.belongsToMany(Cart, { through: CartItem });
 try {
   (async () => {
     await sequelize.sync();
-    const user = await User.findByPk(1);
+    const user = await User.findByPk(2);
     if (!user) {
-      User.create({ name: "Nghi Nhan", email: "sillywhale@sw.com" });
+      await User.create({ name: "Kim Hoang", email: "emhoangcute@sw.com" });
     }
 
-    await user.createCart();
+    const cart = await user.getCart();
+    if (!cart) {
+      // Create a cart for the user only if they don't have one
+      await user.createCart();
+    }
 
     app.listen(3000, () => console.log("Lab 7 on http://localhost:3000/"));
   })();

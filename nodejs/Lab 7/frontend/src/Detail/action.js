@@ -10,7 +10,6 @@ export async function action({ request }) {
     price: data.get("price"),
     description: data.get("description"),
   };
-  console.log("newBookData:", newBookData);
 
   const res = await fetch(
     `http://localhost:3000/edit-book?id=${newBookData.id}`,
