@@ -6,6 +6,8 @@ const Book = require("./model/books");
 const User = require("./model/user");
 const Cart = require("./model/cart");
 const CartItem = require("./model/cart-item");
+const Order = require("./model/order");
+const OrderItem = require("./model/order-item");
 
 const app = express();
 
@@ -48,11 +50,14 @@ User.hasOne(Cart);
 Cart.belongsTo(User);
 Cart.belongsToMany(Book, { through: CartItem });
 Book.belongsToMany(Cart, { through: CartItem });
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Book, { through: OrderItem });
 
 try {
   (async () => {
     await sequelize.sync();
-    const user = await User.findByPk(2);
+    const user = await User.findByPk(1);
     if (!user) {
       await User.create({ name: "Kim Hoang", email: "emhoangcute@sw.com" });
     }

@@ -36,6 +36,16 @@ export default function Cart() {
     <>
       {products.length !== 0 ? renderCart : <h1>Empty cart!</h1>}
       <h5>Total Price : {totalPrice}</h5>
+      <Form style={{ display: "inline" }} method="POST">
+        <button
+          type="submit"
+          className="btn"
+          name="intent"
+          value="create-order"
+        >
+          Order
+        </button>
+      </Form>
     </>
   );
 }

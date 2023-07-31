@@ -43,5 +43,20 @@ export async function action({ request }) {
       );
     }
   }
+
+  if (intent === "create-order") {
+    const res = await fetch("http://localhost:3000/create-order", {
+      method: "POST",
+    });
+
+    if (!res.ok) {
+      throw json(
+        { message: "Couldnot post new book to backend" },
+        { status: 500 }
+      );
+    }
+
+    return redirect("/checkout");
+  }
   return redirect("/cart");
 }
