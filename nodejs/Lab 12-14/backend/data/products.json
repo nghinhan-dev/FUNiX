@@ -1,0 +1,37 @@
+[
+  {
+    "id": "de62dc7a-4d05-4a08-9cab-9a89e0970209",
+    "title": "48 Rules of Power",
+    "price": "45",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "desc": "No one wants less power"
+  },
+  {
+    "id": "0b80582a-fc47-4c89-8b89-3f3cb68d6b51",
+    "title": "The Art of War",
+    "price": "30",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "desc": "Ancient Chinese military treatise"
+  },
+  {
+    "id": "c41331f7-0e41-4742-9f61-4c090192defe",
+    "title": "To Kill a Mockingbird",
+    "price": "25",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "desc": "Classic novel by Harper Lee"
+  },
+  {
+    "id": "22d0be2f-1bb1-4a7b-a5b0-b1f715ef4f55",
+    "title": "The Great Gatsby",
+    "price": "18",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "desc": "F. Scott Fitzgerald's masterpiece"
+  },
+  {
+    "id": "f1ae00b9-24af-4177-a1ea-06226c775cd8",
+    "title": "The Catcher in the Rye",
+    "price": "15",
+    "imageUrl": "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg",
+    "desc": "J.D. Salinger's iconic novel"
+  }
+]
