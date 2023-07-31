@@ -1,16 +1,36 @@
-const Sequelize = require("sequelize");
-const sequelize = new Sequelize("node-complete", "root", "NghiNhan@&)(2222", {
-  dialect: "mysql",
-  host: "127.0.0.1",
+const { MongoClient, ServerApiVersion } = require("mongodb");
+
+// Replace the placeholder with your Atlas connection string
+const uri =
+  "mongodb+srv://sillywhale:Q0wfauvCoGydCKuS@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority";
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
 });
 
-// (async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log("Connection has been established successfully.");
-//   } catch (error) {
-//     console.error("Unable to connect to the database:", error);
-//   }
-// })();
+async function connectToDB() {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    console.log(
+      "Pinged your deployment. You successfully connected to MongoDB!"
+    );
+  } catch (error) {
+    console.log("Error connecting to MongoDB:", error);
+    throw error;
+  }
+}
 
-module.exports = sequelize;
+function getDB() {
+  return client.db(); // Return the connected database instance
+}
+
+module.exports = {
+  connectToDB,
+  getDB,
+};

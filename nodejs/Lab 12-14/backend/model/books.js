@@ -1,26 +1,18 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../util/database");
+const { getDB } = require("../util/database");
 
-const Book = sequelize.define("books", {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    allowNull: true,
-    primaryKey: true,
-  },
-  title: Sequelize.STRING,
-  price: {
-    type: Sequelize.DOUBLE,
-    allowNull: false,
-  },
-  imageUrl: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-  description: {
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
-});
+class Book {
+  constructor(title, price, description, imageUrl) {
+    this.title = title;
+    this.price = price;
+    this.description = description;
+    this.imageUrl = imageUrl;
+  }
+
+  async save() {
+    const db = getDB(); // Use getDB function to get the connected database
+
+    return await db.collection("books").insertOne(this);
+  }
+}
 
 module.exports = Book;
