@@ -1,6 +1,4 @@
-const Cart = require("../model/cart");
 const Book = require("../model/books");
-const User = require("../model/user");
 
 exports.getCart = async (req, res, next) => {
   const cart = await req.user.getCart();

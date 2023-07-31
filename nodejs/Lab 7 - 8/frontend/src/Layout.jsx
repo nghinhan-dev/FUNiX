@@ -31,6 +31,14 @@ export default function Layout() {
             >
               Cart
             </NavLink>
+            <NavLink
+              to={"/checkout"}
+              className={({ isActive }) =>
+                isActive ? "active main-header__item" : "main-header__item"
+              }
+            >
+              Order
+            </NavLink>
           </ul>
         </nav>
       </header>

@@ -11,6 +11,8 @@ import { action as editAction } from "./Detail/action";
 import { loader as getSingleBook } from "./Detail/loader";
 import Cart from "./Cart/Cart";
 import { loader as cartLoader } from "./Cart/loader";
+import Order from "./Order/Order";
+import { orderLoader } from "./Order/orderLoader";
 // util
 import { action as addCart } from "./util/addCart";
 import { action as delBook } from "./util/delBook";
@@ -53,6 +55,11 @@ const router = createBrowserRouter([
         element: <Cart />,
         loader: cartLoader,
         action: addCart,
+      },
+      {
+        path: "checkout",
+        element: <Order />,
+        loader: orderLoader,
       },
     ],
   },
