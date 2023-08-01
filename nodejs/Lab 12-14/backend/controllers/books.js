@@ -61,18 +61,14 @@ exports.getBookList = async (req, res, next) => {
   }
 };
 
-// exports.postDelBook = async (req, res, next) => {
-//   const id = req.query.id;
+exports.postDelBook = async (req, res, next) => {
+  const id = req.query.id;
 
-//   try {
-//     await Book.destroy({
-//       where: {
-//         id: id,
-//       },
-//     });
+  try {
+    await Book.deletePrd(id);
 
-//     res.status(200).send({ message: "Deletede Item" });
-//   } catch (error) {
-//     console.log("error:", error);
-//   }
-// };
+    res.status(200).send({ message: "Deletede Item" });
+  } catch (error) {
+    console.log("error:", error);
+  }
+};

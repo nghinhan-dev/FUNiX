@@ -7,7 +7,7 @@ class Book {
     this.price = price;
     this.description = description;
     this.imageUrl = imageUrl;
-    this._id = new ObjectId(_id);
+    this._id = _id ? new ObjectId(_id) : null;
   }
 
   async save() {
@@ -32,6 +32,12 @@ class Book {
     const db = getDB();
 
     return await db.collection("books").findOne({ _id: new ObjectId(prdId) });
+  }
+
+  static async deletePrd(prdId) {
+    const db = getDB();
+
+    return await db.collection("books").deleteOne({ _id: new ObjectId(prdId) });
   }
 }
 
