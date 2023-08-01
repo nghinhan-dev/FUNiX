@@ -42,7 +42,7 @@ export default function Detail() {
       </div>
 
       <Form className="edit-form" method="POST">
-        <input type="hidden" name="id" value={book.id} />
+        <input type="hidden" name="id" value={book._id} />
         <div className="form-control">
           <label htmlFor="title">Title</label>
           <input

@@ -19,40 +19,47 @@ exports.postBook = async (req, res, next) => {
   }
 };
 
-// exports.getSpecBook = (req, res, next) => {
-//   const reqID = req.params.bookId;
+exports.getSpecBook = async (req, res, next) => {
+  const reqID = req.params.bookId;
 
-//   Book.findByPk(reqID)
-//     .then((result) => res.send(result))
-//     .catch((err) => console.log(err));
-// };
+  try {
+    const result = await Book.findById(reqID);
 
-// exports.updateBook = async (req, res, next) => {
-//   const title = req.body.title;
-//   const price = req.body.price;
-//   const imageUrl = req.body.imageUrl;
-//   const description = req.body.description;
+    res.status(200).send(result);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(404).json({ message: "Coundn't find requested book" });
+  }
+};
 
-//   const id = req.query.id;
+exports.updateBook = async (req, res, next) => {
+  const title = req.body.title;
+  const price = req.body.price;
+  const imageUrl = req.body.imageUrl;
+  const description = req.body.description;
 
-//   try {
-//     const updatedBook = await Book.findByPk(id);
-//     await updatedBook.set({ title, price, imageUrl, description });
-//     await updatedBook.save();
+  const id = req.query.id;
 
-//     res.status(200).send("Updated!!");
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+  try {
+    const updateBook = new Book(title, price, description, imageUrl, id);
 
-// exports.getBookList = (req, res, next) => {
-//   Book.findAll()
-//     .then((result) => {
-//       res.send(result);
-//     })
-//     .catch((err) => console.log(err));
-// };
+    await updateBook.save();
+
+    res.status(200).send("Updated!!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.getBookList = async (req, res, next) => {
+  try {
+    const bookList = await Book.fetchAll();
+    res.status(200).send(bookList);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(404).json({ message: "Book list not found" });
+  }
+};
 
 // exports.postDelBook = async (req, res, next) => {
 //   const id = req.query.id;

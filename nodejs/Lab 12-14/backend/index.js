@@ -5,6 +5,8 @@ const { connectToDB } = require("./util/database");
 
 // routes
 const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+const detailRoutes = require("./routes/detail");
 
 const app = express();
 
@@ -18,6 +20,8 @@ app.use(
 
 // route use
 app.use(adminRoutes);
+app.use(shopRoutes);
+app.use(detailRoutes);
 
 app.use("/", (req, res, next) => {
   res.send({ text: "Heiyo" });
