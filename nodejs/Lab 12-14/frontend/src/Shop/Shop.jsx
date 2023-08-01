@@ -26,7 +26,7 @@ export default function Shop() {
           </button>
 
           <Form style={{ display: "inline" }} method="POST">
-            <input type="hidden" name="id" value={book.id} />
+            <input type="hidden" name="id" value={book._id} />
             <input type="hidden" name="title" value={book.title} />
             <input type="hidden" name="price" value={book.price} />
             <button type="submit" className="btn" name="intent" value="add">

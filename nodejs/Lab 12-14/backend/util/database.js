@@ -17,9 +17,6 @@ async function connectToDB() {
   try {
     // Connect the client to the server (optional starting in v4.7)
     await client.connect();
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
   } catch (error) {
     console.log("Error connecting to MongoDB:", error);
     throw error;

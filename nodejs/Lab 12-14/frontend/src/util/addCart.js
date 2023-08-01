@@ -8,7 +8,6 @@ export async function action({ request }) {
     title: formData.get("title"),
     price: formData.get("price"),
   };
-  console.log("cartitem:", cartitem);
 
   if (intent === "add") {
     const res = await fetch("http://localhost:3000/add-cart", {

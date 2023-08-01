@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDB } = require("./util/database");
+const User = require("./model/user");
 
 // routes
 const adminRoutes = require("./routes/admin");
@@ -17,6 +18,17 @@ app.use(
     origin: "http://localhost:5000",
   })
 );
+
+// middleware
+app.use(async (req, res, next) => {
+  try {
+    const user = await User.findById("64c875b743dedac9b541f766");
+    req.user = new User(user.userName, user.email, user._id, user.cart);
+    next();
+  } catch (error) {
+    console.log("error:", error);
+  }
+});
 
 // route use
 app.use(adminRoutes);

@@ -6,20 +6,20 @@ export default function Cart() {
 
   const products = useLoaderData();
   const totalPrice = products.reduce((acc, cur) => {
-    acc += cur.price * cur.cartItem.quantity;
+    acc += cur.price * cur.quantity;
     return acc;
   }, 0);
 
   const renderCart = products.map((book) => {
     return (
       <>
-        <div key={book.id} className="item_container">
+        <div key={book._id} className="item_container">
           <div className="item_container">
             <p>{book.title}</p>
-            <p>Quantity: {book.cartItem.quantity}</p>
+            <p>Quantity: {book.quantity}</p>
           </div>
           <Form style={{ display: "inline" }} method="POST">
-            <input type="hidden" name="id" value={book.id} />
+            <input type="hidden" name="id" value={book._id} />
             <input type="hidden" name="title" value={book.title} />
             <input type="hidden" name="price" value={book.price} />
 

@@ -1,43 +1,35 @@
 const Book = require("../model/books");
 
 exports.getCart = async (req, res, next) => {
-  const cart = await req.user.getCart();
-  const products = await cart.getBooks();
+  try {
+    const cart = await req.user.getCart();
 
-  res.send(products);
+    res.send(cart);
+  } catch (error) {
+    console.log("error:", error);
+  }
 };
 
 exports.postToCart = async (req, res, next) => {
-  const user = req.user;
-  const prodId = req.body.id;
-  const cart = await user.getCart();
-  const products = await cart.getBooks({ where: { id: prodId } });
-  let product;
-  let newQuantity = 1;
+  const prdId = req.body.id;
 
-  if (products.length > 0) {
-    product = products[0];
+  try {
+    const addedItem = await Book.findById(prdId);
+    await req.user.addToCart(addedItem);
+
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("error:", error);
   }
-
-  if (product) {
-    const oldQuantity = product.cartItem.quantity;
-    newQuantity = oldQuantity + 1;
-  }
-
-  const addProd = await Book.findByPk(prodId);
-  await cart.addBook(addProd, { through: { quantity: newQuantity } });
-  await user.addBook(addProd);
-
-  res.sendStatus(200);
 };
 
-exports.delFromCart = async (req, res, next) => {
-  const delItemId = req.body.id;
-  const cart = await req.user.getCart();
-  const products = await cart.getBooks({ where: { id: delItemId } });
+// exports.delFromCart = async (req, res, next) => {
+//   const delItemId = req.body.id;
+//   const cart = await req.user.getCart();
+//   const products = await cart.getBooks({ where: { id: delItemId } });
 
-  const product = products[0];
-  await product.cartItem.destroy();
+//   const product = products[0];
+//   await product.cartItem.destroy();
 
-  res.sendStatus(200);
-};
+//   res.sendStatus(200);
+// };
