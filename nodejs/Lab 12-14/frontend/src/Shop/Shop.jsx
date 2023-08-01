@@ -22,7 +22,7 @@ export default function Shop() {
         </div>
         <div className="card__actions">
           <button className="btn">
-            <Link to={`/${book.id}`}>Detail</Link>
+            <Link to={`/${book._id}`}>Detail</Link>
           </button>
 
           <Form style={{ display: "inline" }} method="POST">
