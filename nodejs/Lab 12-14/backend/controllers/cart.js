@@ -23,13 +23,12 @@ exports.postToCart = async (req, res, next) => {
   }
 };
 
-// exports.delFromCart = async (req, res, next) => {
-//   const delItemId = req.body.id;
-//   const cart = await req.user.getCart();
-//   const products = await cart.getBooks({ where: { id: delItemId } });
-
-//   const product = products[0];
-//   await product.cartItem.destroy();
-
-//   res.sendStatus(200);
-// };
+exports.delFromCart = async (req, res, next) => {
+  const delItemId = req.body.id;
+  try {
+    await req.user.delFromCart(delItemId);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("error:", error);
+  }
+};
