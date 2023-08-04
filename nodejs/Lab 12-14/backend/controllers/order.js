@@ -1,22 +1,6 @@
-const OrderItem = require("../model/order-item");
-
 exports.postOrder = async (req, res, next) => {
   try {
-    const user = req.user;
-    const cart = await user.getCart();
-    const books = await cart.getBooks({
-      include: [{ model: OrderItem, as: "orderItem" }],
-    });
-
-    if (books.length > 0) {
-      const order = await user.createOrder();
-      order.addBooks(
-        books.map((book) => {
-          console.log("orderItem", book.orderItem);
-          book.orderItem = { quantity: book.cartItem.quantity };
-        })
-      );
-    }
+    await req.user.addOrder();
 
     res.status(200).send({ message: "Created Order" });
   } catch (error) {
@@ -24,4 +8,11 @@ exports.postOrder = async (req, res, next) => {
   }
 };
 
-exports.getOrder = async (req, res, next) => {};
+exports.getOrder = async (req, res, next) => {
+  try {
+    const orders = await req.user.getOrder();
+    res.status(200).send(orders);
+  } catch (error) {
+    console.log("error:", error);
+  }
+};

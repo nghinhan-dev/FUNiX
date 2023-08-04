@@ -5,24 +5,30 @@ export default function Order() {
   // const { products, totalPrice } = useLoaderData();
 
   const orders = useLoaderData();
-  console.log("orders:", orders);
 
-  const renderCart = orders.map((book) => {
+  const renderOrder = orders.map((order) => {
     return (
       <>
-        <div key={book.id} className="item_container">
-          <div className="item_container">
-            <p>{book.title}</p>
-            <p>Quantity: {book.cartItem.quantity}</p>
-          </div>
-        </div>
+        <h3 key={order._id}>Order #{order._id}</h3>
+        {order.items.map((item) => {
+          return (
+            <>
+              <div key={item._id} className="item_container">
+                <div className="item_container">
+                  <p>{item.title}</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
+              </div>
+            </>
+          );
+        })}
       </>
     );
   });
 
   return (
     <>
-      {orders.length !== 0 ? renderCart : <h1>Empty cart!</h1>}
+      {orders.length !== 0 ? renderOrder : <h1>Empty cart!</h1>}
       {/* <h5>Total Price : {totalPrice}</h5> */}
       {/* <Link to={"/checkout"}>Check Out</Link> */}
     </>
