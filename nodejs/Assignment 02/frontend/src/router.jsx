@@ -8,6 +8,9 @@ import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Transactions from "./pages/transaction/Transactions";
 
+// fetch
+import { loader as getHotelDb } from "./pages/home/loader";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +19,7 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+        loader: getHotelDb,
       },
       {
         path: "transaction",
