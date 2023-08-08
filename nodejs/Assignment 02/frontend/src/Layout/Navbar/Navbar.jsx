@@ -37,6 +37,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="userLogin">
+            {user !== null && <p>{user.email}</p>}
             {user === null ? (
               <Link className="btn" to={`/register`}>
                 <p className="homePage">Register</p>

@@ -2,7 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { mongooseRun } = require("./util/mongoDB");
-const User = require("./model/User");
+// const User = require("./model/User");
+// routes
+const clientRoutes = require("./routes/client");
 
 const app = express();
 
@@ -12,6 +14,8 @@ app.use(
     origin: ["http://localhost:3000", "http://localhost:3001"],
   })
 );
+
+app.use(clientRoutes);
 
 mongooseRun()
   .then(() => {
