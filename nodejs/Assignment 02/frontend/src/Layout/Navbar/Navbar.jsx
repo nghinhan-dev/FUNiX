@@ -1,11 +1,17 @@
 import { useState } from "react";
 import navData from "/data/navBar.json";
 import NavbarItem from "./NavbarItem/NavbarItem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 export default function Navbar() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    setUser(null);
+    navigate("/");
+  };
 
   const [navState, setNavState] = useState(navData);
 
@@ -39,18 +45,24 @@ export default function Navbar() {
           <div className="userLogin">
             {user !== null && <p>{user.email}</p>}
             {user === null ? (
-              <Link className="btn" to={`/register`}>
-                <p className="homePage">Register</p>
-              </Link>
+              <>
+                <Link className="btn" to={`/register`}>
+                  <p className="homePage">Register</p>
+                </Link>
+                <Link className="btn" to={`/login`}>
+                  <p className="homePage">Login</p>
+                </Link>
+              </>
             ) : (
-              <Link className="btn" to={`/transaction`}>
-                <p className="homePage">Transactions</p>
-              </Link>
+              <>
+                <Link className="btn" to={`/transaction`}>
+                  <p className="homePage">Transactions</p>
+                </Link>
+                <button className="btn" onClick={logOut}>
+                  Log Out
+                </button>
+              </>
             )}
-
-            <Link className="btn" to={`/login`}>
-              <p className="homePage">Login</p>
-            </Link>
           </div>
         </div>
         <div className="navitemlist">{renderNavItem}</div>
