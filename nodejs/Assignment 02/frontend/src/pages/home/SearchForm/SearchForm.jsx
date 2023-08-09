@@ -5,11 +5,11 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 export default function SearchForm() {
-  const [isShowDateInput, setShowState] = useState(false);
-  const [pickedDate, setPickedDate] = useState({
+  const [searchForm, setSearchForm] = useState({
     startDate: "",
     endDate: "",
   });
+  const [isShowDateInput, setShowState] = useState(false);
 
   const [dateInput, setDateInput] = useState([
     {
@@ -19,22 +19,22 @@ export default function SearchForm() {
     },
   ]);
 
-  let selecDateHandler = (selection) => {
+  const selecDateHandler = (selection) => {
     const startDate = selection.startDate;
     const endDate = selection.endDate;
-    const formattedstartDate = startDate
-      .toLocaleDateString("en-GB")
-      .replace(/\//g, "-");
-    const formattedendDate = endDate
-      .toLocaleDateString("en-GB")
-      .replace(/\//g, "-");
 
     setDateInput([selection]);
 
-    setPickedDate(() => ({
-      startDate: formattedstartDate,
-      endDate: formattedendDate,
+    setSearchForm((prevState) => ({
+      ...prevState,
+      startDate: startDate,
+      endDate: endDate,
     }));
+  };
+
+  const submitSearchForm = (e) => {
+    e.preventDefault();
+    console.log(searchForm);
   };
 
   return (
@@ -47,10 +47,19 @@ export default function SearchForm() {
           ranges={dateInput}
         />
       ) : null}
-      <form id="search" action="#">
+      <form id="search" onSubmit={submitSearchForm}>
         <div>
           <i className="fa fa-map-marker-alt"></i>
-          <input type="text" placeholder="Where are you going?" />
+          <input
+            onChange={(e) =>
+              setSearchForm((prevState) => ({
+                ...prevState,
+                location: e.target.value,
+              }))
+            }
+            type="text"
+            placeholder="Where are you going?"
+          />
         </div>
         <div>
           <i
@@ -60,25 +69,65 @@ export default function SearchForm() {
           <input
             type="text"
             value={`${
-              pickedDate.startDate === ""
+              searchForm.startDate === ""
                 ? "Click the icon"
-                : pickedDate.startDate
+                : searchForm.startDate
+                    .toLocaleDateString("en-GB")
+                    .replace(/\//g, "-")
             } to ${
-              pickedDate.endDate === "" ? "pick date" : pickedDate.endDate
+              searchForm.endDate === ""
+                ? "pick date"
+                : searchForm.endDate
+                    .toLocaleDateString("en-GB")
+                    .replace(/\//g, "-")
             }`}
             onChange={() => console.log("Updated date!")}
           />
         </div>
-        <div>
-          <i className="fa fa-child"></i>
+        <div className="roomInput">
+          <i className="fa-solid fa-person"></i>
+          <p>Adult</p>
           <input
+            onChange={(e) =>
+              setSearchForm((prevState) => ({
+                ...prevState,
+                adult: e.target.value,
+              }))
+            }
             type="text"
-            placeholder="1 adult &#183; 1 child &#183; 1 room"
+            placeholder="1"
+          />
+          <i className="fa fa-child"></i>
+          <p>Child</p>
+          <input
+            onChange={(e) =>
+              setSearchForm((prevState) => ({
+                ...prevState,
+                child: e.target.value,
+              }))
+            }
+            type="text"
+            placeholder="1"
+          />
+          <i className="fa-solid fa-door-open"></i>
+          <p>Room</p>
+          <input
+            onChange={(e) =>
+              setSearchForm((prevState) => ({
+                ...prevState,
+                room: e.target.value,
+              }))
+            }
+            type="text"
+            placeholder="1"
           />
         </div>
         <Link to={"/Search"} className="btn">
           Search
         </Link>
+        {/* <button type="submit" className="btn">
+          Search
+        </button> */}
       </form>
     </>
   );

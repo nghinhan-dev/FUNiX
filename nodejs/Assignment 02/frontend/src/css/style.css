@@ -273,7 +273,7 @@ header p {
 }
 header .btn {
   margin-top: 20px;
-  margin-bottom: 65px;
+  margin-bottom: 50px;
   color: white;
   background-color: var(--sub-color);
   font-size: 16px;
@@ -308,10 +308,15 @@ header .btn {
   font-size: 17px;
   margin-right: 8px;
 }
+#search p {
+  margin-top: 0;
+}
 #search input {
   border: none;
   font-size: 15px;
-  padding: 6px;
+  padding: 4px;
+  margin: 0 5px;
+  border: 1px solid #003580;
 }
 #search input:focus {
   border-color: var(--abt-color);
@@ -635,4 +640,9 @@ header .btn {
 .userLogin {
   display: flex;
   align-items: center;
+}
+
+.roomInput input {
+  width: 20px;
+  margin: 0 5px;
 }

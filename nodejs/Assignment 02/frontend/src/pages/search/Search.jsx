@@ -45,7 +45,7 @@ export default function Search() {
   });
 
   return (
-    <>
+    <section>
       <div className="search_container">
         <div className="search__form">
           <h3>Search</h3>
@@ -88,7 +88,6 @@ export default function Search() {
         </div>
         <div className="search__list">{renderSearchList}</div>
       </div>
-      <section> {/* intended */}</section>
-    </>
+    </section>
   );
 }
