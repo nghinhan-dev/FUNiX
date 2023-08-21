@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+const bookedRangeSchema = new Schema({
+  startDate: Date,
+  endDate: Date,
+});
+
 const roomSchema = new Schema({
-  title: String,
-  price: Number,
-  maxPeople: Number,
-  desc: String,
-  roomNumbers: [Number],
+  number: Number,
+  bookedRange: [bookedRangeSchema],
 });
 
 const Room = mongoose.model("Room", roomSchema);
