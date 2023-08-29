@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useSearchContext } from "../../../context/SearchContext";
+import { Link, useNavigate } from "react-router-dom";
+import { search } from "../../../util/search";
 import { DateRange } from "react-date-range";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
+import { formatDate } from "../../../util/formatDate";
 
 export default function SearchForm() {
-  const [searchForm, setSearchForm] = useState({
-    startDate: "",
-    endDate: "",
-  });
+  const navigate = useNavigate();
+  const { searchContext, setSearchContext } = useSearchContext();
   const [isShowDateInput, setShowState] = useState(false);
 
   const [dateInput, setDateInput] = useState([
@@ -20,21 +19,24 @@ export default function SearchForm() {
   ]);
 
   const selecDateHandler = (selection) => {
-    const startDate = selection.startDate;
-    const endDate = selection.endDate;
+    const startDate = formatDate(selection.startDate);
+    const endDate = formatDate(selection.endDate);
 
     setDateInput([selection]);
 
-    setSearchForm((prevState) => ({
+    setSearchContext((prevState) => ({
       ...prevState,
       startDate: startDate,
       endDate: endDate,
     }));
   };
 
-  const submitSearchForm = (e) => {
+  const submitSearchForm = async (e) => {
     e.preventDefault();
-    console.log(searchForm);
+    // console.log("searchContext:", searchContext);
+    const data = await search(searchContext);
+    setSearchContext((prevState) => ({ ...prevState, result: data }));
+    navigate("/search");
   };
 
   return (
@@ -52,9 +54,9 @@ export default function SearchForm() {
           <i className="fa fa-map-marker-alt"></i>
           <input
             onChange={(e) =>
-              setSearchForm((prevState) => ({
+              setSearchContext((prevState) => ({
                 ...prevState,
-                location: e.target.value,
+                city: e.target.value,
               }))
             }
             type="text"
@@ -69,19 +71,13 @@ export default function SearchForm() {
           <input
             type="text"
             value={`${
-              searchForm.startDate === ""
+              searchContext.startDate === ""
                 ? "Click the icon"
-                : searchForm.startDate
-                    .toLocaleDateString("en-GB")
-                    .replace(/\//g, "-")
+                : searchContext.startDate
             } to ${
-              searchForm.endDate === ""
-                ? "pick date"
-                : searchForm.endDate
-                    .toLocaleDateString("en-GB")
-                    .replace(/\//g, "-")
+              searchContext.endDate === "" ? "pick date" : searchContext.endDate
             }`}
-            onChange={() => console.log("Updated date!")}
+            onChange={() => 1}
           />
         </div>
         <div className="roomInput">
@@ -89,7 +85,7 @@ export default function SearchForm() {
           <p>Adult</p>
           <input
             onChange={(e) =>
-              setSearchForm((prevState) => ({
+              setSearchContext((prevState) => ({
                 ...prevState,
                 adult: e.target.value,
               }))
@@ -101,19 +97,19 @@ export default function SearchForm() {
           <p>Child</p>
           <input
             onChange={(e) =>
-              setSearchForm((prevState) => ({
+              setSearchContext((prevState) => ({
                 ...prevState,
                 child: e.target.value,
               }))
             }
             type="text"
-            placeholder="1"
+            placeholder="0"
           />
           <i className="fa-solid fa-door-open"></i>
           <p>Room</p>
           <input
             onChange={(e) =>
-              setSearchForm((prevState) => ({
+              setSearchContext((prevState) => ({
                 ...prevState,
                 room: e.target.value,
               }))
@@ -122,12 +118,12 @@ export default function SearchForm() {
             placeholder="1"
           />
         </div>
-        <Link to={"/Search"} className="btn">
+        {/* <Link to={"/Search"} className="btn">
           Search
-        </Link>
-        {/* <button type="submit" className="btn">
+        </Link> */}
+        <button type="submit" className="btn">
           Search
-        </button> */}
+        </button>
       </form>
     </>
   );

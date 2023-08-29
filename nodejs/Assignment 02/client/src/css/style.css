@@ -81,7 +81,7 @@ img {
   position: absolute;
   z-index: 3;
   top: 225px;
-  left: 250px;
+  left: 265px;
 }
 
 .navbrand {
@@ -412,7 +412,9 @@ header .btn {
   max-width: 1100px;
   padding-top: 60px;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
 }
 .search_container h3 {
   font-size: 25px;
@@ -429,16 +431,22 @@ header .btn {
 .search_container .search__form {
   height: -moz-fit-content;
   height: fit-content;
-  width: 26%;
   background-color: var(--abt-color);
   border-radius: 12px;
-  margin-right: 20px;
   padding: 8px 12px;
+}
+.search_container .search__form .btn {
+  width: 100%;
+  background: var(--main-color);
+  color: white;
+}
+.search_container .search__form .btn:hover {
+  background: var(--green);
 }
 .search_container .search__form h3 {
   color: #555553;
 }
-.search_container .search__form > div {
+.search_container .search__form form > div {
   margin: 18px 0;
   width: 100%;
 }
@@ -468,9 +476,7 @@ header .btn {
   align-items: center;
   margin-bottom: 8px;
 }
-.search_container .search__list {
-  flex-grow: 1;
-}
+
 .search_container .search__list .search__item {
   height: 30vmin;
   border: 1px solid grey;
@@ -481,16 +487,23 @@ header .btn {
 }
 .search_container .search__list .search__img {
   height: 100%;
-  width: 24%;
-  margin-right: 17px;
 }
 .search_container .search__list .search__desc {
   display: flex;
-  flex-grow: 1;
+  padding: 0 15px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
 }
+.search_container .search__list .search__desc .desc {
+  display: block;
+  height: 60px;
+  width: 458px;
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides any overflow beyond the container */
+  text-overflow: ellipsis;
+}
+
 .search_container .search__list .search__desc p.tag {
   background-color: var(--green);
   padding: 3px 4px;
@@ -505,7 +518,6 @@ header .btn {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 25%;
 }
 .search_container .search__list .search__overall .rate {
   display: flex;
@@ -526,7 +538,8 @@ header .btn {
   font-size: 26px;
 }
 .search_container .search__list .search__overall .tax {
-  font-size: 12px;
+  font-size: 10px;
+  margin-bottom: 5px;
 }
 .search_container .search__list .search__overall .btn {
   width: 100%;
@@ -535,8 +548,8 @@ header .btn {
   border-radius: 8px;
   font-weight: 600;
   background-color: var(--sub-color);
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   transition: 0.5s all;
 }
 .search_container .search__list .search__overall .btn:hover {

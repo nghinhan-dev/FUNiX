@@ -34,11 +34,11 @@ const router = createBrowserRouter([
         element: <Register />,
       },
       {
-        path: "/Search",
+        path: "/search",
         element: <Search />,
       },
       {
-        path: "/Detail",
+        path: "/detail",
         element: <Detail />,
       },
     ],
