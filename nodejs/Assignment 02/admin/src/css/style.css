@@ -4,4 +4,59 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto Flex", sans-serif;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+#main-layout {
+  width: 220px;
+  color: #5735df;
+  height: 100vh;
+  border-right: 2px solid rgba(128, 128, 128, 0.32);
+  font-size: 18px;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  padding: 22px 0px;
+  font-size: 28px;
+  border-bottom: 2px solid rgba(128, 128, 128, 0.32);
+}
+
+#layout-nav ul {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  padding-top: 12px;
+}
+#layout-nav ul > * {
+  padding: 6px 0;
+}
+#layout-nav ul i {
+  width: 25px;
+  text-align: center;
+  margin-right: 5px;
+  color: #5735df;
+}
+#layout-nav ul p {
+  padding: 10px 0;
+  font-size: 20px;
+}
+#layout-nav ul p,
+#layout-nav ul a {
+  color: rgba(128, 128, 128, 0.9529411765);
+  text-transform: capitalize;
+  transition: 0.5s all;
+}
+#layout-nav ul p:hover,
+#layout-nav ul a:hover {
+  color: #5735df;
 }/*# sourceMappingURL=style.css.map */
