@@ -145,6 +145,7 @@ exports.search = async (req, res, next) => {
     startDate: req.body.startDate ? req.body.startDate : 0,
     endDate: req.body.endDate ? req.body.endDate : 0,
   };
+  console.log("formData:", formData);
 
   try {
     // get hotel has matching city
@@ -154,13 +155,13 @@ exports.search = async (req, res, next) => {
       {
         $lookup: {
           from: "typeofrooms",
-          let: { typeIds: "$rooms" },
+          let: { typeIds: "$rooms" }, // rooms thuoc ve Hotel
           pipeline: [
             {
               $match: {
                 $expr: {
                   $and: [
-                    { $lt: [formData.maxPeople, "$maxPeople"] },
+                    { $lte: [formData.maxPeople, "$maxPeople"] },
                     {
                       $in: [{ $toString: "$_id" }, "$$typeIds"],
                     },
@@ -169,11 +170,11 @@ exports.search = async (req, res, next) => {
               },
             },
           ],
-          as: "roomsType",
+          as: "roomsType", // roomsType : [] bi. loai.
         },
       },
       {
-        $match: { availableTypeofRoom: { $ne: [] } },
+        $match: { roomsType: { $ne: [] } },
       },
       {
         $lookup: {
@@ -228,7 +229,7 @@ exports.search = async (req, res, next) => {
 
     res.status(200).send(hotels);
   } catch (error) {
-    console.log("error:", error);
-    res.status(404).send(`${error}`);
+    console.log("error dude:", error);
+    res.send(`${error}`);
   }
 };
