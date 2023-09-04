@@ -22,7 +22,7 @@ a {
 .btn {
   display: inline-block;
   background: #fff;
-  margin: 0 3px !important;
+  margin: 5px 3px !important;
   border: 1px dashed;
   padding: 2px 10px;
   cursor: pointer;
@@ -40,6 +40,38 @@ a {
 }
 .header h3 {
   font-size: 30px;
+}
+
+.pagnigate-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  font-size: 14px;
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+}
+.pagnigate-container ul {
+  display: flex;
+  padding: 3px;
+  list-style: none;
+  color: rgba(0, 0, 0, 0.7607843137);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2862745098);
+}
+.pagnigate-container li {
+  display: block;
+  padding: 0 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  box-sizing: content-box;
+  border: 1px solid #fff;
+}
+.pagnigate-container li:hover {
+  border: 1px solid blue;
+}
+.pagnigate-container li.selected {
+  text-decoration: underline;
+  font-weight: 600;
 }
 
 #main-layout {
@@ -99,49 +131,51 @@ h2 {
 #render_data .header {
   display: flex;
 }
-#render_data .hotel_table {
+#render_data .table_container {
+  position: relative;
+  height: 481px;
   width: 100%;
   display: block;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2862745098);
   padding: 5px 15px;
   padding-bottom: 20px;
 }
-#render_data .hotel_table table {
+#render_data .table_container table {
   width: 100%;
   border-collapse: collapse;
 }
-#render_data .hotel_table thead th {
+#render_data .table_container thead th {
   border-bottom: 1px solid black;
 }
-#render_data .hotel_table tbody {
+#render_data .table_container tbody {
   font-weight: 200;
 }
-#render_data .hotel_table tbody tr {
+#render_data .table_container tbody tr {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2862745098);
 }
-#render_data .hotel_table tbody .btn {
+#render_data .table_container tbody .btn {
   width: 60px;
 }
-#render_data .hotel_table tbody .btn-del {
+#render_data .table_container tbody .btn-del {
   color: red;
   border-color: red;
 }
-#render_data .hotel_table tbody .btn-edit {
+#render_data .table_container tbody .btn-edit {
   color: #3498db;
   border-color: #3498db;
 }
-#render_data .hotel_table i {
+#render_data .table_container i {
   text-align: right;
 }
-#render_data .hotel_table p {
+#render_data .table_container p {
   padding-left: 15px;
 }
-#render_data .hotel_table th {
+#render_data .table_container th {
   padding-right: 8px;
   position: relative;
   text-align: left;
 }
-#render_data .hotel_table th::after {
+#render_data .table_container th::after {
   display: block;
   position: absolute;
   right: 0;
@@ -152,13 +186,17 @@ h2 {
   content: "";
   transform: translateY(-50%);
 }
-#render_data .hotel_table th > *,
-#render_data .hotel_table td > * {
-  margin: 10px 0;
+#render_data .table_container th > *,
+#render_data .table_container td > * {
+  margin: 15px 0;
 }
-#render_data .hotel_table .id-col {
+#render_data .table_container .id-col {
   width: 120px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.type_room_table {
+  font-size: 15px;
 }/*# sourceMappingURL=style.css.map */

@@ -1,10 +1,20 @@
 import { Link, useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 export default function Hotel() {
   const hotelData = useLoaderData();
 
+  const [pageOffSet, setPageOffSet] = useState(0);
+  // make 6 per page is default
+  const itemsPerPage = 6;
+
+  const endOffSet = pageOffSet + itemsPerPage;
+  const currentItems = hotelData.slice(pageOffSet, endOffSet);
+  const pageCount = Math.ceil(hotelData.length / itemsPerPage);
+
   // render hotel list
-  const renderHotelList = hotelData.map((hotel) => {
+  const renderHotelList = currentItems.map((hotel) => {
     return (
       <tr key={hotel._id}>
         <td>
@@ -37,6 +47,13 @@ export default function Hotel() {
     );
   });
 
+  // Invoke when user click to request another page.
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * itemsPerPage) % hotelData.length;
+
+    setPageOffSet(newOffset);
+  };
+
   return (
     <>
       <section id="render_data">
@@ -46,7 +63,7 @@ export default function Hotel() {
             Add New
           </Link>
         </div>
-        <div className="hotel_table">
+        <div className="table_container">
           <table>
             <thead>
               <tr>
@@ -75,6 +92,15 @@ export default function Hotel() {
             </thead>
             <tbody>{renderHotelList}</tbody>
           </table>
+          <div className="pagnigate-container">
+            <ReactPaginate
+              pageCount={pageCount}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              previousLabel="< Prev"
+              nextLabel="Next >"
+            />
+          </div>
         </div>
       </section>
     </>
