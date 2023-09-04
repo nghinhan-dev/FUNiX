@@ -48,7 +48,22 @@ exports.createUser = async (req, res, next) => {
   }
 };
 
-exports.hotelDB = async (req, res, next) => {
+exports.getHotel = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.find({});
+
+    if (hotel.length === 0) {
+      throw new Error("Cant fetch hotel database");
+    }
+
+    res.status(200).send(hotel);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(409).send(`${error}`);
+  }
+};
+
+exports.overallHotel = async (req, res, next) => {
   let cityResult = {
     HaNoi: 0,
     HoChiMinh: 0,
