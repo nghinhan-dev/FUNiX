@@ -11,8 +11,35 @@ body {
   overflow: hidden;
 }
 
+#root {
+  display: flex;
+}
+
 a {
   text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  background: #fff;
+  margin: 0 3px !important;
+  border: 1px dashed;
+  padding: 2px 10px;
+  cursor: pointer;
+}
+.btn:hover {
+  border-style: solid;
+}
+
+.header {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.header h3 {
+  font-size: 30px;
 }
 
 #main-layout {
@@ -21,12 +48,13 @@ a {
   height: 100vh;
   border-right: 2px solid rgba(128, 128, 128, 0.32);
   font-size: 18px;
+  display: inline-block;
 }
 
 h2 {
+  padding: 5vh 0;
   text-transform: uppercase;
   text-align: center;
-  padding: 22px 0px;
   font-size: 28px;
   border-bottom: 2px solid rgba(128, 128, 128, 0.32);
 }
@@ -59,4 +87,78 @@ h2 {
 #layout-nav ul p:hover,
 #layout-nav ul a:hover {
   color: #5735df;
+}
+
+#render_data {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+}
+#render_data .header {
+  display: flex;
+}
+#render_data .hotel_table {
+  width: 100%;
+  display: block;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2862745098);
+  padding: 5px 15px;
+  padding-bottom: 20px;
+}
+#render_data .hotel_table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#render_data .hotel_table thead th {
+  border-bottom: 1px solid black;
+}
+#render_data .hotel_table tbody {
+  font-weight: 200;
+}
+#render_data .hotel_table tbody tr {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2862745098);
+}
+#render_data .hotel_table tbody .btn {
+  width: 60px;
+}
+#render_data .hotel_table tbody .btn-del {
+  color: red;
+  border-color: red;
+}
+#render_data .hotel_table tbody .btn-edit {
+  color: #3498db;
+  border-color: #3498db;
+}
+#render_data .hotel_table i {
+  text-align: right;
+}
+#render_data .hotel_table p {
+  padding-left: 15px;
+}
+#render_data .hotel_table th {
+  padding-right: 8px;
+  position: relative;
+  text-align: left;
+}
+#render_data .hotel_table th::after {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  height: 45%;
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.2862745098);
+  content: "";
+  transform: translateY(-50%);
+}
+#render_data .hotel_table th > *,
+#render_data .hotel_table td > * {
+  margin: 10px 0;
+}
+#render_data .hotel_table .id-col {
+  width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }/*# sourceMappingURL=style.css.map */
