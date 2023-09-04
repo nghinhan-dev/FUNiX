@@ -1,8 +1,6 @@
 const User = require("../model/User");
 const Hotel = require("../model/Hotel");
-const TypeofRoom = require("../model/TypesofRoom");
-const Room = require("../model/Room");
-const { Types } = require("mongoose");
+const TypesRoom = require("../model/TypesofRoom");
 
 exports.loginUser = async (req, res, next) => {
   try {
@@ -51,6 +49,21 @@ exports.createUser = async (req, res, next) => {
 exports.getHotel = async (req, res, next) => {
   try {
     const hotel = await Hotel.find({});
+
+    if (hotel.length === 0) {
+      throw new Error("Cant fetch hotel database");
+    }
+
+    res.status(200).send(hotel);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(409).send(`${error}`);
+  }
+};
+
+exports.getTypeRoom = async (req, res, next) => {
+  try {
+    const hotel = await TypesRoom.find({});
 
     if (hotel.length === 0) {
       throw new Error("Cant fetch hotel database");
