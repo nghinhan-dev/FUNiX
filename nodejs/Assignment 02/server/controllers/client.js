@@ -1,6 +1,7 @@
 const User = require("../model/User");
 const Hotel = require("../model/Hotel");
 const TypesRoom = require("../model/TypesofRoom");
+const Room = require("../model/Room");
 
 exports.loginUser = async (req, res, next) => {
   try {
@@ -63,13 +64,28 @@ exports.getHotel = async (req, res, next) => {
 
 exports.getTypeRoom = async (req, res, next) => {
   try {
-    const hotel = await TypesRoom.find({});
+    const typeRooms = await TypesRoom.find({});
 
-    if (hotel.length === 0) {
-      throw new Error("Cant fetch hotel database");
+    if (typeRooms.length === 0) {
+      throw new Error("Cant fetch typeRooms database");
     }
 
-    res.status(200).send(hotel);
+    res.status(200).send(typeRooms);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(409).send(`${error}`);
+  }
+};
+
+exports.getRoom = async (req, res, next) => {
+  try {
+    const rooms = await Room.find({});
+
+    if (rooms.length === 0) {
+      throw new Error("Cant fetch rooms database");
+    }
+
+    res.status(200).send(rooms);
   } catch (error) {
     console.log("error:", error);
     res.status(409).send(`${error}`);
