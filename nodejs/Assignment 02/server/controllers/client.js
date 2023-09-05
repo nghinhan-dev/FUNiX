@@ -92,6 +92,21 @@ exports.getRoom = async (req, res, next) => {
   }
 };
 
+exports.getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({});
+
+    if (users.length === 0) {
+      throw new Error("Cant fetch users database");
+    }
+
+    res.status(200).send(users);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(409).send(`${error}`);
+  }
+};
+
 exports.overallHotel = async (req, res, next) => {
   let cityResult = {
     HaNoi: 0,
