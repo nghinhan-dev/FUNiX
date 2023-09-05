@@ -63,7 +63,7 @@ export default function Hotel() {
             Add New
           </Link>
         </div>
-        <div className="table_container">
+        <div className="table_container main-shadow">
           <table>
             <thead>
               <tr>

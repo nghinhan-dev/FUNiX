@@ -66,7 +66,7 @@ export default function TypeRoom() {
             Add New
           </Link>
         </div>
-        <div className="table_container">
+        <div className="table_container main-shadow">
           <table className="type_room_table">
             <thead>
               <tr>
