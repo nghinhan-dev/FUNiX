@@ -79,7 +79,7 @@ export default function RRoom() {
                 <th style={{ width: "100px" }}>
                   <p>ID</p>
                 </th>
-                <th style={{ width: "190px" }}>
+                <th style={{ width: "100px" }}>
                   <p>Number</p>
                 </th>
                 <th style={{ width: "590px" }}>
