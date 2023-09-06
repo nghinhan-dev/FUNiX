@@ -263,18 +263,16 @@ h2 {
   position: absolute;
   z-index: 2;
   padding: 0 5px;
-  top: 28px;
   left: 12px;
   font-size: 18px;
   background: white;
   transform: translateY(-50%);
   color: #5735df;
-  opacity: 0.7;
   transition: all 0.2s ease-in-out;
 }
-.add-form-container .form-inputs > div:has(input:focus-visible) label {
-  top: 0;
-  opacity: 1;
+.add-form-container .form-inputs > div:has(input:focus-visible) label, .add-form-container .form-inputs > div:has(input:not(:empty)) label {
+  top: 0 !important;
+  opacity: 1 !important;
 }
 .add-form-container .form-inputs input[type=text],
 .add-form-container .form-inputs input[type=email] {
