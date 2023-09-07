@@ -21,13 +21,12 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
-exports.createUser = async (req, res, next) => {
+exports.clientCreateUser = async (req, res, next) => {
   try {
     const users = await User.find({
       username: req.body.username,
     });
 
-    console.log("users:", users);
     if (users.length !== 0) {
       throw new Error("Account already existed!");
     }
@@ -44,6 +43,35 @@ exports.createUser = async (req, res, next) => {
   } catch (error) {
     console.log("error:", error);
     res.status(409).send(`${error}`);
+  }
+};
+
+exports.adminCreateUser = async (req, res, next) => {
+  try {
+    const users = await User.find({
+      username: req.body.username,
+    });
+
+    if (users.length !== 0) {
+      throw new Error("Account already existed!");
+    }
+
+    const newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      fullName: req.body.fullName,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email,
+      isAdmin: req.body.isAdmin,
+    });
+
+    await newUser.save();
+
+    res.status(200).send({
+      username: newUser.username,
+    });
+  } catch (errorMessage) {
+    res.status(409).send({ error: errorMessage });
   }
 };
 
