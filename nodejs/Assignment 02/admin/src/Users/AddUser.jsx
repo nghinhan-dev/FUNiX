@@ -5,7 +5,6 @@ import { ToastContainer } from "react-toastify";
 
 export default function AddUser() {
   const notify = useActionData();
-  console.log("notify:", notify);
 
   useEffect(() => {
     notify?.confirmError && toastError(notify.unmatch);
