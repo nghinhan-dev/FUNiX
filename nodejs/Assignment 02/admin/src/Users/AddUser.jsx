@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData } from "react-router-dom";
-import { toastError } from "../util/toast";
+import { toastError, toastSuccess } from "../util/toast";
 import { ToastContainer } from "react-toastify";
 
 export default function AddUser() {
-  const errors = useActionData();
+  const notify = useActionData();
+  console.log("notify:", notify);
 
   useEffect(() => {
-    errors?.confirm && toastError(errors.unmatch);
-  }, [errors?.confirm, errors?.unmatch]);
+    notify?.confirmError && toastError(notify.unmatch);
+
+    notify?.error && toastError(notify.error);
+
+    notify?.success &&
+      toastSuccess(`Add ${notify.success.username} to database!`);
+  }, [notify?.confirmError, notify]);
 
   const [formInput, setFormInput] = useState({
     username: "",
@@ -18,6 +24,7 @@ export default function AddUser() {
     phone: "",
     email: "",
   });
+
   const labelHasTextStyle = {
     opacity: "1",
     top: "0px",
@@ -196,20 +203,19 @@ export default function AddUser() {
                 <input
                   type="checkbox"
                   name="isAdmin"
-                  onChange={(e) => {
-                    console.log(e.target.value === "on");
-                    return setFormInput((prevState) => ({
+                  onChange={(e) =>
+                    setFormInput((prevState) => ({
                       ...prevState,
                       isAdmin: e.target.checked,
-                    }));
-                  }}
+                    }))
+                  }
                 />
               </div>
             </div>
           </div>
         </Form>
       </section>
-      <ToastContainer limit={1} />
+      <ToastContainer />
     </>
   );
 }
