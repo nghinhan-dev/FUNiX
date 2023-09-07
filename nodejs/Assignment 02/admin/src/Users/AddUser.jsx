@@ -14,7 +14,7 @@ export default function AddUser() {
 
     notify?.success &&
       toastSuccess(`Add ${notify.success.username} to database!`);
-  }, [notify?.confirmError, notify]);
+  }, [notify]);
 
   const [formInput, setFormInput] = useState({
     username: "",
