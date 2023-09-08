@@ -269,6 +269,7 @@ h2 {
   transform: translateY(-50%);
   color: #5735df;
   transition: all 0.2s ease-in-out;
+  text-transform: capitalize;
 }
 .add-form-container .form-inputs > div:has(input:focus-visible) label, .add-form-container .form-inputs > div:has(input:not(:empty)) label {
   top: 0 !important;
