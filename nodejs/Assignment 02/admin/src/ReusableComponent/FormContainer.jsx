@@ -7,8 +7,8 @@ export default function FormContainer({ title, children }) {
     <section id="render_data">
       <Form method="POST">
         <div className="header">
-          <h3>Add {title}</h3>
-          <button className="btn btn-add" type="submit">
+          <h3>{title}</h3>
+          <button className="btn btn-submit" type="submit">
             Submit
           </button>
         </div>
