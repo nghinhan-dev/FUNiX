@@ -30,7 +30,7 @@ export default function AddUser() {
 
   return (
     <>
-      <FormContainer title={"User"}>
+      <FormContainer title={"Add User"}>
         <FormDisplay fields={formInput} />
         <FormInputs fields={formInput} setFormInput={setFormInput} />
       </FormContainer>

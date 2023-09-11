@@ -16,7 +16,13 @@ body {
 }
 
 a {
+  display: inline-block;
   text-decoration: none;
+}
+a.btn {
+  font-size: 13.3333333333px;
+  text-align: center;
+  font-weight: 500;
 }
 
 .btn {
@@ -32,8 +38,8 @@ a {
   border-style: solid;
 }
 
-.btn-add {
-  font-size: 18px;
+.btn-submit {
+  font-size: 18px !important;
   padding: 4px 12px;
   color: green;
   border-color: green;
