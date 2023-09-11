@@ -5,6 +5,10 @@ export default function FormInputs({ fields, setFormInput }) {
     const components = [];
 
     for (const [key, value] of Object.entries(obj)) {
+      if (key === "_id") {
+        continue;
+      }
+
       if (key.includes("is")) {
         components.push(
           <InputCheckBox
@@ -54,7 +58,12 @@ function InputText({ value, name, setFormInput }) {
       <label style={value.length !== 0 ? filledStyle : emptyStyle}>
         {name}
       </label>
-      <input type="text" name={name} onChange={handleInputChange} />
+      <input
+        type="text"
+        value={value.length === 0 ? "" : value}
+        name={name}
+        onChange={handleInputChange}
+      />
     </div>
   );
 }
