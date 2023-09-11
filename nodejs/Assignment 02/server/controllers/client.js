@@ -320,3 +320,35 @@ exports.search = async (req, res, next) => {
     res.send(`${error}`);
   }
 };
+
+exports.getSpecificUser = async (req, res, next) => {
+  const id = req.params.id;
+
+  const user = await User.findById(id);
+
+  if (!user) {
+    return res
+      .status(404)
+      .send({ statusText: "Cannot find any user with given id" });
+  }
+
+  res.status(200).send(user);
+};
+
+exports.updateUser = async (req, res, next) => {
+  const userId = req.params.id;
+  const updateData = req.body; // Update data from the request body
+  console.log("updateData:", updateData);
+
+  // Use findByIdAndUpdate to find and update the user
+  // The { new: true } option returns the updated document
+  const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
+    new: true,
+  });
+
+  if (!updatedUser) {
+    return res.status(404).send({ statusText: "User not found" });
+  }
+
+  res.status(200).send(updatedUser);
+};
