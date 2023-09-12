@@ -13,6 +13,9 @@ import { action as addUserAction } from "./Users/action";
 import EditUser from "./Users/Edit/EditUser";
 import { loader as getSpecificUser } from "./Users/Edit/getSpecificUser";
 import { action as updateUser } from "./Users/Edit/updateUser";
+import AddRoom from "./Room/AddRoom";
+import AddHotel from "./Hotel/AddHotel";
+import AddRoomType from "./TypeofRoom/AddRoomType";
 
 const router = createBrowserRouter([
   {
@@ -25,14 +28,28 @@ const router = createBrowserRouter([
         loader: hotelLoader,
       },
       {
+        path: "/add_hotel",
+        element: <AddHotel />,
+      },
+      // room_type related paths
+      {
         path: "/room_type",
         element: <TypeRoom />,
         loader: typeRoomLoader,
       },
       {
+        path: "/add_roomType",
+        element: <AddRoomType />,
+      },
+      // room related paths
+      {
         path: "/rooms",
         element: <Room />,
         loader: roomLoader,
+      },
+      {
+        path: "/add_room",
+        element: <AddRoom />,
       },
       // User related paths
       {

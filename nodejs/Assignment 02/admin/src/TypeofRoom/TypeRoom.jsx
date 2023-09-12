@@ -62,7 +62,7 @@ export default function TypeRoom() {
       <section id="render_data">
         <div className="header">
           <h3>Type of Rooms List</h3>
-          <Link className="btn" to={"/add_typeRoom"}>
+          <Link className="btn btn-submit" to={"/add_roomType"}>
             Add New
           </Link>
         </div>
