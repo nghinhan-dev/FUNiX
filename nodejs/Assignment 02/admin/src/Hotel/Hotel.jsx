@@ -30,7 +30,7 @@ export default function Hotel() {
           <p className="type-col">{hotel.type}</p>
         </td>
         <td>
-          <p>{hotel.title}</p>
+          <p>{hotel.cheapestPrice}</p>
         </td>
         <td>
           <p>{hotel.city}</p>
@@ -79,8 +79,8 @@ export default function Hotel() {
                 <th>
                   <p>Type</p>
                 </th>
-                <th style={{ width: "275px" }}>
-                  <p>Title</p>
+                <th>
+                  <p>Price</p>
                 </th>
                 <th style={{ width: "150px" }}>
                   <p>City</p>

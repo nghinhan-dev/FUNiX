@@ -65,7 +65,7 @@ export default function RRoom() {
       <section id="render_data">
         <div className="header">
           <h3>Rooms List</h3>
-          <Link className="btn" to={"/add_room"}>
+          <Link className="btn btn-submit" to={"/add_room"}>
             Add New
           </Link>
         </div>
