@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
 import { toastError, toastSuccess } from "../util/toast";
-import { ToastContainer } from "react-toastify";
+
 import FormContainer from "../ReusableComponent/FormContainer";
 import FormDisplay from "../ReusableComponent/FormDisplay";
 import FormInputs from "../ReusableComponent/FormInputs";
@@ -34,7 +34,6 @@ export default function AddUser() {
         <FormDisplay fields={formInput} />
         <FormInputs fields={formInput} setFormInput={setFormInput} />
       </FormContainer>
-      <ToastContainer />
     </>
   );
 }

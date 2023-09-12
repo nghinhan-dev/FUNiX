@@ -4,7 +4,6 @@ import FormDisplay from "../../ReusableComponent/FormDisplay";
 import FormInputs from "../../ReusableComponent/FormInputs";
 import { useEffect, useState } from "react";
 import { toastSuccess } from "../../util/toast";
-import { ToastContainer } from "react-toastify";
 
 export default function EditUser() {
   const data = useLoaderData();
@@ -23,7 +22,6 @@ export default function EditUser() {
         <FormDisplay fields={userData} />
         <FormInputs fields={userData} setFormInput={setUserData} />
       </FormContainer>
-      <ToastContainer />
     </>
   );
 }
