@@ -3,11 +3,19 @@ export default function FormDisplay({ fields }) {
   const renderFields = (obj) => {
     const elements = [];
     for (const [key, value] of Object.entries(obj)) {
-      elements.push(
-        <p key={key}>
-          {key} : <span>{value}</span>
-        </p>
-      );
+      if (key === "rooms" || key === "photos") {
+        elements.push(
+          <p key={key}>
+            {key} : <span>{value.toString()}</span>
+          </p>
+        );
+      } else {
+        elements.push(
+          <p key={key}>
+            {key}: <span>{value}</span>
+          </p>
+        );
+      }
     }
 
     return elements;
