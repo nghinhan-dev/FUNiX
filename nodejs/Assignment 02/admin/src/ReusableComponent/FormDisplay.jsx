@@ -3,12 +3,18 @@ export default function FormDisplay({ fields }) {
   const renderFields = (obj) => {
     const elements = [];
     for (const [key, value] of Object.entries(obj)) {
-      if (key === "rooms" || key === "photos") {
-        elements.push(
-          <p key={key}>
-            {key} : <span>{value.toString()}</span>
-          </p>
-        );
+      if (typeof value === "object") {
+        key === "bookedRange"
+          ? elements.push(
+              <p key={key}>
+                {key}: <span>{displayDateArray(value)}</span>
+              </p>
+            )
+          : elements.push(
+              <p key={key}>
+                {key} : <span>{value.toString()}</span>
+              </p>
+            );
       } else {
         elements.push(
           <p key={key}>
@@ -30,4 +36,14 @@ export default function FormDisplay({ fields }) {
       </code>
     </div>
   );
+}
+
+function displayDateArray(value) {
+  const result = value.reduce((acc, cur) => {
+    return (
+      acc + `${cur.startDate.slice(0, 10)} to ${cur.endDate.slice(0, 10)}, `
+    );
+  }, "");
+
+  return result;
 }

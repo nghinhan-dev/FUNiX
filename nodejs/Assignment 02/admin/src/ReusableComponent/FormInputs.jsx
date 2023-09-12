@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 export default function FormInputs({ fields, setFormInput }) {
   const renderFields = (obj) => {
@@ -19,16 +20,26 @@ export default function FormInputs({ fields, setFormInput }) {
             setFormInput={setFormInput}
           />
         );
-      } else if (key === "rooms" || key === "photos") {
-        components.push(
-          <InputArray
-            key={key}
-            title={key}
-            givenArray={value}
-            setFormInput={setFormInput}
-            name={key}
-          />
-        );
+      } else if (typeof value === "object") {
+        key === "bookedRange"
+          ? components.push(
+              <InputDate
+                key={key}
+                title={key}
+                givenArray={value}
+                setFormInput={setFormInput}
+                name={key}
+              />
+            )
+          : components.push(
+              <InputArray
+                key={key}
+                title={key}
+                givenArray={value}
+                setFormInput={setFormInput}
+                name={key}
+              />
+            );
       } else {
         components.push(
           <InputText
@@ -54,7 +65,7 @@ function InputText({ value, name, setFormInput }) {
   };
 
   const emptyStyle = {
-    top: "28px",
+    top: "24px",
     opacity: "0.7",
   };
 
@@ -116,6 +127,7 @@ function InputArray({ title, givenArray, setFormInput, name }) {
       [name]: newArray,
     }));
     setIsAdd(false);
+    setIdForm("");
   };
 
   const removeFromArray = (removeStr) => {
@@ -149,6 +161,90 @@ function InputArray({ title, givenArray, setFormInput, name }) {
         {isAdd ? (
           <li className="addId_form">
             <input type="text" onChange={(e) => setIdForm(e.target.value)} />
+            <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
+          </li>
+        ) : (
+          <li onClick={() => setIsAdd(true)}>
+            <p>Add new type</p>
+          </li>
+        )}
+      </ul>
+    </div>
+  );
+}
+
+function InputDate({ title, givenArray, setFormInput, name }) {
+  const [isAdd, setIsAdd] = useState(false);
+  const [displayArrray, setDisplayArray] = useState(givenArray);
+  const [rangePick, setRangePick] = useState([new Date(), new Date()]);
+
+  const addToArray = () => {
+    setDisplayArray((prevState) => [
+      ...prevState,
+      {
+        startDate: rangePick[0].toISOString(),
+        endDate: rangePick[1].toISOString(),
+      },
+    ]);
+    const newArray = [
+      ...displayArrray,
+      {
+        startDate: rangePick[0].toISOString(),
+        endDate: rangePick[1].toISOString(),
+      },
+    ];
+
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: newArray,
+    }));
+    setIsAdd(false);
+  };
+
+  const removeFromArray = (index) => {
+    console.log(index);
+    // const newArray = displayArrray.filter((str) => str !== removeStr);
+
+    // setDisplayArray(newArray);
+    // setFormInput((prevState) => ({
+    //   ...prevState,
+    //   [name]: newArray,
+    // }));
+  };
+
+  const getPickRange = (value) => {
+    setRangePick(value);
+  };
+
+  return (
+    <div className="form-date">
+      <div className="top-card">
+        <p>{title}</p>
+        <div className="line"></div>
+      </div>
+      <ul className="body-card">
+        {displayArrray.map((dateRange, index) => {
+          console.log(`dateRange ${index + 1}:`, dateRange);
+          return (
+            <li key={dateRange._id}>
+              <p>{`${dateRange.startDate.slice(
+                0,
+                10
+              )} to ${dateRange.endDate.slice(0, 10)}`}</p>
+              <i
+                className="fa-solid fa-circle-minus"
+                onClick={() => removeFromArray(index)}
+              ></i>
+            </li>
+          );
+        })}
+        {isAdd ? (
+          <li className="addId_form">
+            <DateRangePicker
+              format="y-MM-dd"
+              onChange={getPickRange}
+              value={rangePick}
+            />
             <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
           </li>
         ) : (

@@ -92,6 +92,187 @@ a.btn {
   box-shadow: 0 0 5px rgba(87, 53, 223, 0.8705882353);
 }
 
+.add-display {
+  width: 27% !important;
+  height: -moz-fit-content !important;
+  height: fit-content !important;
+  flex-shrink: 0;
+}
+.add-display p {
+  padding: 5px 0;
+  color: green;
+  text-shadow: 0 0 1px rgba(0, 128, 0, 0.6);
+  display: block;
+}
+.add-display p:not(.bracket) {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-left: 15px;
+}
+.add-display p span {
+  text-shadow: 0 0 1px rgba(218, 165, 32, 0.6);
+  color: rgb(218, 165, 32);
+  width: 175px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+  display: inline-block;
+}
+
+.add-form-container {
+  display: flex;
+  gap: 20px;
+}
+.add-form-container .form-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px 5px;
+  height: 60vh;
+  flex-grow: 1;
+}
+.add-form-container .form-inputs .top-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0 5px;
+  font-size: 18px;
+  text-transform: capitalize;
+  color: #5735df;
+  font-weight: 600;
+}
+.add-form-container .form-inputs .top-card .line {
+  height: 2px;
+  flex-grow: 1;
+  background: #5735df;
+}
+.add-form-container .form-inputs .body-card {
+  list-style: none;
+  font-size: 16px;
+}
+.add-form-container .form-inputs .body-card li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3px 0;
+}
+.add-form-container .form-inputs .body-card li p {
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+}
+.add-form-container .form-inputs .form-array {
+  order: 1;
+  margin-bottom: 15px;
+  height: auto;
+}
+.add-form-container .form-inputs .form-array i {
+  font-size: 12px;
+  color: #5735df;
+  cursor: pointer;
+}
+.add-form-container .form-inputs .form-array .top-card {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 0 5px;
+  font-size: 18px;
+  text-transform: capitalize;
+  color: #5735df;
+  font-weight: 600;
+}
+.add-form-container .form-inputs .form-array .top-card .line {
+  height: 2px;
+  flex-grow: 1;
+  background: #5735df;
+}
+.add-form-container .form-inputs .form-array .body-card {
+  list-style: none;
+  font-size: 16px;
+}
+.add-form-container .form-inputs .form-array .body-card li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3px 0;
+}
+.add-form-container .form-inputs .form-array .body-card li p {
+  width: 170px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 5px;
+}
+.add-form-container .form-inputs .form-array .addId_form input[type=text] {
+  padding: 5px;
+  font-size: 15px;
+  width: 150px;
+}
+.add-form-container .form-inputs .form-date {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 300px;
+}
+.add-form-container .form-inputs .form-date i {
+  font-size: 12px;
+  color: #5735df;
+  cursor: pointer;
+}
+.add-form-container .form-inputs .form-date .body-card li {
+  margin: 7px 0;
+}
+.add-form-container .form-inputs .form-date .body-card p {
+  width: 195px;
+}
+.add-form-container .form-inputs > div {
+  position: relative;
+  height: 20%;
+  flex-shrink: 1;
+  /* Label styles */
+}
+.add-form-container .form-inputs > div.boolean {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  text-shadow: 0 0 1px rgba(87, 53, 223, 0.8705882353);
+  color: #5735df;
+}
+.add-form-container .form-inputs > div label {
+  position: absolute;
+  z-index: 2;
+  padding: 0px 5px;
+  left: 12px;
+  font-size: 18px;
+  background: white;
+  transform: translateY(-50%);
+  color: #5735df;
+  transition: all 0.2s ease-in-out;
+  text-transform: capitalize;
+}
+.add-form-container .form-inputs > div:has(input:focus-visible) label, .add-form-container .form-inputs > div:has(input:not(:empty)) label {
+  top: 0 !important;
+  opacity: 1 !important;
+}
+.add-form-container .form-inputs input[type=text],
+.add-form-container .form-inputs input[type=email] {
+  position: relative;
+  padding: 13px 0px;
+  padding-left: 10px;
+  border-width: 2px;
+  border-color: #5735df;
+  outline: 0px;
+  font-size: 18px;
+}
+.add-form-container .form-inputs input[type=checkbox] {
+  margin-left: 5px;
+}
+
 #main-layout {
   width: 220px;
   color: #5735df;
@@ -223,131 +404,4 @@ h2 {
 
 .type_room_table {
   font-size: 15px;
-}
-
-.add-display {
-  width: 27% !important;
-  height: -moz-fit-content !important;
-  height: fit-content !important;
-  flex-shrink: 0;
-}
-.add-display p {
-  padding: 5px 0;
-  color: green;
-  text-shadow: 0 0 1px rgba(0, 128, 0, 0.6);
-  display: block;
-}
-.add-display p:not(.bracket) {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin-left: 15px;
-}
-.add-display p span {
-  text-shadow: 0 0 1px rgba(218, 165, 32, 0.6);
-  color: rgb(218, 165, 32);
-  width: 175px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 5px;
-  display: inline-block;
-}
-
-.add-form-container {
-  display: flex;
-  gap: 20px;
-}
-.add-form-container .form-inputs {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px 5px;
-  height: 60vh;
-  flex-grow: 1;
-}
-.add-form-container .form-inputs .form-array {
-  margin-bottom: 15px;
-  height: auto;
-}
-.add-form-container .form-inputs .form-array i {
-  font-size: 12px;
-}
-.add-form-container .form-inputs .form-array .top-card {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: 0 5px;
-  font-size: 18px;
-  text-transform: capitalize;
-  color: #5735df;
-  font-weight: 600;
-}
-.add-form-container .form-inputs .form-array .top-card .line {
-  height: 2px;
-  flex-grow: 1;
-  background: #5735df;
-}
-.add-form-container .form-inputs .form-array .body-card {
-  list-style: none;
-  font-size: 14px;
-}
-.add-form-container .form-inputs .form-array .body-card li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 3px 0;
-}
-.add-form-container .form-inputs .form-array .body-card li p {
-  width: 170px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 5px;
-}
-.add-form-container .form-inputs .form-array .addId_form input[type=text] {
-  padding: 5px;
-  font-size: 15px;
-  width: 150px;
-}
-.add-form-container .form-inputs > div {
-  position: relative;
-  height: 19%;
-  /* Label styles */
-}
-.add-form-container .form-inputs > div.boolean {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  text-shadow: 0 0 1px rgba(87, 53, 223, 0.8705882353);
-  color: #5735df;
-}
-.add-form-container .form-inputs > div label {
-  position: absolute;
-  z-index: 2;
-  padding: 0px 5px;
-  left: 12px;
-  font-size: 18px;
-  background: white;
-  transform: translateY(-50%);
-  color: #5735df;
-  transition: all 0.2s ease-in-out;
-  text-transform: capitalize;
-}
-.add-form-container .form-inputs > div:has(input:focus-visible) label, .add-form-container .form-inputs > div:has(input:not(:empty)) label {
-  top: 0 !important;
-  opacity: 1 !important;
-}
-.add-form-container .form-inputs input[type=text],
-.add-form-container .form-inputs input[type=email] {
-  position: relative;
-  padding: 15px 12px;
-  border-width: 2px;
-  border-color: #5735df;
-  outline: 0px;
-  font-size: 18px;
-}
-.add-form-container .form-inputs input[type=checkbox] {
-  margin-left: 5px;
 }/*# sourceMappingURL=style.css.map */
