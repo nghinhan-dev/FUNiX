@@ -125,6 +125,9 @@ a.btn {
   display: flex;
   gap: 20px;
 }
+.add-form-container .hidden {
+  display: none;
+}
 .add-form-container .form-inputs {
   display: flex;
   flex-direction: column;

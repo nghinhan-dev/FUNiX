@@ -7,7 +7,7 @@ export default function FormInputs({ fields, setFormInput }) {
     const components = [];
 
     for (const [key, value] of Object.entries(obj)) {
-      if (key === "_id") {
+      if (key === "_id" || key === "__v") {
         continue;
       }
 
@@ -202,14 +202,15 @@ function InputDate({ title, givenArray, setFormInput, name }) {
   };
 
   const removeFromArray = (index) => {
-    console.log(index);
-    // const newArray = displayArrray.filter((str) => str !== removeStr);
+    const newArray = displayArrray
+      .slice(0, index)
+      .concat(displayArrray.slice(index + 1));
 
-    // setDisplayArray(newArray);
-    // setFormInput((prevState) => ({
-    //   ...prevState,
-    //   [name]: newArray,
-    // }));
+    setDisplayArray(newArray);
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: newArray,
+    }));
   };
 
   const getPickRange = (value) => {
@@ -217,42 +218,49 @@ function InputDate({ title, givenArray, setFormInput, name }) {
   };
 
   return (
-    <div className="form-date">
-      <div className="top-card">
-        <p>{title}</p>
-        <div className="line"></div>
-      </div>
-      <ul className="body-card">
-        {displayArrray.map((dateRange, index) => {
-          console.log(`dateRange ${index + 1}:`, dateRange);
-          return (
-            <li key={dateRange._id}>
-              <p>{`${dateRange.startDate.slice(
-                0,
-                10
-              )} to ${dateRange.endDate.slice(0, 10)}`}</p>
-              <i
-                className="fa-solid fa-circle-minus"
-                onClick={() => removeFromArray(index)}
-              ></i>
+    <>
+      <div className="form-date">
+        <div className="top-card">
+          <p>{title}</p>
+          <div className="line"></div>
+        </div>
+        <ul className="body-card">
+          {displayArrray.map((dateRange, index) => {
+            return (
+              <li key={dateRange._id}>
+                <p>{`${dateRange.startDate.slice(
+                  0,
+                  10
+                )} to ${dateRange.endDate.slice(0, 10)}`}</p>
+                <i
+                  className="fa-solid fa-circle-minus"
+                  onClick={() => removeFromArray(index)}
+                ></i>
+              </li>
+            );
+          })}
+          {isAdd ? (
+            <li className="addId_form">
+              <DateRangePicker
+                format="y-MM-dd"
+                onChange={getPickRange}
+                value={rangePick}
+              />
+              <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
             </li>
-          );
-        })}
-        {isAdd ? (
-          <li className="addId_form">
-            <DateRangePicker
-              format="y-MM-dd"
-              onChange={getPickRange}
-              value={rangePick}
-            />
-            <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
-          </li>
-        ) : (
-          <li onClick={() => setIsAdd(true)}>
-            <p>Add new type</p>
-          </li>
-        )}
-      </ul>
-    </div>
+          ) : (
+            <li onClick={() => setIsAdd(true)}>
+              <p>Add new date</p>
+            </li>
+          )}
+        </ul>
+      </div>
+      {/* <input className="hidden" name="dateRange" value={displayArrray} /> */}
+      <input
+        className="hidden"
+        name="dateRange"
+        value={JSON.stringify(displayArrray)}
+      />
+    </>
   );
 }
