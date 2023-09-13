@@ -1,6 +1,6 @@
 export async function loader() {
   try {
-    const res = await fetch("http://localhost:5000/hotelDB");
+    const res = await fetch("http://localhost:5000/overall_hotel");
 
     if (!res.ok) {
       throw new Error("Cannnot fetch database!");

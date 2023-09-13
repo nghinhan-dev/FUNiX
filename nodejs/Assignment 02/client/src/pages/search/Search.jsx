@@ -3,6 +3,7 @@ import { DateRange } from "react-date-range";
 import { useState } from "react";
 import { formatDate } from "../../util/formatDate";
 import { search } from "../../util/search";
+import { Link } from "react-router-dom";
 
 export default function Search() {
   const { searchContext, setSearchContext } = useSearchContext();
@@ -43,7 +44,9 @@ export default function Search() {
               <strong>${hotel.cheapestPrice}</strong>
             </p>
             <p className="tax">Includes taxes and price</p>
-            <button className="btn">See availability</button>
+            <Link to={`/hotel/${hotel._id}`} className="btn">
+              See availability
+            </Link>
           </div>
         </div>
       </div>

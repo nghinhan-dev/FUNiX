@@ -10,6 +10,7 @@ import Transactions from "./pages/transaction/Transactions";
 
 // fetch
 import { loader as getHotelDb } from "./pages/home/loader";
+import { loader as getSpecHotel } from "./pages/detail/loader";
 
 const router = createBrowserRouter([
   {
@@ -38,8 +39,9 @@ const router = createBrowserRouter([
         element: <Search />,
       },
       {
-        path: "/detail",
+        path: "/hotel/:hotelId",
         element: <Detail />,
+        loader: getSpecHotel,
       },
     ],
   },

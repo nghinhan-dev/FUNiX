@@ -60,6 +60,10 @@ img {
   background: var(--abt-color);
 }
 
+a.btn {
+  text-align: center;
+}
+
 .item {
   position: relative;
   display: inline-block;
@@ -618,7 +622,6 @@ header .btn {
   padding: 15px 18px;
   flex-grow: 1;
   width: 200px;
-  height: 35vmin;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
