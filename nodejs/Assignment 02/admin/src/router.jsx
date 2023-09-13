@@ -1,21 +1,28 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./MainLayout/MainLayout";
+
 import Hotel from "./Hotel/Hotel";
+import AddHotel from "./Hotel/AddHotel";
 import { loader as hotelLoader } from "./Hotel/loader";
-import TypeRoom from "./TypeofRoom/TypeRoom";
-import { loader as typeRoomLoader } from "./TypeofRoom/loader";
-import Room from "./Room/Room";
-import { loader as roomLoader } from "./Room/loader";
+
 import User from "./Users/User";
+import EditUser from "./Users/Edit/EditUser";
 import { loader as userLoader } from "./Users/loader";
 import AddUser from "./Users/AddUser";
 import { action as addUserAction } from "./Users/action";
-import EditUser from "./Users/Edit/EditUser";
 import { loader as getSpecificUser } from "./Users/Edit/getSpecificUser";
 import { action as updateUser } from "./Users/Edit/updateUser";
-import AddRoom from "./Room/AddRoom";
-import AddHotel from "./Hotel/AddHotel";
+
+import TypeRoom from "./TypeofRoom/TypeRoom";
 import AddRoomType from "./TypeofRoom/AddRoomType";
+import EditType from "./TypeofRoom/EditType";
+import { loader as typeRoomLoader } from "./TypeofRoom/loader";
+import { loader as getSpecType } from "./TypeofRoom/getSpecType";
+
+import Room from "./Room/Components/Room";
+import AddRoom from "./Room/Components/AddRoom";
+import EditRoom from "./Room/Components/EditRoom";
+import { getRooms, updateRoom, getSpecRoom } from "./Room/util";
 
 const router = createBrowserRouter([
   {
@@ -41,15 +48,27 @@ const router = createBrowserRouter([
         path: "/add_roomType",
         element: <AddRoomType />,
       },
+      {
+        path: "/type/:typeId",
+        element: <EditType />,
+        loader: getSpecType,
+      },
       // room related paths
       {
         path: "/rooms",
         element: <Room />,
-        loader: roomLoader,
+        loader: getRooms,
       },
       {
         path: "/add_room",
         element: <AddRoom />,
+        action: updateRoom,
+      },
+      {
+        path: "/room/:roomId",
+        element: <EditRoom />,
+        loader: getSpecRoom,
+        action: updateRoom,
       },
       // User related paths
       {
