@@ -2,6 +2,7 @@ const User = require("../model/User");
 const Hotel = require("../model/Hotel");
 const TypesRoom = require("../model/TypesofRoom");
 const Room = require("../model/Room");
+const TypeofRoom = require("../model/TypesofRoom");
 
 exports.loginUser = async (req, res, next) => {
   try {
@@ -105,6 +106,19 @@ exports.getTypeRoom = async (req, res, next) => {
   }
 };
 
+exports.getSpecificType = async (req, res, next) => {
+  const id = req.params.id;
+
+  const type = await TypeofRoom.findById(id);
+
+  if (!type)
+    return res
+      .status(404)
+      .send({ statusText: "Cannot find any type with given id" });
+
+  res.status(200).send(type);
+};
+
 exports.getRoom = async (req, res, next) => {
   try {
     const rooms = await Room.find({});
@@ -118,6 +132,20 @@ exports.getRoom = async (req, res, next) => {
     console.log("error:", error);
     res.status(409).send(`${error}`);
   }
+};
+
+exports.getSpecificRoom = async (req, res, next) => {
+  const id = req.params.id;
+
+  const room = await Room.findById(id);
+
+  if (!room) {
+    return res
+      .status(404)
+      .send({ statusText: "Cannot find any room with given id" });
+  }
+
+  res.status(200).send(room);
 };
 
 exports.getUsers = async (req, res, next) => {
@@ -222,8 +250,8 @@ exports.overallHotel = async (req, res, next) => {
 };
 
 exports.search = async (req, res, next) => {
-  let adult = req.body.adult === undefined ? 0 : req.body.adult;
-  let child = req.body.child === undefined ? 0 : req.body.child;
+  let adult = req.body.adult === undefined ? 0 : +req.body.adult;
+  let child = req.body.child === undefined ? 0 : +req.body.child;
 
   const formData = {
     maxPeople: adult + child,
@@ -351,4 +379,18 @@ exports.updateUser = async (req, res, next) => {
   }
 
   res.status(200).send(updatedUser);
+};
+
+exports.getSpecificHotel = async (req, res, next) => {
+  const id = req.params.id;
+
+  const hotel = await Hotel.findById(id);
+
+  if (!hotel) {
+    return res
+      .status(404)
+      .send({ statusText: "Cannot find any hotel with given id" });
+  }
+
+  res.status(200).send(hotel);
 };

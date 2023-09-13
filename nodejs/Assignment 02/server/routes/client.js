@@ -13,13 +13,16 @@ router.put("/user/:id", clientController.updateUser);
 
 // TypeRooms methods
 router.get("/get_type_rooms", clientController.getTypeRoom);
+router.get("/type/:id", clientController.getSpecificType);
 
 // Rooms methods
 router.get("/get_rooms", clientController.getRoom);
+router.get("/room/:id", clientController.getSpecificRoom);
 
 // Hotel methods
 router.get("/hotels", clientController.getHotel);
 router.get("/overall_hotel", clientController.overallHotel);
 router.post("/search", clientController.search);
+router.get("/hotel/:id", clientController.getSpecificHotel);
 
 module.exports = router;
