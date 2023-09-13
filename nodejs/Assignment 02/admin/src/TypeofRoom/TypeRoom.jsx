@@ -14,37 +14,37 @@ export default function TypeRoom() {
   const pageCount = Math.ceil(typeRoomData.length / itemsPerPage);
 
   // render hotel list
-  const renderTypeRoomList = currentItems.map((hotel) => {
+  const renderTypeRoomList = currentItems.map((type) => {
     return (
-      <tr key={hotel._id}>
+      <tr key={type._id}>
         <td>
           <i className="fa-regular fa-square"></i>
         </td>
         <td>
-          <p className="id-col">{hotel._id}</p>
+          <p className="id-col">{type._id}</p>
         </td>
         <td>
-          <p>{hotel.title}</p>
+          <p>{type.title}</p>
         </td>
         <td>
-          <p>{hotel.desc}</p>
+          <p>{type.desc}</p>
         </td>
         <td>
-          <p className="type-col">{hotel.price}</p>
+          <p className="type-col">{type.price}</p>
         </td>
         <td style={{ textAlign: "center" }}>
-          <p>{hotel.maxPeople}</p>
+          <p>{type.maxPeople}</p>
         </td>
         <td>
-          <p>{hotel.updatedAt.slice(0, 10)}</p>
+          <p>{type.updatedAt.slice(0, 10)}</p>
         </td>
         <td style={{ textAlign: "center" }}>
           <button type="button" className="btn btn-del">
             Delete
           </button>
-          <button type="button" className="btn btn-edit">
+          <Link to={`/type/${type._id}`} type="button" className="btn btn-edit">
             Edit
-          </button>
+          </Link>
         </td>
       </tr>
     );
