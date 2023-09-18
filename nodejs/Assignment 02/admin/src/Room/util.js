@@ -37,3 +37,20 @@ export async function getSpecRoom({ params }) {
 
   return res;
 }
+
+export async function addRoom({ request }) {
+  const notify = {};
+  const data = Object.fromEntries(await request.formData());
+
+  const res = await fetch(`http://localhost:5000/add_room`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  notify.success = await res.json();
+
+  return notify;
+}
