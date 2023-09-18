@@ -1,82 +1,6 @@
-const User = require("../model/User");
 const Hotel = require("../model/Hotel");
-const TypesRoom = require("../model/TypesofRoom");
-const Room = require("../model/Room");
-const TypeofRoom = require("../model/TypesofRoom");
 
-exports.loginUser = async (req, res, next) => {
-  try {
-    const users = await User.find({
-      username: req.body.username,
-      password: req.body.password,
-    }).exec();
-
-    if (users.length === 0) {
-      throw new Error("Cannot find account");
-    }
-
-    res.status(200).send(users[0]);
-  } catch (error) {
-    console.log("error:", error);
-    res.status(404).send(`${error}`);
-  }
-};
-
-exports.clientCreateUser = async (req, res, next) => {
-  try {
-    const users = await User.find({
-      username: req.body.username,
-    });
-
-    if (users.length !== 0) {
-      throw new Error("Account already existed!");
-    }
-
-    const newUser = new User({
-      username: req.body.username,
-      password: req.body.password,
-      email: `${req.body.username}@gmail.com`,
-    });
-
-    await newUser.save();
-
-    res.status(200).send("Successfully created!");
-  } catch (error) {
-    console.log("error:", error);
-    res.status(409).send(`${error}`);
-  }
-};
-
-exports.adminCreateUser = async (req, res, next) => {
-  try {
-    const users = await User.find({
-      username: req.body.username,
-    });
-
-    if (users.length !== 0) {
-      throw new Error("Account already existed!");
-    }
-
-    const newUser = new User({
-      username: req.body.username,
-      password: req.body.password,
-      fullName: req.body.fullName,
-      phoneNumber: req.body.phoneNumber,
-      email: req.body.email,
-      isAdmin: req.body.isAdmin,
-    });
-
-    await newUser.save();
-
-    res.status(200).send({
-      username: newUser.username,
-    });
-  } catch (errorMessage) {
-    res.status(409).send({ error: errorMessage });
-  }
-};
-
-exports.getHotel = async (req, res, next) => {
+exports.getHotel = async (req, res) => {
   try {
     const hotel = await Hotel.find({});
 
@@ -86,84 +10,25 @@ exports.getHotel = async (req, res, next) => {
 
     res.status(200).send(hotel);
   } catch (error) {
-    console.log("error:", error);
     res.status(409).send(`${error}`);
   }
 };
 
-exports.getTypeRoom = async (req, res, next) => {
-  try {
-    const typeRooms = await TypesRoom.find({});
-
-    if (typeRooms.length === 0) {
-      throw new Error("Cant fetch typeRooms database");
-    }
-
-    res.status(200).send(typeRooms);
-  } catch (error) {
-    console.log("error:", error);
-    res.status(409).send(`${error}`);
-  }
-};
-
-exports.getSpecificType = async (req, res, next) => {
+exports.getSpecificHotel = async (req, res) => {
   const id = req.params.id;
 
-  const type = await TypeofRoom.findById(id);
+  const hotel = await Hotel.findById(id);
 
-  if (!type)
+  if (!hotel) {
     return res
       .status(404)
-      .send({ statusText: "Cannot find any type with given id" });
-
-  res.status(200).send(type);
-};
-
-exports.getRoom = async (req, res, next) => {
-  try {
-    const rooms = await Room.find({});
-
-    if (rooms.length === 0) {
-      throw new Error("Cant fetch rooms database");
-    }
-
-    res.status(200).send(rooms);
-  } catch (error) {
-    console.log("error:", error);
-    res.status(409).send(`${error}`);
-  }
-};
-
-exports.getSpecificRoom = async (req, res, next) => {
-  const id = req.params.id;
-
-  const room = await Room.findById(id);
-
-  if (!room) {
-    return res
-      .status(404)
-      .send({ statusText: "Cannot find any room with given id" });
+      .send({ statusText: "Cannot find any hotel with given id" });
   }
 
-  res.status(200).send(room);
+  res.status(200).send(hotel);
 };
 
-exports.getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({});
-
-    if (users.length === 0) {
-      throw new Error("Cant fetch users database");
-    }
-
-    res.status(200).send(users);
-  } catch (error) {
-    console.log("error:", error);
-    res.status(409).send(`${error}`);
-  }
-};
-
-exports.overallHotel = async (req, res, next) => {
+exports.overallHotel = async (req, res) => {
   let cityResult = {
     HaNoi: 0,
     HoChiMinh: 0,
@@ -249,7 +114,7 @@ exports.overallHotel = async (req, res, next) => {
   }
 };
 
-exports.search = async (req, res, next) => {
+exports.search = async (req, res) => {
   let adult = req.body.adult === undefined ? 0 : +req.body.adult;
   let child = req.body.child === undefined ? 0 : +req.body.child;
 
@@ -260,7 +125,6 @@ exports.search = async (req, res, next) => {
     startDate: req.body.startDate ? req.body.startDate : 0,
     endDate: req.body.endDate ? req.body.endDate : 0,
   };
-  console.log("formData:", formData);
 
   try {
     // get hotel has matching city
@@ -347,50 +211,4 @@ exports.search = async (req, res, next) => {
     console.log("error dude:", error);
     res.send(`${error}`);
   }
-};
-
-exports.getSpecificUser = async (req, res, next) => {
-  const id = req.params.id;
-
-  const user = await User.findById(id);
-
-  if (!user) {
-    return res
-      .status(404)
-      .send({ statusText: "Cannot find any user with given id" });
-  }
-
-  res.status(200).send(user);
-};
-
-exports.updateUser = async (req, res, next) => {
-  const userId = req.params.id;
-  const updateData = req.body; // Update data from the request body
-  console.log("updateData:", updateData);
-
-  // Use findByIdAndUpdate to find and update the user
-  // The { new: true } option returns the updated document
-  const updatedUser = await User.findByIdAndUpdate(userId, updateData, {
-    new: true,
-  });
-
-  if (!updatedUser) {
-    return res.status(404).send({ statusText: "User not found" });
-  }
-
-  res.status(200).send(updatedUser);
-};
-
-exports.getSpecificHotel = async (req, res, next) => {
-  const id = req.params.id;
-
-  const hotel = await Hotel.findById(id);
-
-  if (!hotel) {
-    return res
-      .status(404)
-      .send({ statusText: "Cannot find any hotel with given id" });
-  }
-
-  res.status(200).send(hotel);
 };
