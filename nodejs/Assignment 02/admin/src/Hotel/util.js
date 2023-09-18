@@ -1,4 +1,11 @@
-export async function loader() {
+export async function getSpecificHotel({ params }) {
+  const id = params.hotelId;
+  const res = fetch(`http://localhost:5000/hotel/${id}`);
+
+  return res;
+}
+
+export async function getHotel() {
   try {
     const res = await fetch("http://localhost:5000/hotels");
 
