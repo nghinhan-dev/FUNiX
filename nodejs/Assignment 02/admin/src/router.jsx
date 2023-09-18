@@ -1,28 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./MainLayout/MainLayout";
 
-import Hotel from "./Hotel/Hotel";
-import AddHotel from "./Hotel/AddHotel";
-import { loader as hotelLoader } from "./Hotel/loader";
+import Hotel from "./Hotel/Components/Hotel";
+import AddHotel from "./Hotel/Components/AddHotel";
+import EditHotel from "./Hotel/Components/EditHotel";
+import { getSpecificHotel, getHotel } from "./Hotel/util";
 
-import User from "./Users/User";
-import EditUser from "./Users/Edit/EditUser";
-import { loader as userLoader } from "./Users/loader";
-import AddUser from "./Users/AddUser";
-import { action as addUserAction } from "./Users/action";
-import { loader as getSpecificUser } from "./Users/Edit/getSpecificUser";
-import { action as updateUser } from "./Users/Edit/updateUser";
+import User from "./Users/Components/User";
+import EditUser from "./Users/Components/EditUser";
+import AddUser from "./Users/Components/AddUser";
+import { getSpecificUser, updateUser, addUser, getUsers } from "./Users/util";
 
-import TypeRoom from "./TypeofRoom/TypeRoom";
-import AddRoomType from "./TypeofRoom/AddRoomType";
-import EditType from "./TypeofRoom/EditType";
-import { loader as typeRoomLoader } from "./TypeofRoom/loader";
-import { loader as getSpecType } from "./TypeofRoom/getSpecType";
+import TypeRoom from "./TypeofRoom/Components/TypeRoom";
+import AddRoomType from "./TypeofRoom/Components/AddRoomType";
+import EditType from "./TypeofRoom/Components/EditType";
+import { getRoomTypes, getSpecificType } from "./TypeofRoom/util";
 
 import Room from "./Room/Components/Room";
 import AddRoom from "./Room/Components/AddRoom";
 import EditRoom from "./Room/Components/EditRoom";
-import { getRooms, updateRoom, getSpecRoom } from "./Room/util";
+import { getRooms, updateRoom, getSpecRoom, addRoom } from "./Room/util";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +29,12 @@ const router = createBrowserRouter([
       {
         path: "/hotels",
         element: <Hotel />,
-        loader: hotelLoader,
+        loader: getHotel,
+      },
+      {
+        path: "/hotel/:hotelId",
+        element: <EditHotel />,
+        loader: getSpecificHotel,
       },
       {
         path: "/add_hotel",
@@ -42,7 +44,7 @@ const router = createBrowserRouter([
       {
         path: "/room_type",
         element: <TypeRoom />,
-        loader: typeRoomLoader,
+        loader: getRoomTypes,
       },
       {
         path: "/add_roomType",
@@ -51,7 +53,7 @@ const router = createBrowserRouter([
       {
         path: "/type/:typeId",
         element: <EditType />,
-        loader: getSpecType,
+        loader: getSpecificType,
       },
       // room related paths
       {
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
       {
         path: "/add_room",
         element: <AddRoom />,
-        action: updateRoom,
+        action: addRoom,
       },
       {
         path: "/room/:roomId",
@@ -74,7 +76,7 @@ const router = createBrowserRouter([
       {
         path: "/users",
         element: <User />,
-        loader: userLoader,
+        loader: getUsers,
       },
       {
         path: "/users/:userId",
@@ -85,7 +87,7 @@ const router = createBrowserRouter([
       {
         path: "/add_user",
         element: <AddUser />,
-        action: addUserAction,
+        action: addUser,
       },
     ],
   },
