@@ -4,7 +4,10 @@ const bodyParser = require("body-parser");
 const { mongooseRun } = require("./util/mongoDB");
 // const User = require("./model/User");
 // routes
-const clientRoutes = require("./routes/client");
+const userRoutes = require("./routes/user");
+const hotelRoutes = require("./routes/hotel");
+const typeRoutes = require("./routes/type");
+const roomRoutes = require("./routes/room");
 
 const app = express();
 
@@ -15,7 +18,10 @@ app.use(
   })
 );
 
-app.use(clientRoutes);
+app.use(userRoutes);
+app.use(hotelRoutes);
+app.use(typeRoutes);
+app.use(roomRoutes);
 
 mongooseRun()
   .then(() => {
