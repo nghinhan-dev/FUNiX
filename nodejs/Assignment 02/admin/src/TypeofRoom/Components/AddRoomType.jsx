@@ -1,6 +1,6 @@
-import FormContainer from "../ReusableComponent/FormContainer";
-import FormDisplay from "../ReusableComponent/FormDisplay";
-import FormInputs from "../ReusableComponent/FormInputs";
+import FormContainer from "../../ReusableComponent/FormContainer";
+import FormDisplay from "../../ReusableComponent/FormDisplay";
+import FormInputs from "../../ReusableComponent/FormInputs";
 
 import { useState } from "react";
 
