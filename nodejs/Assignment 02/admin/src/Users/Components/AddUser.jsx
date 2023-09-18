@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
-import { toastError, toastSuccess } from "../util/toast";
+import { toastError, toastSuccess } from "../../util/toast";
 
-import FormContainer from "../ReusableComponent/FormContainer";
-import FormDisplay from "../ReusableComponent/FormDisplay";
-import FormInputs from "../ReusableComponent/FormInputs";
+import FormContainer from "../../ReusableComponent/FormContainer";
+import FormDisplay from "../../ReusableComponent/FormDisplay";
+import FormInputs from "../../ReusableComponent/FormInputs";
 
 export default function AddUser() {
   const notify = useActionData();
