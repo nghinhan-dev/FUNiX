@@ -1,19 +1,23 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { Form } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 export default function FormContainer({ title, children }) {
   return (
-    <section id="render_data">
-      <Form method="POST">
-        <div className="header">
-          <h3>{title}</h3>
-          <button className="btn btn-submit" type="submit">
-            Submit
-          </button>
-        </div>
-        <div className="add-form-container">{children}</div>
-      </Form>
-    </section>
+    <>
+      <section id="render_data">
+        <Form method="POST">
+          <div className="header">
+            <h3>{title}</h3>
+            <button className="btn btn-submit" type="submit">
+              Submit
+            </button>
+          </div>
+          <div className="add-form-container">{children}</div>
+        </Form>
+      </section>
+      <ToastContainer />
+    </>
   );
 }
