@@ -40,9 +40,7 @@ export default function FormDisplay({ fields }) {
 
 function displayDateArray(value) {
   const result = value.reduce((acc, cur) => {
-    return (
-      acc + `${cur.startDate.slice(0, 10)} to ${cur.endDate.slice(0, 10)}, `
-    );
+    return acc + `${cur.startDate} to ${cur.endDate}, `;
   }, "");
 
   return result;

@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import { toastError } from "../util/toast";
+import { formattedDateInTimeZone } from "../util/timeZone";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 export default function FormInputs({ fields, setFormInput }) {
@@ -179,18 +181,21 @@ function InputDate({ title, givenArray, setFormInput, name }) {
   const [rangePick, setRangePick] = useState([new Date(), new Date()]);
 
   const addToArray = () => {
+    const startDate = formattedDateInTimeZone(rangePick[0]);
+    const endDate = formattedDateInTimeZone(rangePick[1]);
+
     setDisplayArray((prevState) => [
       ...prevState,
       {
-        startDate: rangePick[0].toISOString(),
-        endDate: rangePick[1].toISOString(),
+        startDate: startDate,
+        endDate: endDate,
       },
     ]);
     const newArray = [
       ...displayArrray,
       {
-        startDate: rangePick[0].toISOString(),
-        endDate: rangePick[1].toISOString(),
+        startDate: startDate,
+        endDate: endDate,
       },
     ];
 
@@ -198,6 +203,7 @@ function InputDate({ title, givenArray, setFormInput, name }) {
       ...prevState,
       [name]: newArray,
     }));
+
     setIsAdd(false);
   };
 
@@ -213,8 +219,29 @@ function InputDate({ title, givenArray, setFormInput, name }) {
     }));
   };
 
+  const validateDateRange = (range) => {
+    if (displayArrray.length === 0) {
+      return true;
+    }
+
+    let startDate = formattedDateInTimeZone(range[0]).slice(3, 5) * 1;
+
+    let endDate = formattedDateInTimeZone(range[1]).slice(3, 5) * 1;
+
+    const isUnconflict = (bookedRange) => {
+      return (
+        endDate <= bookedRange.startDate.slice(3, 5) * 1 ||
+        startDate >= bookedRange.endDate.slice(3, 5) * 1
+      );
+    };
+
+    return displayArrray.every(isUnconflict);
+  };
+
   const getPickRange = (value) => {
-    setRangePick(value);
+    validateDateRange(value)
+      ? setRangePick(value)
+      : toastError("Conflict ranges");
   };
 
   return (
@@ -228,10 +255,7 @@ function InputDate({ title, givenArray, setFormInput, name }) {
           {displayArrray.map((dateRange, index) => {
             return (
               <li key={dateRange._id}>
-                <p>{`${dateRange.startDate.slice(
-                  0,
-                  10
-                )} to ${dateRange.endDate.slice(0, 10)}`}</p>
+                <p>{`${dateRange.startDate} to ${dateRange.endDate}`}</p>
                 <i
                   className="fa-solid fa-circle-minus"
                   onClick={() => removeFromArray(index)}
@@ -259,7 +283,7 @@ function InputDate({ title, givenArray, setFormInput, name }) {
       <input
         className="hidden"
         name="dateRange"
-        value={JSON.stringify(displayArrray)}
+        defaultValue={JSON.stringify(displayArrray)}
       />
     </>
   );
