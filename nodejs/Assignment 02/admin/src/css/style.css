@@ -245,6 +245,7 @@ a.btn {
   align-items: center;
   text-shadow: 0 0 1px rgba(87, 53, 223, 0.8705882353);
   color: #5735df;
+  order: 1;
 }
 .add-form-container .form-inputs > div label {
   position: absolute;

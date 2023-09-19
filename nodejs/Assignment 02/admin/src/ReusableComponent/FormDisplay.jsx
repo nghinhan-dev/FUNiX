@@ -18,7 +18,14 @@ export default function FormDisplay({ fields }) {
       } else {
         elements.push(
           <p key={key}>
-            {key}: <span>{value}</span>
+            {key}:{" "}
+            <span>
+              {typeof value !== "boolean"
+                ? value
+                : value === true
+                ? "true"
+                : "false"}
+            </span>
           </p>
         );
       }

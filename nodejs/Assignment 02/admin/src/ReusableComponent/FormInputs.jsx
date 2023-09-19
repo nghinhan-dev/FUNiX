@@ -13,7 +13,7 @@ export default function FormInputs({ fields, setFormInput }) {
         continue;
       }
 
-      if (key.slice(0, 2) === "is") {
+      if (key.slice(0, 2) === "is" || key === "featured") {
         components.push(
           <InputCheckBox
             key={key}
@@ -167,7 +167,7 @@ function InputArray({ title, givenArray, setFormInput, name }) {
           </li>
         ) : (
           <li onClick={() => setIsAdd(true)}>
-            <p>Add new type</p>
+            <p>Add new {title}</p>
           </li>
         )}
       </ul>
