@@ -26,15 +26,7 @@ exports.addRoom = async (req, res, next) => {
     endDate: Date,
   };
 
-  if (typeof number !== "number") {
-    return res
-      .status(400)
-      .send({ statusText: "Number of room must be a number" });
-  }
-
-  if (number === 0) {
-    return res.status(400).send({ statusText: "Missing number in body" });
-  }
+  isNumber("number", number, res);
 
   if (!Array.isArray(reqBookedRanges)) {
     return res.status(400).send({ statusText: "dateRange must be an array" });
@@ -58,13 +50,47 @@ exports.addRoom = async (req, res, next) => {
 };
 
 exports.addHotel = async (req, res, next) => {
-  const name = req.body.name;
+  const data = req.body;
+  const validationErrors = [];
 
-  const data = Object.fromEntries(await req.body);
-
-  if (name.length === 0) {
-    return res.status(400).send({ statusText: "Missing name in body" });
+  for (const [key, value] of Object.entries(data)) {
+    const error = isEmpty(key, value);
+    if (error) {
+      validationErrors.push(error);
+    }
   }
 
-  next();
+  if (validationErrors.length > 0) {
+    res.status(400).json({ errors: validationErrors });
+  } else {
+    next(); // No errors, proceed to the next middleware
+  }
 };
+
+function isNumber(key, value, res) {
+  if (typeof value !== "number") {
+    return res.status(400).send({ statusText: `${key} must be a number` });
+  }
+
+  if (value === 0) {
+    return res.status(400).send({ statusText: `Missing ${key} in body` });
+  }
+
+  return;
+}
+
+function isEmpty(key, value) {
+  if (value.length === 0) {
+    return `${key} cannot be empty`;
+  }
+
+  // Validate array of strings
+  if (key === "type" || key === "rooms" || key === "photos") {
+    const arrValue = value.split(",");
+    if (arrValue.some((currentValue) => currentValue.trim() === "")) {
+      return `Contain empty value in ${key}`;
+    }
+  }
+
+  return null; // No error
+}

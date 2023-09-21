@@ -1,21 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./MainLayout/MainLayout";
 
+// HOTEL related routes
 import Hotel from "./Hotel/Components/Hotel";
 import AddHotel from "./Hotel/Components/AddHotel";
 import EditHotel from "./Hotel/Components/EditHotel";
-import { getSpecificHotel, getHotel } from "./Hotel/util";
+import { getSpecificHotel, getHotel, addHotel } from "./Hotel/util";
 
+// USER related routes
 import User from "./Users/Components/User";
 import EditUser from "./Users/Components/EditUser";
 import AddUser from "./Users/Components/AddUser";
 import { getSpecificUser, updateUser, addUser, getUsers } from "./Users/util";
 
+// TypeRoom related routes
 import TypeRoom from "./TypeofRoom/Components/TypeRoom";
 import AddRoomType from "./TypeofRoom/Components/AddRoomType";
 import EditType from "./TypeofRoom/Components/EditType";
 import { getRoomTypes, getSpecificType } from "./TypeofRoom/util";
 
+// Room related routes
 import Room from "./Room/Components/Room";
 import AddRoom from "./Room/Components/AddRoom";
 import EditRoom from "./Room/Components/EditRoom";
@@ -39,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/add_hotel",
         element: <AddHotel />,
+        action: addHotel,
       },
       // room_type related paths
       {

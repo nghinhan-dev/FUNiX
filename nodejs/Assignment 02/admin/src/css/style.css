@@ -235,7 +235,7 @@ a.btn {
 }
 .add-form-container .form-inputs > div {
   position: relative;
-  height: 20%;
+  height: 18%;
   flex-shrink: 1;
   /* Label styles */
 }

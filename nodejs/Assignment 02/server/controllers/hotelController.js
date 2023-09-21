@@ -1,4 +1,5 @@
 const Hotel = require("../model/Hotel");
+const TypeofRoom = require("../model/TypesofRoom");
 
 exports.getHotel = async (req, res) => {
   try {
@@ -211,4 +212,53 @@ exports.search = async (req, res) => {
     console.log("error dude:", error);
     res.send(`${error}`);
   }
+};
+
+exports.addHotel = async (req, res, next) => {
+  const {
+    address,
+    cheapestPrice,
+    city,
+    desc,
+    distance,
+    featured,
+    name,
+    photos,
+    rooms,
+    title,
+    type,
+    rating,
+  } = req.body;
+
+  const typeofRoomIds = await Promise.all(
+    rooms.split(",").map(async (title) => {
+      const newType = new TypeofRoom({
+        title: title,
+        desc: "",
+        maxPeople: 0,
+        price: 0,
+      });
+      await newType.save();
+      return newType._id;
+    })
+  );
+
+  const newHotel = new Hotel({
+    address: address,
+    cheapestPrice: cheapestPrice,
+    city: city,
+    desc: desc,
+    distance: distance,
+    featured: featured === "true" || featured ? true : false,
+    name: name,
+    photos: photos.split(","),
+    rooms: typeofRoomIds,
+    title: title,
+    type: type.split(","),
+    rating: rating,
+  });
+
+  await newHotel.save();
+
+  res.status(200).send({ statusText: "Create new hotel successfully" });
 };
