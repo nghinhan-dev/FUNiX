@@ -1,16 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useActionData, useLoaderData } from "react-router-dom";
+import { toastSuccess } from "../../util/toast";
 
 export default function TypeRoom() {
   const typeRoomData = useLoaderData();
+  const notify = useActionData();
+
+  useEffect(() => {
+    notify?.success && toastSuccess(`${notify.success.statusText}`);
+  }, [notify]);
+
+  const missingFieldsData = typeRoomData.filter((type) => {
+    if (type.desc === "") {
+      return type;
+    }
+  });
 
   const [pageOffSet, setPageOffSet] = useState(0);
+  const [isShowMissingFields, setIsShowMissingFields] = useState(false);
+
   // make 6 per page is default
   const itemsPerPage = 6;
 
   const endOffSet = pageOffSet + itemsPerPage;
-  const currentItems = typeRoomData.slice(pageOffSet, endOffSet);
+  let currentItems = isShowMissingFields
+    ? missingFieldsData.slice(pageOffSet, endOffSet)
+    : typeRoomData.slice(pageOffSet, endOffSet);
   const pageCount = Math.ceil(typeRoomData.length / itemsPerPage);
 
   // render hotel list
@@ -27,16 +43,16 @@ export default function TypeRoom() {
           <p>{type.title}</p>
         </td>
         <td>
-          <p>{type.desc}</p>
+          <p>{type?.desc}</p>
         </td>
         <td>
-          <p className="type-col">{type.price}</p>
+          <p className="type-col">{type?.price}</p>
         </td>
         <td style={{ textAlign: "center" }}>
-          <p>{type.maxPeople}</p>
+          <p>{type?.maxPeople}</p>
         </td>
         <td>
-          <p>{type.updatedAt.slice(0, 10)}</p>
+          <p>{type?.updatedAt?.slice(0, 10)}</p>
         </td>
         <td style={{ textAlign: "center" }}>
           <button type="button" className="btn btn-del">
@@ -62,9 +78,17 @@ export default function TypeRoom() {
       <section id="render_data">
         <div className="header">
           <h3>Type of Rooms List</h3>
-          <Link className="btn btn-submit" to={"/add_roomType"}>
-            Add New
-          </Link>
+          <div>
+            <button
+              onClick={() => setIsShowMissingFields((prevState) => !prevState)}
+              className="btn btn-submit"
+            >
+              {`${isShowMissingFields ? "Show Data" : "Show Missing Data"}`}
+            </button>
+            <Link className="btn btn-submit" to={"/add_roomType"}>
+              Add New
+            </Link>
+          </div>
         </div>
         <div className="table_container main-shadow">
           <table className="type_room_table">

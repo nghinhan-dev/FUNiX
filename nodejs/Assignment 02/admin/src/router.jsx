@@ -17,7 +17,7 @@ import { getSpecificUser, updateUser, addUser, getUsers } from "./Users/util";
 import TypeRoom from "./TypeofRoom/Components/TypeRoom";
 import AddRoomType from "./TypeofRoom/Components/AddRoomType";
 import EditType from "./TypeofRoom/Components/EditType";
-import { getRoomTypes, getSpecificType } from "./TypeofRoom/util";
+import { getRoomTypes, getSpecificType, updateType } from "./TypeofRoom/util";
 
 // Room related routes
 import Room from "./Room/Components/Room";
@@ -59,6 +59,7 @@ const router = createBrowserRouter([
         path: "/type/:typeId",
         element: <EditType />,
         loader: getSpecificType,
+        action: updateType,
       },
       // room related paths
       {
