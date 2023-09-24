@@ -4,8 +4,8 @@ const { Schema } = mongoose;
 
 const transactionSchema = new Schema({
   user: String,
-  hotel: ObjectId,
-  room: [ObjectId],
+  hotel: String,
+  room: [String],
   dateStart: Date,
   dateEnd: Date,
   price: Number,

@@ -12,7 +12,7 @@ const hotelSchema = new Schema({
   desc: String,
   rating: Number,
   featured: String,
-  rooms: [ObjectId],
+  rooms: [String],
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);

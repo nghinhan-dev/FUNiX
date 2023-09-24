@@ -7,7 +7,7 @@ const typesofRoomSchema = new Schema({
   price: Number,
   maxPeople: Number,
   desc: String,
-  rooms: [ObjectId],
+  roomNums: [String],
 });
 
 const TypeofRoom = mongoose.model("TypeofRoom", typesofRoomSchema);
