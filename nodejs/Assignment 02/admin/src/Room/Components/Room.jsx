@@ -4,13 +4,22 @@ import { Link, useLoaderData } from "react-router-dom";
 
 export default function RRoom() {
   const roomData = useLoaderData();
+  const missingFieldsData = roomData.filter((room) => {
+    if (room.bookedRange.length === 0) {
+      return room;
+    }
+  });
 
   const [pageOffSet, setPageOffSet] = useState(0);
+  const [isShowMissingFields, setIsShowMissingFields] = useState(false);
+
   // make 6 per page is default
   const itemsPerPage = 6;
 
   const endOffSet = pageOffSet + itemsPerPage;
-  const currentItems = roomData.slice(pageOffSet, endOffSet);
+  let currentItems = isShowMissingFields
+    ? missingFieldsData.slice(pageOffSet, endOffSet)
+    : roomData.slice(pageOffSet, endOffSet);
 
   const pageCount = Math.ceil(roomData.length / itemsPerPage);
 
@@ -65,9 +74,17 @@ export default function RRoom() {
       <section id="render_data">
         <div className="header">
           <h3>Rooms List</h3>
-          <Link className="btn btn-submit" to={"/add_room"}>
-            Add New
-          </Link>
+          <div>
+            <button
+              onClick={() => setIsShowMissingFields((prevState) => !prevState)}
+              className="btn btn-submit"
+            >
+              {`${isShowMissingFields ? "Show Data" : "Show Missing Data"}`}
+            </button>
+            <Link className="btn btn-submit" to={"/add_room"}>
+              Add New
+            </Link>
+          </div>
         </div>
         <div className="table_container main-shadow">
           <table className="type_room_table">
