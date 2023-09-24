@@ -95,23 +95,22 @@ function InputText({ value, name, setFormInput }) {
 
 function InputCheckBox({ value, name, setFormInput }) {
   const handleInputChange = (event) => {
-    setFormInput((prevState) => ({
-      ...prevState,
-      [event.target.name]: event.target.checked,
-    }));
+    setFormInput((prevState) => {
+      return {
+        ...prevState,
+        [name]: event.target.checked,
+      };
+    });
   };
 
   return (
-    <div className="boolean">
-      {name}
-
-      <input
-        type="checkbox"
-        name={name}
-        checked={value}
-        onChange={handleInputChange}
-      />
-    </div>
+    <>
+      <div className="boolean">
+        {name}
+        <input type="checkbox" value={value} onChange={handleInputChange} />
+      </div>
+      <input className="hidden" value={value} onChange={() => 1} name={name} />
+    </>
   );
 }
 
@@ -143,35 +142,43 @@ function InputArray({ title, givenArray, setFormInput, name }) {
   };
 
   return (
-    <div className="form-array">
-      <div className="top-card">
-        <p>{title}</p>
-        <div className="line"></div>
-      </div>
-      <ul className="body-card">
-        {displayArrray.map((roomTypeId) => {
-          return (
-            <li key={roomTypeId}>
-              <p>{roomTypeId}</p>
-              <i
-                className="fa-solid fa-circle-minus"
-                onClick={() => removeFromArray(roomTypeId)}
-              ></i>
+    <>
+      <div className="form-array">
+        <div className="top-card">
+          <p>{title}</p>
+          <div className="line"></div>
+        </div>
+        <ul className="body-card">
+          {displayArrray.map((roomTypeId) => {
+            return (
+              <li key={roomTypeId}>
+                <p>{roomTypeId}</p>
+                <i
+                  className="fa-solid fa-circle-minus"
+                  onClick={() => removeFromArray(roomTypeId)}
+                ></i>
+              </li>
+            );
+          })}
+          {isAdd ? (
+            <li className="addId_form">
+              <input type="text" onChange={(e) => setIdForm(e.target.value)} />
+              <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
             </li>
-          );
-        })}
-        {isAdd ? (
-          <li className="addId_form">
-            <input type="text" onChange={(e) => setIdForm(e.target.value)} />
-            <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
-          </li>
-        ) : (
-          <li onClick={() => setIsAdd(true)}>
-            <p>Add new {title}</p>
-          </li>
-        )}
-      </ul>
-    </div>
+          ) : (
+            <li onClick={() => setIsAdd(true)}>
+              <p>Add new {title}</p>
+            </li>
+          )}
+        </ul>
+      </div>
+      <input
+        className="hidden"
+        onChange={() => 1}
+        name={name}
+        value={displayArrray}
+      />
+    </>
   );
 }
 
@@ -283,6 +290,7 @@ function InputDate({ title, givenArray, setFormInput, name }) {
       <input
         className="hidden"
         name="dateRange"
+        onChange={() => 1}
         defaultValue={JSON.stringify(displayArrray)}
       />
     </>
