@@ -31,35 +31,90 @@ exports.getTypeRoom = async (req, res) => {
 
 exports.updateRoom = async (req, res, next) => {
   const typeId = req.params.id;
+
   const updateData = {
-    price: req.body.price,
+    price: req.body.price * 1,
     roomNums: req.body.roomNums,
     desc: req.body.desc,
     title: req.body.title,
-    maxPeople: req.body.maxPeople,
+    maxPeople: req.body.maxPeople * 1,
   };
 
-  const roomIds = await Promise.all(
-    updateData.roomNums.split(",").map(async (numRoom) => {
-      const newType = new Room({
-        number: numRoom * 1,
-        bookedRange: [],
-      });
-      await newType.save();
+  try {
+    const roomIds = await Promise.all(
+      updateData.roomNums.split(",").map(async (numRoom) => {
+        const newType = new Room({
+          number: numRoom * 1,
+          bookedRange: [],
+        });
+        await newType.save();
 
-      return newType._id;
-    })
-  );
+        return newType._id.toString();
+      })
+    );
 
-  updateData.roomNums = roomIds;
+    updateData.roomNums = roomIds;
 
-  const updatedType = await TypeofRoom.findByIdAndUpdate(typeId, updateData, {
-    new: true,
-  });
+    const updatedType = await TypeofRoom.findByIdAndUpdate(
+      typeId,
+      {
+        price: updateData.price,
+        roomNums: updateData.roomNums,
+        desc: updateData.desc,
+        title: updateData.title,
+        maxPeople: updateData.maxPeople,
+      },
+      {
+        new: true,
+      }
+    );
 
-  if (!updatedType) {
-    return res.status(404).send({ statusText: "Type room not found" });
+    if (!updatedType) {
+      return res.status(404).send({ statusText: "Type room not found" });
+    }
+
+    res.status(200).send({ statusText: `Updated ${typeId}` });
+  } catch (error) {
+    console.error("Error:", error);
+
+    // Send an error response in the catch block
+    res.status(500).send({ statusText: "Internal server error" });
   }
+};
 
-  res.status(200).send({ statusText: `Updated ${typeId}` });
+exports.addRoom = async (req, res, next) => {
+  const newTypeData = {
+    price: req.body.price * 1,
+    roomNums: req.body.roomNums,
+    desc: req.body.desc,
+    title: req.body.title,
+    maxPeople: req.body.maxPeople * 1,
+  };
+
+  try {
+    const roomIds = await Promise.all(
+      newTypeData.roomNums.split(",").map(async (numRoom) => {
+        const newType = new Room({
+          number: numRoom * 1,
+          bookedRange: [],
+        });
+        await newType.save();
+
+        return newType._id.toString();
+      })
+    );
+
+    newTypeData.roomNums = roomIds;
+
+    const newType = new TypeofRoom(newTypeData);
+
+    if (!newType) {
+      return res.status(404).send({ statusText: "Type room not found" });
+    }
+
+    res.status(200).send({ statusText: "Create new type successfully" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send({ statusText: "Internal server error" });
+  }
 };
