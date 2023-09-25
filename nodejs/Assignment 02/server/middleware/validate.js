@@ -60,7 +60,7 @@ exports.addHotel = async (req, res, next) => {
   }
 };
 
-exports.addType = async (req, res, next) => {
+exports.validType = async (req, res, next) => {
   const data = req.body;
   const validationErrors = validator(data);
 
@@ -122,6 +122,10 @@ function validateNotEmpty(key, value) {
 }
 
 function validateNumber(key, value) {
+  if (!value || value.trim() === "") {
+    return [`${key} cannot be empty`];
+  }
+
   if (isNaN(value)) {
     return [`${key} must be a number`];
   }
@@ -140,6 +144,10 @@ function validateArrayNotEmpty(key, value) {
 }
 
 function validateArrayIsNumber(key, value) {
+  if (value.length === 0) {
+    return [`${key} cannot be empty`];
+  }
+
   const arrValue = value.split(",");
   if (arrValue.some((currentValue) => isNaN(currentValue))) {
     return [`Contain Not-a-Number value in ${key}`];
