@@ -1,9 +1,11 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, Form } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
-export default function RRoom() {
+export default function Room() {
   const roomData = useLoaderData();
+
   const missingFieldsData = roomData.filter((room) => {
     if (room.bookedRange.length === 0) {
       return room;
@@ -51,9 +53,15 @@ export default function RRoom() {
           </p>
         </td>
         <td style={{ textAlign: "center" }}>
-          <button type="button" className="btn btn-del">
-            Delete
-          </button>
+          <Form
+            method="DELETE"
+            className="form-btn"
+            action={`${room._id}/delete`}
+          >
+            <button type="submit" className="btn btn-del">
+              Delete
+            </button>
+          </Form>
           <Link to={`/room/${room._id}`} type="button" className="btn btn-edit">
             Edit
           </Link>
@@ -81,6 +89,7 @@ export default function RRoom() {
             >
               {`${isShowMissingFields ? "Show Data" : "Show Missing Data"}`}
             </button>
+
             <Link className="btn btn-submit" to={"/add_room"}>
               Add New
             </Link>
@@ -120,6 +129,7 @@ export default function RRoom() {
           </div>
         </div>
       </section>
+      <ToastContainer />
     </>
   );
 }

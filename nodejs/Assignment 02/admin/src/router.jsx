@@ -17,13 +17,24 @@ import { getSpecificUser, updateUser, addUser, getUsers } from "./Users/util";
 import TypeRoom from "./TypeofRoom/Components/TypeRoom";
 import AddRoomType from "./TypeofRoom/Components/AddRoomType";
 import EditType from "./TypeofRoom/Components/EditType";
-import { getRoomTypes, getSpecificType, updateType } from "./TypeofRoom/util";
+import {
+  addType,
+  getRoomTypes,
+  getSpecificType,
+  updateType,
+} from "./TypeofRoom/util";
 
 // Room related routes
 import Room from "./Room/Components/Room";
 import AddRoom from "./Room/Components/AddRoom";
 import EditRoom from "./Room/Components/EditRoom";
-import { getRooms, updateRoom, getSpecRoom, addRoom } from "./Room/util";
+import {
+  getRooms,
+  updateRoom,
+  getSpecRoom,
+  addRoom,
+  delRoom,
+} from "./Room/util";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +65,7 @@ const router = createBrowserRouter([
       {
         path: "/add_roomType",
         element: <AddRoomType />,
+        action: addType,
       },
       {
         path: "/type/:typeId",
@@ -77,6 +89,10 @@ const router = createBrowserRouter([
         element: <EditRoom />,
         loader: getSpecRoom,
         action: updateRoom,
+      },
+      {
+        path: "/rooms/:roomId/delete",
+        action: delRoom,
       },
       // User related paths
       {

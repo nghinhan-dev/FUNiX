@@ -1,3 +1,6 @@
+import { redirect } from "react-router-dom";
+import { toastError, toastSuccess } from "../util/toast";
+
 export async function getRooms() {
   try {
     const res = await fetch("http://localhost:5000/get_rooms");
@@ -53,4 +56,26 @@ export async function addRoom({ request }) {
   notify.success = await res.json();
 
   return notify;
+}
+
+export async function delRoom({ params }) {
+  const id = params.roomId;
+
+  try {
+    const res = await fetch(`http://localhost:5000/room/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res) {
+      return;
+    }
+
+    toastSuccess("Updated");
+    return redirect("/rooms");
+  } catch (error) {
+    toastError(error?.statusText ?? "Lost connect to server");
+  }
 }
