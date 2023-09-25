@@ -63,3 +63,21 @@ exports.updateRoom = async (req, res) => {
 
   res.status(200).send(updatedRoom);
 };
+
+exports.delRoom = async (req, res) => {
+  const id = req.params.roomId;
+
+  try {
+    const response = await Room.findByIdAndDelete(id);
+
+    if (!response) {
+      console.log(response);
+      throw new Error("Cannot delete");
+    }
+
+    res.status(200).send({ statusText: "Deleted" });
+  } catch (error) {
+    console.log("error:", error);
+    res.status(400).send({ statusText: "Xam`" });
+  }
+};
