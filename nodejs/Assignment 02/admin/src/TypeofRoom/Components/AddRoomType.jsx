@@ -1,15 +1,27 @@
+import { useActionData } from "react-router-dom";
 import FormContainer from "../../ReusableComponent/FormContainer";
 import FormDisplay from "../../ReusableComponent/FormDisplay";
 import FormInputs from "../../ReusableComponent/FormInputs";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toastError, toastSuccess } from "../../util/toast";
 
 export default function AddRoomType() {
+  const notify = useActionData();
+  console.log("notify:", notify);
+
+  useEffect(() => {
+    notify?.error && toastError(notify.error.errors[0]);
+
+    notify?.success &&
+      toastSuccess(`Add ${notify.success.username} to database!`);
+  }, [notify]);
+
   const [formFields, setFormFields] = useState({
     desc: "",
     maxPeople: "",
     price: "",
-    rooms: [],
+    roomNums: [],
     title: "",
   });
 

@@ -20,11 +20,10 @@ export async function getSpecificType({ params }) {
 }
 
 export async function updateType({ params, request }) {
-  const id = params.userId;
+  const id = params.typeId;
 
   const notify = {};
   const data = Object.fromEntries(await request.formData());
-  console.log("data:", data);
 
   const res = await fetch(`http://localhost:5000/type/${id}`, {
     method: "PUT",
@@ -37,4 +36,32 @@ export async function updateType({ params, request }) {
   notify.success = await res.json();
 
   return notify;
+}
+
+export async function addType({ request }) {
+  const notify = {};
+  const data = Object.fromEntries(await request.formData());
+
+  try {
+    const res = await fetch(`http://localhost:5000/add_type`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const respone = await res.json();
+
+    if (res.status === 400) {
+      notify.error = respone;
+      return notify;
+    }
+
+    notify.success = respone;
+
+    return notify;
+  } catch (error) {
+    console.log("error:", error);
+  }
 }

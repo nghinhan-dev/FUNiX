@@ -406,6 +406,11 @@ h2 {
   display: flex;
 }
 
+.form-btn {
+  margin: 0;
+  display: inline-block;
+}
+
 .type_room_table {
   font-size: 15px;
 }/*# sourceMappingURL=style.css.map */
