@@ -23,5 +23,6 @@ export const toastSuccess = (text) => {
     draggable: true,
     progress: undefined,
     theme: "light",
+    toastId: "toast_success_id",
   });
 };
