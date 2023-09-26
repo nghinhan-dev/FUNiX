@@ -7,7 +7,7 @@ const bookedRangeSchema = new Schema({
 });
 
 const roomSchema = new Schema({
-  number: Number,
+  number: { type: Number, default: 0 }, // Adding default value 0
   bookedRange: [bookedRangeSchema],
 });
 
