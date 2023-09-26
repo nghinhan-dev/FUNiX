@@ -135,7 +135,7 @@ exports.search = async (req, res) => {
       {
         $lookup: {
           from: "typeofrooms",
-          let: { typeIds: "$rooms" }, // rooms thuoc ve Hotel
+          let: { typeIds: "$typeIds" },
           pipeline: [
             {
               $match: {
@@ -161,7 +161,7 @@ exports.search = async (req, res) => {
           from: "rooms",
           let: {
             roomIds: {
-              $first: "$roomsType.roomNums",
+              $first: "$roomsType.roomIds",
             },
             givenStartDate: new Date(formData.startDate), // Replace with your given start date
             givenEndDate: new Date(formData.endDate), // Replace with your given end date
@@ -207,7 +207,6 @@ exports.search = async (req, res) => {
       },
     ]);
 
-    console.log("hotels:", hotels);
     res.status(200).send(hotels);
   } catch (error) {
     console.log("error dude:", error);

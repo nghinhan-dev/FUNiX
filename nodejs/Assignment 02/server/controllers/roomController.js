@@ -78,6 +78,6 @@ exports.delRoom = async (req, res) => {
     res.status(200).send({ statusText: "Deleted" });
   } catch (error) {
     console.log("error:", error);
-    res.status(400).send({ statusText: "Xam`" });
+    res.status(400).send({ statusText: "Server error" });
   }
 };
