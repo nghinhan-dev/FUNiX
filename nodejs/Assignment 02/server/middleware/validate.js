@@ -1,3 +1,5 @@
+const { validator } = require("./validate-fnc");
+
 exports.createUser = async (req, res, next) => {
   const password = req.body.password;
   const confirm = req.body.confirm;
@@ -70,90 +72,3 @@ exports.validType = async (req, res, next) => {
     next(); // No errors, proceed to the next middleware
   }
 };
-
-function validator(data) {
-  const validationErrors = [];
-
-  for (const [key, value] of Object.entries(data)) {
-    const errors = validateProperty(key, value);
-    if (errors) {
-      validationErrors.push(...errors);
-    }
-  }
-
-  return validationErrors;
-}
-
-function validateProperty(key, value) {
-  switch (key) {
-    case "title":
-    case "name":
-    case "city":
-    case "address":
-    case "desc":
-      return validateNotEmpty(key, value);
-
-    case "cheapestPrice":
-    case "rating":
-    case "number":
-    case "price":
-    case "maxPeople":
-    case "phoneNumber":
-      return validateNumber(key, value);
-
-    case "type":
-    case "rooms":
-    case "photos":
-      return validateArrayNotEmpty(key, value);
-
-    case "roomNums":
-      return validateArrayIsNumber(key, value);
-
-    default:
-      return null; // No error
-  }
-}
-
-function validateNotEmpty(key, value) {
-  if (!value || value.trim() === "") {
-    return [`${key} cannot be empty`];
-  }
-  return null; // No error
-}
-
-function validateNumber(key, value) {
-  if (!value || value.trim() === "") {
-    return [`${key} cannot be empty`];
-  }
-
-  if (isNaN(value)) {
-    return [`${key} must be a number`];
-  }
-  if (value * 1 === 0) {
-    return [`Missing ${key} in body`];
-  }
-  return null; // No error
-}
-
-function validateArrayNotEmpty(key, value) {
-  const arrValue = value.split(",");
-  if (arrValue.some((currentValue) => currentValue.trim() === "")) {
-    return [`Contain empty value in ${key}`];
-  }
-  return null; // No error
-}
-
-function validateArrayIsNumber(key, value) {
-  if (value.length === 0) {
-    return [`${key} cannot be empty`];
-  }
-
-  const arrValue = value.split(",");
-  if (arrValue.some((currentValue) => isNaN(currentValue))) {
-    return [`Contain Not-a-Number value in ${key}`];
-  }
-  if (arrValue.some((currentValue) => currentValue === 0)) {
-    return [`Contain empty value in ${key}`];
-  }
-  return null; // No error
-}
