@@ -17,6 +17,7 @@ export default function Search() {
     },
   ]);
   const searchResult = searchContext.result;
+  console.log("searchResult:", searchResult);
 
   const renderSearchList = searchResult.map((hotel) => {
     return (
