@@ -107,7 +107,7 @@ function InputCheckBox({ value, name, setFormInput }) {
     <>
       <div className="boolean">
         {name}
-        <input type="checkbox" value={value} onChange={handleInputChange} />
+        <input type="checkbox" checked={value} onChange={handleInputChange} />
       </div>
       <input className="hidden" value={value} onChange={() => 1} name={name} />
     </>
