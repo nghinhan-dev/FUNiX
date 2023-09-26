@@ -129,7 +129,7 @@ function validateNumber(key, value) {
   if (isNaN(value)) {
     return [`${key} must be a number`];
   }
-  if (value === 0) {
+  if (value * 1 === 0) {
     return [`Missing ${key} in body`];
   }
   return null; // No error
