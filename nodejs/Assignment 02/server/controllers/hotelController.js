@@ -161,7 +161,7 @@ exports.search = async (req, res) => {
           from: "rooms",
           let: {
             roomIds: {
-              $first: "$roomsType.rooms",
+              $first: "$roomsType.roomNums",
             },
             givenStartDate: new Date(formData.startDate), // Replace with your given start date
             givenEndDate: new Date(formData.endDate), // Replace with your given end date
@@ -207,6 +207,7 @@ exports.search = async (req, res) => {
       },
     ]);
 
+    console.log("hotels:", hotels);
     res.status(200).send(hotels);
   } catch (error) {
     console.log("error dude:", error);
@@ -214,7 +215,7 @@ exports.search = async (req, res) => {
   }
 };
 
-exports.addHotel = async (req, res, next) => {
+exports.addHotel = async (req, res) => {
   const {
     address,
     cheapestPrice,
@@ -261,4 +262,70 @@ exports.addHotel = async (req, res, next) => {
   await newHotel.save();
 
   res.status(200).send({ statusText: "Create new hotel successfully" });
+};
+
+exports.updateHotel = async (req, res) => {
+  const id = req.params.id;
+  const {
+    address,
+    cheapestPrice,
+    city,
+    desc,
+    distance,
+    featured,
+    name,
+    photos,
+    rooms,
+    title,
+    type,
+    rating,
+  } = req.body;
+
+  try {
+    const updateData = {
+      address: address,
+      cheapestPrice: cheapestPrice * 1,
+      city: city,
+      desc: desc,
+      distance: distance * 1,
+      featured: featured === "true" || featured ? true : false,
+      name: name,
+      photos: photos.split(","),
+      rooms: rooms.split(","),
+      title: title,
+      type: type.split(","),
+      rating: rating * 1,
+    };
+
+    const updatedHotel = await Hotel.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
+
+    if (!updatedHotel) {
+      return res.status(404).send({ statusText: "User not found" });
+    }
+
+    res.status(200).send(updatedHotel);
+  } catch (error) {
+    console.log("error:", error);
+    res.status(404).send(error);
+  }
+};
+
+exports.delHotel = async (req, res) => {
+  const id = req.params.hotelId;
+
+  try {
+    const response = await Hotel.findByIdAndDelete(id);
+
+    if (!response) {
+      console.log(response);
+      throw new Error("Cannot delete");
+    }
+
+    res.status(200).send({ statusText: "Deleted" });
+  } catch (error) {
+    console.log("error:", error);
+    res.status(500).send({ statusText: "Server error" });
+  }
 };

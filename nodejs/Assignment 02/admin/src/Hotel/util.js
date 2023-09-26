@@ -1,3 +1,6 @@
+import { toastSuccess, toastError } from "../util/toast";
+import { redirect } from "react-router-dom";
+
 export async function getSpecificHotel({ params }) {
   const id = params.hotelId;
   const res = fetch(`http://localhost:5000/hotel/${id}`);
@@ -18,6 +21,7 @@ export async function getHotel() {
     console.log("error:", error);
   }
 }
+
 export async function addHotel({ request }) {
   const notify = {};
   const data = Object.fromEntries(await request.formData());
@@ -39,5 +43,53 @@ export async function addHotel({ request }) {
     return notify;
   } catch (error) {
     console.log("error:", error);
+  }
+}
+
+export async function updateHotel({ params, request }) {
+  const id = params.hotelId;
+
+  const notify = {};
+  const data = Object.fromEntries(await request.formData());
+
+  try {
+    const res = await fetch(`http://localhost:5000/hotel/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+
+    notify.success = await res.json();
+    return notify;
+  } catch (error) {
+    console.log("error:", error);
+  }
+}
+
+export async function delHotel({ params }) {
+  const id = params.hotelId;
+
+  try {
+    const res = await fetch(`http://localhost:5000/hotel/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res) {
+      throw new Error("Cannot deleted");
+    }
+
+    toastSuccess("Updated");
+    return redirect("/hotels");
+  } catch (error) {
+    toastError(error?.message ?? "Lost connect to server");
   }
 }

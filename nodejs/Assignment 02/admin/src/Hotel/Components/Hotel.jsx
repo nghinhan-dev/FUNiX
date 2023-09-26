@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, Form } from "react-router-dom";
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 
@@ -36,9 +36,15 @@ export default function Hotel() {
           <p>{hotel.city}</p>
         </td>
         <td>
-          <button type="button" className="btn btn-del">
-            Delete
-          </button>
+          <Form
+            method="DELETE"
+            className="form-btn"
+            action={`${hotel._id}/delete`}
+          >
+            <button type="submit" className="btn btn-del">
+              Delete
+            </button>
+          </Form>
           <Link
             to={`/hotel/${hotel._id}`}
             type="button"

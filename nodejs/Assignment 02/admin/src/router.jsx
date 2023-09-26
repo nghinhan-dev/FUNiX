@@ -5,7 +5,13 @@ import MainLayout from "./MainLayout/MainLayout";
 import Hotel from "./Hotel/Components/Hotel";
 import AddHotel from "./Hotel/Components/AddHotel";
 import EditHotel from "./Hotel/Components/EditHotel";
-import { getSpecificHotel, getHotel, addHotel } from "./Hotel/util";
+import {
+  getSpecificHotel,
+  getHotel,
+  addHotel,
+  updateHotel,
+  delHotel,
+} from "./Hotel/util";
 
 // USER related routes
 import User from "./Users/Components/User";
@@ -47,9 +53,14 @@ const router = createBrowserRouter([
         loader: getHotel,
       },
       {
+        path: "/hotels/:hotelId/delete",
+        action: delHotel,
+      },
+      {
         path: "/hotel/:hotelId",
         element: <EditHotel />,
         loader: getSpecificHotel,
+        action: updateHotel,
       },
       {
         path: "/add_hotel",
