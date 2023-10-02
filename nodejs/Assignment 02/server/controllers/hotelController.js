@@ -1,5 +1,6 @@
 const Hotel = require("../model/Hotel");
 const TypeofRoom = require("../model/TypesofRoom");
+const { ObjectId } = require("mongodb");
 
 exports.getHotel = async (req, res) => {
   try {
@@ -16,9 +17,49 @@ exports.getHotel = async (req, res) => {
 };
 
 exports.getSpecificHotel = async (req, res) => {
-  const id = req.params.id;
+  const hotelId = req.params.id;
 
-  const hotel = await Hotel.findById(id);
+  const hotel = await Hotel.aggregate([
+    {
+      $match: {
+        _id: new ObjectId(hotelId),
+      },
+    },
+    {
+      $lookup: {
+        from: "typeofrooms",
+        let: { typeIds: "$typeIds" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: [{ $toString: "$_id" }, "$$typeIds"],
+              },
+            },
+          },
+        ],
+
+        as: "types",
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        address: 1,
+        cheapestPrice: 1,
+        city: 1,
+        desc: 1,
+        distance: 1,
+        featured: 1,
+        name: 1,
+        photos: 1,
+        title: 1,
+        type: 1,
+        rating: 1,
+        types: 1,
+      },
+    },
+  ]);
 
   if (!hotel) {
     return res
@@ -26,7 +67,7 @@ exports.getSpecificHotel = async (req, res) => {
       .send({ statusText: "Cannot find any hotel with given id" });
   }
 
-  res.status(200).send(hotel);
+  res.status(200).send(hotel[0]);
 };
 
 exports.overallHotel = async (req, res) => {
@@ -234,9 +275,6 @@ exports.addHotel = async (req, res) => {
     rooms.split(",").map(async (title) => {
       const newType = new TypeofRoom({
         title: title,
-        desc: "",
-        maxPeople: 0,
-        price: 0,
       });
       await newType.save();
       return newType._id;
@@ -274,7 +312,6 @@ exports.updateHotel = async (req, res) => {
     featured,
     name,
     photos,
-    rooms,
     title,
     type,
     rating,

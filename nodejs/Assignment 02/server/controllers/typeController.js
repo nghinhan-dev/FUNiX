@@ -1,17 +1,63 @@
 const TypeofRoom = require("../model/TypesofRoom");
 const Room = require("../model/Room");
+const { isValidObjectId } = require("../middleware/validate-fnc");
+const { ObjectId } = require("mongodb");
 
 exports.getSpecificType = async (req, res) => {
-  const id = req.params.id;
+  const typeId = req.params.id;
 
-  const type = await TypeofRoom.findById(id);
+  const type = await TypeofRoom.aggregate([
+    {
+      $match: {
+        _id: new ObjectId(typeId),
+      },
+    },
+    {
+      $lookup: {
+        from: "rooms",
+        let: { roomIds: "$roomIds" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: [{ $toString: "$_id" }, "$$roomIds"],
+              },
+            },
+          },
+        ],
+        as: "rooms",
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        desc: 1,
+        maxPeople: 1,
+        price: 1,
+        title: 1,
+        createdAt: {
+          $dateToString: {
+            format: "%Y-%m-%d",
+            date: "$createdAt",
+          },
+        },
+        updatedAt: {
+          $dateToString: {
+            format: "%Y-%m-%d",
+            date: "$updatedAt",
+          },
+        },
+        rooms: 1,
+      },
+    },
+  ]);
 
   if (!type)
     return res
       .status(404)
       .send({ statusText: "Cannot find any type with given id" });
 
-  res.status(200).send(type);
+  res.status(200).send(type[0]);
 };
 
 exports.getTypeRoom = async (req, res) => {
@@ -29,37 +75,21 @@ exports.getTypeRoom = async (req, res) => {
   }
 };
 
-exports.updateRoom = async (req, res, next) => {
+exports.updateRoom = async (req, res) => {
   const typeId = req.params.id;
 
   const updateData = {
     price: req.body.price * 1,
-    roomNums: req.body.roomNums,
     desc: req.body.desc,
     title: req.body.title,
     maxPeople: req.body.maxPeople * 1,
   };
 
   try {
-    const roomIds = await Promise.all(
-      updateData.roomNums.split(",").map(async (numRoom) => {
-        const newType = new Room({
-          number: numRoom * 1,
-          bookedRange: [],
-        });
-        await newType.save();
-
-        return newType._id.toString();
-      })
-    );
-
-    updateData.roomNums = roomIds;
-
     const updatedType = await TypeofRoom.findByIdAndUpdate(
       typeId,
       {
         price: updateData.price,
-        roomNums: updateData.roomNums,
         desc: updateData.desc,
         title: updateData.title,
         maxPeople: updateData.maxPeople,
@@ -82,7 +112,7 @@ exports.updateRoom = async (req, res, next) => {
   }
 };
 
-exports.addRoom = async (req, res, next) => {
+exports.addRoom = async (req, res) => {
   const newTypeData = {
     price: req.body.price * 1,
     roomNums: req.body.roomNums,
@@ -94,19 +124,29 @@ exports.addRoom = async (req, res, next) => {
   try {
     const roomIds = await Promise.all(
       newTypeData.roomNums.split(",").map(async (numRoom) => {
-        const newType = new Room({
+        if (isValidObjectId(numRoom)) {
+          const newRoom = await Room.findById(numRoom);
+
+          console.log(newRoom);
+          return newRoom._id.toString();
+        }
+
+        const newRoom = new Room({
           number: numRoom * 1,
           bookedRange: [],
         });
-        await newType.save();
+        await newRoom.save();
 
-        return newType._id.toString();
+        return newRoom._id.toString();
       })
     );
 
     newTypeData.roomNums = roomIds;
 
     const newType = new TypeofRoom(newTypeData);
+
+    await newType.save();
+    console.log("newType:", newType);
 
     if (!newType) {
       return res.status(404).send({ statusText: "Type room not found" });
