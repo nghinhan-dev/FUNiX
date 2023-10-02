@@ -1,3 +1,5 @@
+import { toastError, toastSuccess } from "../util/toast";
+
 export async function getRoomTypes() {
   try {
     const res = await fetch("http://localhost:5000/get_type_rooms");
@@ -39,7 +41,6 @@ export async function updateType({ params, request }) {
 }
 
 export async function addType({ request }) {
-  const notify = {};
   const data = Object.fromEntries(await request.formData());
 
   try {
@@ -54,13 +55,10 @@ export async function addType({ request }) {
     const respone = await res.json();
 
     if (res.status === 400) {
-      notify.error = respone;
-      return notify;
+      return toastError(respone.errors[0]);
     }
 
-    notify.success = respone;
-
-    return notify;
+    return toastSuccess(respone.statusText);
   } catch (error) {
     console.log("error:", error);
   }
