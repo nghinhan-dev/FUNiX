@@ -162,6 +162,13 @@ a.btn {
   justify-content: space-between;
   margin: 3px 0;
 }
+.add-form-container .form-inputs .body-card li a {
+  color: black;
+}
+.add-form-container .form-inputs .body-card li a:hover {
+  color: #5735df;
+  font-weight: 600;
+}
 .add-form-container .form-inputs .body-card li p {
   width: 170px;
   white-space: nowrap;
