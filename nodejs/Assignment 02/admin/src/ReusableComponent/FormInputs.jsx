@@ -3,8 +3,9 @@ import { useState } from "react";
 import { toastError } from "../util/toast";
 import { formattedDateInTimeZone } from "../util/timeZone";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import { Link } from "react-router-dom";
 
-export default function FormInputs({ fields, setFormInput }) {
+export default function FormInputs({ isEdit, fields, setFormInput }) {
   const renderFields = (obj) => {
     const components = [];
 
@@ -23,6 +24,18 @@ export default function FormInputs({ fields, setFormInput }) {
           />
         );
       } else if (typeof value === "object") {
+        if (key === "photos") {
+          components.push(
+            <InputArray
+              key={key}
+              title={key}
+              givenArray={value}
+              setFormInput={setFormInput}
+              name={key}
+            />
+          );
+          continue;
+        }
         key === "bookedRange"
           ? components.push(
               <InputDate
@@ -33,6 +46,8 @@ export default function FormInputs({ fields, setFormInput }) {
                 name={key}
               />
             )
+          : isEdit
+          ? components.push(<EditArray title={key} givenArray={value} />)
           : components.push(
               <InputArray
                 key={key}
@@ -149,13 +164,21 @@ function InputArray({ title, givenArray, setFormInput, name }) {
           <div className="line"></div>
         </div>
         <ul className="body-card">
-          {displayArrray.map((roomTypeId) => {
+          {displayArrray.map((obj) => {
             return (
-              <li key={roomTypeId}>
-                <p>{roomTypeId}</p>
+              <li key={obj._id}>
+                {title === "photos" ? (
+                  <p>
+                    <a href={`${obj}`} rel="noreferrer" target="_blank">
+                      {obj}
+                    </a>
+                  </p>
+                ) : (
+                  <p>{obj}</p>
+                )}
                 <i
                   className="fa-solid fa-circle-minus"
-                  onClick={() => removeFromArray(roomTypeId)}
+                  onClick={() => removeFromArray(obj)}
                 ></i>
               </li>
             );
@@ -178,6 +201,52 @@ function InputArray({ title, givenArray, setFormInput, name }) {
         name={name}
         value={displayArrray}
       />
+    </>
+  );
+}
+
+function EditArray({ title, givenArray }) {
+  const renderArray = givenArray.map((obj) => {
+    if (title === "rooms") {
+      return (
+        <li key={obj._id}>
+          <Link to={`/room/${obj._id}`}>
+            <p>{obj.number}</p>
+          </Link>
+        </li>
+      );
+    }
+
+    if (title === "types") {
+      return (
+        <li key={obj._id}>
+          <Link to={`/type/${obj._id}`}>
+            <p>{obj.title}</p>
+          </Link>
+        </li>
+      );
+    }
+
+    if (title === "photos") {
+      return (
+        <li key={obj}>
+          <Link target="_blank" to={`${obj}`}>
+            <p>{obj}</p>
+          </Link>
+        </li>
+      );
+    }
+  });
+
+  return (
+    <>
+      <div className="form-array">
+        <div className="top-card">
+          <p>{title}</p>
+          <div className="line"></div>
+        </div>
+        <ul className="body-card">{renderArray}</ul>
+      </div>
     </>
   );
 }

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 export default function FormDisplay({ fields }) {
+  console.log("fields:", fields);
   const renderFields = (obj) => {
     const elements = [];
     for (const [key, value] of Object.entries(obj)) {
@@ -12,13 +13,13 @@ export default function FormDisplay({ fields }) {
             )
           : elements.push(
               <p key={key}>
-                {key} : <span>{value.toString()}</span>
+                {key} : <span>{displayArray(key, value)}</span>
               </p>
             );
       } else {
         elements.push(
           <p key={key}>
-            {key}:{" "}
+            {key}:
             <span>
               {typeof value !== "boolean"
                 ? value
@@ -49,6 +50,30 @@ function displayDateArray(value) {
   const result = value.reduce((acc, cur) => {
     return acc + `${cur.startDate} to ${cur.endDate}, `;
   }, "");
+
+  return result;
+}
+
+function displayArray(key, arrValue) {
+  let result;
+
+  if (key === "rooms") {
+    result = arrValue.reduce((acc, cur) => {
+      return acc + `${cur.number},`;
+    }, "");
+  }
+
+  if (key === "photos") {
+    result = arrValue.reduce((acc, cur) => {
+      return acc + `${cur},`;
+    }, "");
+  }
+
+  if (key === "types") {
+    result = arrValue.reduce((acc, cur) => {
+      return acc + `${cur.title},`;
+    }, "");
+  }
 
   return result;
 }
