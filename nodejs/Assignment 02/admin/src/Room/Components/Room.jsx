@@ -1,7 +1,6 @@
 import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link, useLoaderData, Form } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 export default function Room() {
   const roomData = useLoaderData();
@@ -129,7 +128,6 @@ export default function Room() {
           </div>
         </div>
       </section>
-      <ToastContainer />
     </>
   );
 }

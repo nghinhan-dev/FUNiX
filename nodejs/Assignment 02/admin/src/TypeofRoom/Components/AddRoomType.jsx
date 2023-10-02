@@ -8,7 +8,6 @@ import { toastError, toastSuccess } from "../../util/toast";
 
 export default function AddRoomType() {
   const notify = useActionData();
-  console.log("notify:", notify);
 
   useEffect(() => {
     notify?.error && toastError(notify.error.errors[0]);
