@@ -67,7 +67,7 @@ exports.getSpecificHotel = async (req, res) => {
       .send({ statusText: "Cannot find any hotel with given id" });
   }
 
-  res.status(200).send(hotel[0]);
+  res.status(200).send(hotel);
 };
 
 exports.overallHotel = async (req, res) => {
@@ -265,21 +265,10 @@ exports.addHotel = async (req, res) => {
     featured,
     name,
     photos,
-    rooms,
     title,
     type,
     rating,
   } = req.body;
-
-  const typeofRoomIds = await Promise.all(
-    rooms.split(",").map(async (title) => {
-      const newType = new TypeofRoom({
-        title: title,
-      });
-      await newType.save();
-      return newType._id;
-    })
-  );
 
   const newHotel = new Hotel({
     address: address,
@@ -290,7 +279,6 @@ exports.addHotel = async (req, res) => {
     featured: featured === "true" || featured ? true : false,
     name: name,
     photos: photos.split(","),
-    rooms: typeofRoomIds,
     title: title,
     type: type.split(","),
     rating: rating,
@@ -303,6 +291,7 @@ exports.addHotel = async (req, res) => {
 
 exports.updateHotel = async (req, res) => {
   const id = req.params.id;
+
   const {
     address,
     cheapestPrice,
@@ -324,10 +313,9 @@ exports.updateHotel = async (req, res) => {
       city: city,
       desc: desc,
       distance: distance * 1,
-      featured: featured === "true" || featured ? true : false,
+      featured: !!featured,
       name: name,
       photos: photos.split(","),
-      rooms: rooms.split(","),
       title: title,
       type: type.split(","),
       rating: rating * 1,
@@ -343,8 +331,8 @@ exports.updateHotel = async (req, res) => {
 
     res.status(200).send(updatedHotel);
   } catch (error) {
-    console.log("error:", error);
-    res.status(404).send(error);
+    console.error("Error:", error);
+    res.status(500).send({ error: "Internal Server Error" });
   }
 };
 
@@ -364,4 +352,92 @@ exports.delHotel = async (req, res) => {
     console.log("error:", error);
     res.status(500).send({ statusText: "Server error" });
   }
+};
+
+exports.getBookData = async (req, res) => {
+  const hotelId = req.params.hotelId;
+
+  const result = await Hotel.aggregate([
+    {
+      $match: {
+        _id: new ObjectId(hotelId),
+      },
+    },
+    {
+      $lookup: {
+        from: "typeofrooms",
+        let: { typeIds: "$typeIds" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: [{ $toString: "$_id" }, "$$typeIds"],
+              },
+            },
+          },
+        ],
+        as: "types",
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        address: 1,
+        cheapestPrice: 1,
+        city: 1,
+        desc: 1,
+        distance: 1,
+        featured: 1,
+        name: 1,
+        photos: 1,
+        title: 1,
+        type: 1,
+        types: 1,
+        roomIds: {
+          $reduce: {
+            input: "$types.roomIds",
+            initialValue: [],
+            in: {
+              $concatArrays: ["$$value", "$$this"],
+            },
+          },
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: "rooms",
+        let: { typeIds: "$roomIds" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: [{ $toString: "$_id" }, "$$typeIds"],
+              },
+            },
+          },
+        ],
+        as: "rooms",
+      },
+    },
+    {
+      $lookup: {
+        from: "rooms",
+        let: { roomIds: "$roomIds" },
+        pipeline: [
+          {
+            $match: {
+              $expr: {
+                $in: [{ $toString: "$_id" }, "$$roomIds"],
+              },
+            },
+          },
+        ],
+        as: "rooms",
+      },
+    },
+    { $project: { roomIds: 0 } },
+  ]);
+
+  res.status(200).send(result);
 };

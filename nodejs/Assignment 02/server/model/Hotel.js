@@ -13,6 +13,7 @@ const hotelSchema = new Schema({
   rating: Number,
   featured: String,
   typeIds: [String],
+  cheapestPrice: Number,
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
