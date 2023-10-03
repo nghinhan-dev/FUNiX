@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 export default function FormDisplay({ fields }) {
-  console.log("fields:", fields);
   const renderFields = (obj) => {
     const elements = [];
     for (const [key, value] of Object.entries(obj)) {
@@ -63,7 +62,7 @@ function displayArray(key, arrValue) {
     }, "");
   }
 
-  if (key === "photos") {
+  if (key === "photos" || key === "type") {
     result = arrValue.reduce((acc, cur) => {
       return acc + `${cur},`;
     }, "");

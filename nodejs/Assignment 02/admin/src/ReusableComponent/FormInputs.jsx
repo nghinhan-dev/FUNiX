@@ -24,7 +24,7 @@ export default function FormInputs({ isEdit, fields, setFormInput }) {
           />
         );
       } else if (typeof value === "object") {
-        if (key === "photos") {
+        if (key === "photos" || key === "type") {
           components.push(
             <InputArray
               key={key}
