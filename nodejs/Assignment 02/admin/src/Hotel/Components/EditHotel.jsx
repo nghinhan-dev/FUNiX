@@ -5,7 +5,7 @@ import FormInputs from "../../ReusableComponent/FormInputs";
 import { useLoaderData } from "react-router-dom";
 
 export default function EditHotel() {
-  const hotelData = useLoaderData();
+  const [hotelData] = useLoaderData();
   const [formInput, setFormInput] = useState(hotelData);
 
   return (

@@ -24,20 +24,27 @@ export async function getSpecificType({ params }) {
 export async function updateType({ params, request }) {
   const id = params.typeId;
 
-  const notify = {};
   const data = Object.fromEntries(await request.formData());
 
-  const res = await fetch(`http://localhost:5000/type/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+  try {
+    const res = await fetch(`http://localhost:5000/type/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  notify.success = await res.json();
+    const response = await res.json();
 
-  return notify;
+    if (response.errors) {
+      throw new Error(response.errors[0]);
+    }
+
+    return toastSuccess("Updated");
+  } catch (error) {
+    return toastError(error?.message ?? "Lost connect to server");
+  }
 }
 
 export async function addType({ request }) {

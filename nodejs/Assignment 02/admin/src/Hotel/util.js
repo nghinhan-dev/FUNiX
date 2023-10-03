@@ -49,7 +49,6 @@ export async function addHotel({ request }) {
 export async function updateHotel({ params, request }) {
   const id = params.hotelId;
 
-  const notify = {};
   const data = Object.fromEntries(await request.formData());
 
   try {
@@ -61,14 +60,15 @@ export async function updateHotel({ params, request }) {
       body: JSON.stringify(data),
     });
 
-    if (!res.ok) {
-      throw new Error(res.statusText);
+    const response = await res.json();
+
+    if (response.errors) {
+      throw new Error(response.errors[0]);
     }
 
-    notify.success = await res.json();
-    return notify;
+    return toastSuccess("Updated");
   } catch (error) {
-    console.log("error:", error);
+    return toastError(error?.message ?? "Lost connect to server");
   }
 }
 
