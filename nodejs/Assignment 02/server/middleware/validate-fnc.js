@@ -26,6 +26,7 @@ function validateProperty(key, value) {
     case "price":
     case "maxPeople":
     case "phoneNumber":
+    case "distance":
       return validateNumber(key, value);
 
     case "typeTitles":
@@ -39,6 +40,9 @@ function validateProperty(key, value) {
 
     case "roomNums":
       return validateArrayNumber(key, value);
+
+    case "featured":
+      return validateBoolean(key, value);
 
     case "roomIds":
     case "typeIds":
@@ -136,6 +140,12 @@ function validateArrayText(key, value) {
   }
 
   return null; // No error
+}
+
+function validateBoolean(key, value) {
+  if (!(value === "true" || value === "false")) {
+    return [`Invalid ${key} value`];
+  }
 }
 
 module.exports = { validator, isValidObjectId };
