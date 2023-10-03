@@ -7,10 +7,12 @@ import Layout from "./Layout/Layout";
 import Login from "./pages/login/Login";
 import Register from "./pages/login/Register";
 import Transactions from "./pages/transaction/Transactions";
+import Booking from "./pages/booking/Booking";
 
 // fetch
 import { loader as getHotelDb } from "./pages/home/loader";
 import { loader as getSpecHotel } from "./pages/detail/loader";
+import { loader as getBookData } from "./pages/booking/loader";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,11 @@ const router = createBrowserRouter([
         path: "/hotel/:hotelId",
         element: <Detail />,
         loader: getSpecHotel,
+      },
+      {
+        path: "/book/:hotelId",
+        element: <Booking />,
+        loader: getBookData,
       },
     ],
   },

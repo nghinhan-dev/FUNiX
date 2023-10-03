@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSearchContext } from "../../../context/SearchContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { search } from "../../../util/search";
 import { DateRange } from "react-date-range";
 import { formatDate } from "../../../util/formatDate";
