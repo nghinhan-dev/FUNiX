@@ -35,18 +35,6 @@ exports.getSpecificType = async (req, res) => {
         maxPeople: 1,
         price: 1,
         title: 1,
-        createdAt: {
-          $dateToString: {
-            format: "%Y-%m-%d",
-            date: "$createdAt",
-          },
-        },
-        updatedAt: {
-          $dateToString: {
-            format: "%Y-%m-%d",
-            date: "$updatedAt",
-          },
-        },
         rooms: 1,
       },
     },
