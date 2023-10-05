@@ -10,5 +10,6 @@ router.get("/get_rooms", roomController.getRoom);
 router.get("/room/:id", roomController.getSpecificRoom);
 router.post("/add_room", validate.addRoom, roomController.addRoom);
 router.delete("/room/:roomId/delete", roomController.delRoom);
+router.put("/room/:roomId/edit", roomController.updateRoom);
 
 module.exports = router;

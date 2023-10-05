@@ -1,4 +1,5 @@
 const Room = require("../model/Room");
+const { parseDate } = require("../util/timeZone");
 
 exports.getRoom = async (req, res) => {
   try {
@@ -50,18 +51,30 @@ exports.addRoom = async (req, res) => {
 };
 
 exports.updateRoom = async (req, res) => {
-  const roomId = req.params.id;
+  const roomId = req.params.roomId;
   const updateData = req.body;
 
-  const updatedRoom = await Room.findByIdAndUpdate(roomId, updateData, {
-    new: true,
-  });
+  const updateRoom = await Room.findById(roomId);
 
-  if (!updatedRoom) {
+  const bookedRange = JSON.parse(updateData.dateRange);
+
+  updateRoom.bookedRange = [];
+
+  for (const range of bookedRange) {
+    updateRoom.bookedRange.push({
+      startDate: parseDate(range.startDate),
+      endDate: parseDate(range.endDate),
+    });
+  }
+
+  console.log("updateRoom:", updateRoom);
+  // await updateRoom.save();
+
+  if (!updateRoom) {
     return res.status(404).send({ statusText: "Room not found" });
   }
 
-  res.status(200).send(updatedRoom);
+  res.status(200).send({ statusText: "Successfully update room" });
 };
 
 exports.delRoom = async (req, res) => {
