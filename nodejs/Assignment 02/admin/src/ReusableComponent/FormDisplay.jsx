@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+import { formatDateFormAPI } from "../util/timeZone";
+
 export default function FormDisplay({ fields }) {
   const renderFields = (obj) => {
     const elements = [];
@@ -47,7 +49,12 @@ export default function FormDisplay({ fields }) {
 
 function displayDateArray(value) {
   const result = value.reduce((acc, cur) => {
-    return acc + `${cur.startDate} to ${cur.endDate}, `;
+    return (
+      acc +
+      `${formatDateFormAPI(cur.startDate).slice(0, 5)} to ${formatDateFormAPI(
+        cur.endDate
+      ).slice(0, 5)}, `
+    );
   }, "");
 
   return result;
