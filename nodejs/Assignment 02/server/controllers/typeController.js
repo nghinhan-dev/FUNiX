@@ -63,7 +63,7 @@ exports.getTypeRoom = async (req, res) => {
   }
 };
 
-exports.updateRoom = async (req, res) => {
+exports.updateType = async (req, res) => {
   const typeId = req.params.id;
 
   const updateData = {
@@ -100,7 +100,7 @@ exports.updateRoom = async (req, res) => {
   }
 };
 
-exports.addRoom = async (req, res) => {
+exports.addType = async (req, res) => {
   const newTypeData = {
     price: req.body.price * 1,
     roomNums: req.body.roomNums,
