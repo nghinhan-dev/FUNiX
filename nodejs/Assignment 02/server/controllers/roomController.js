@@ -56,19 +56,23 @@ exports.updateRoom = async (req, res) => {
 
   const updateRoom = await Room.findById(roomId);
 
-  const bookedRange = JSON.parse(updateData.dateRange);
-
-  updateRoom.bookedRange = [];
-
-  for (const range of bookedRange) {
-    updateRoom.bookedRange.push({
-      startDate: parseDate(range.startDate),
-      endDate: parseDate(range.endDate),
-    });
+  if (updateRoom.number !== updateData.number) {
+    updateRoom.number = updateData.number;
   }
 
-  console.log("updateRoom:", updateRoom);
-  // await updateRoom.save();
+  if (updateData.dateRange !== JSON.stringify(updateRoom.bookedRange)) {
+    updateRoom.bookedRange = [];
+    const bookedRange = JSON.parse(updateData.dateRange);
+
+    for (const range of bookedRange) {
+      updateRoom.bookedRange.push({
+        startDate: parseDate(range.startDate),
+        endDate: parseDate(range.endDate),
+      });
+    }
+  }
+
+  await updateRoom.save();
 
   if (!updateRoom) {
     return res.status(404).send({ statusText: "Room not found" });
