@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { toastError } from "../util/toast";
-import { formattedDateInTimeZone } from "../util/timeZone";
+import { formattedDateInTimeZone, formatDateFormAPI } from "../util/timeZone";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Link } from "react-router-dom";
 
@@ -254,9 +254,15 @@ function EditArray({ title, givenArray }) {
 function InputDate({ title, givenArray, setFormInput, name }) {
   const [isAdd, setIsAdd] = useState(false);
   const [displayArrray, setDisplayArray] = useState(givenArray);
+  const [isValidRange, setIsValidRange] = useState(false);
   const [rangePick, setRangePick] = useState([new Date(), new Date()]);
 
   const addToArray = () => {
+    if (!isValidRange) {
+      toastError("Invalid ranges");
+      return;
+    }
+
     const startDate = formattedDateInTimeZone(rangePick[0]);
     const endDate = formattedDateInTimeZone(rangePick[1]);
 
@@ -300,24 +306,31 @@ function InputDate({ title, givenArray, setFormInput, name }) {
       return true;
     }
 
-    let startDate = formattedDateInTimeZone(range[0]).slice(3, 5) * 1;
-
-    let endDate = formattedDateInTimeZone(range[1]).slice(3, 5) * 1;
+    let selectStart = range[0];
+    let selectEnd = range[1].setHours(0, 0, 0, 0);
 
     const isUnconflict = (bookedRange) => {
-      return (
-        endDate <= bookedRange.startDate.slice(3, 5) * 1 ||
-        startDate >= bookedRange.endDate.slice(3, 5) * 1
-      );
+      const startDate = new Date(bookedRange.startDate);
+      const endDate = new Date(bookedRange.endDate);
+
+      return selectStart >= endDate || selectEnd <= startDate;
     };
 
-    return displayArrray.every(isUnconflict);
+    return displayArrray.every((bookedRange) => isUnconflict(bookedRange));
   };
 
   const getPickRange = (value) => {
-    validateDateRange(value)
-      ? setRangePick(value)
-      : toastError("Conflict ranges");
+    const isValidRange = validateDateRange(value);
+
+    if (isValidRange) {
+      setIsValidRange(true);
+
+      return setRangePick(value);
+    } else {
+      setIsValidRange(false);
+
+      return toastError("Conflict ranges");
+    }
   };
 
   return (
@@ -331,7 +344,9 @@ function InputDate({ title, givenArray, setFormInput, name }) {
           {displayArrray.map((dateRange, index) => {
             return (
               <li key={dateRange._id}>
-                <p>{`${dateRange.startDate} to ${dateRange.endDate}`}</p>
+                <p>{`${formatDateFormAPI(
+                  dateRange.startDate
+                )} - ${formatDateFormAPI(dateRange.endDate)}`}</p>
                 <i
                   className="fa-solid fa-circle-minus"
                   onClick={() => removeFromArray(index)}
@@ -342,7 +357,7 @@ function InputDate({ title, givenArray, setFormInput, name }) {
           {isAdd ? (
             <li className="addId_form">
               <DateRangePicker
-                format="y-MM-dd"
+                format="MM/dd/y"
                 onChange={getPickRange}
                 value={rangePick}
               />
@@ -355,12 +370,12 @@ function InputDate({ title, givenArray, setFormInput, name }) {
           )}
         </ul>
       </div>
-      {/* <input className="hidden" name="dateRange" value={displayArrray} /> */}
       <input
         className="hidden"
         name="dateRange"
         onChange={() => 1}
-        defaultValue={JSON.stringify(displayArrray)}
+        value={JSON.stringify(displayArrray)}
+        type="hidden"
       />
     </>
   );
