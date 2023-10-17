@@ -1,4 +1,5 @@
 const Room = require("../model/Room");
+const TypeofRoom = require("../model/TypesofRoom");
 const { parseDate } = require("../util/timeZone");
 
 exports.getRoom = async (req, res) => {
@@ -82,9 +83,14 @@ exports.updateRoom = async (req, res) => {
 };
 
 exports.delRoom = async (req, res) => {
-  const id = req.params.roomId;
-
+  const roomId = req.params.roomId;
   try {
+    const [type] = await TypeofRoom.find({ roomIds: roomId });
+    const newRoomIds = type.roomIds.filter((id) => id !== roomId);
+
+    type.roomIds = newRoomIds;
+    type.save();
+
     const response = await Room.findByIdAndDelete(id);
 
     if (!response) {
