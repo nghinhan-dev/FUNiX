@@ -21,7 +21,7 @@ export default function TypeRoom() {
   const [isShowMissingFields, setIsShowMissingFields] = useState(false);
 
   // make 6 per page is default
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   const endOffSet = pageOffSet + itemsPerPage;
   let currentItems = isShowMissingFields
