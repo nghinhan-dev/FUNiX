@@ -1,5 +1,4 @@
 const Hotel = require("../model/Hotel");
-const TypeofRoom = require("../model/TypesofRoom");
 const { ObjectId } = require("mongodb");
 
 exports.getHotel = async (req, res) => {
@@ -38,7 +37,6 @@ exports.getSpecificHotel = async (req, res) => {
             },
           },
         ],
-
         as: "types",
       },
     },

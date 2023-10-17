@@ -1,13 +1,10 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const bookedRangeSchema = new Schema(
-  {
-    startDate: Date,
-    endDate: Date,
-  },
-  { _id: false }
-);
+const bookedRangeSchema = new Schema({
+  startDate: Date,
+  endDate: Date,
+});
 
 const roomSchema = new Schema({
   number: { type: Number, default: 0 }, // Adding default value 0

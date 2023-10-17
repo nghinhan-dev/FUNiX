@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { mongooseRun } = require("./util/mongoDB");
-// const User = require("./model/User");
 // routes
 const userRoutes = require("./routes/user");
 const hotelRoutes = require("./routes/hotel");
