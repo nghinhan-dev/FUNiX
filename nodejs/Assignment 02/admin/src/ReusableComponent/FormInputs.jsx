@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { toastError } from "../util/toast";
+import { deleteInEditPage } from "../util/sweetAlert";
 import { formattedDateInTimeZone, formatDateFormAPI } from "../util/timeZone";
 import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 import { Link } from "react-router-dom";
@@ -47,7 +48,13 @@ export default function FormInputs({ isEdit, fields, setFormInput }) {
               />
             )
           : isEdit
-          ? components.push(<EditArray title={key} givenArray={value} />)
+          ? components.push(
+              <EditArray
+                name={key}
+                setFormInput={setFormInput}
+                givenArray={value}
+              />
+            )
           : components.push(
               <InputArray
                 key={key}
@@ -205,48 +212,122 @@ function InputArray({ title, givenArray, setFormInput, name }) {
   );
 }
 
-function EditArray({ title, givenArray }) {
-  const renderArray = givenArray.map((obj) => {
-    if (title === "rooms") {
+function EditArray({ name, givenArray, setFormInput }) {
+  const [addedArray, setAddedArray] = useState([]);
+  const [isOpenField, setIsOpenField] = useState(false);
+  const [inputField, setInputField] = useState("");
+
+  const renderGivenArray = givenArray.map((obj) => {
+    if (name === "rooms") {
       return (
         <li key={obj._id}>
           <Link to={`/room/${obj._id}`}>
             <p>{obj.number}</p>
           </Link>
+
+          <i
+            onClick={() =>
+              deleteInEditPage(
+                name.slice(0, name.length - 1),
+                obj.number,
+                `room/${obj._id}`
+              )
+            }
+            className="fa-solid fa-xmark"
+          ></i>
         </li>
       );
     }
 
-    if (title === "types") {
+    if (name === "types") {
       return (
         <li key={obj._id}>
           <Link to={`/type/${obj._id}`}>
             <p>{obj.title}</p>
           </Link>
-        </li>
-      );
-    }
-
-    if (title === "photos") {
-      return (
-        <li key={obj}>
-          <Link target="_blank" to={`${obj}`}>
-            <p>{obj}</p>
-          </Link>
+          <i className="fa-solid fa-xmark"></i>
         </li>
       );
     }
   });
 
+  const renderAddedArray = addedArray.map((obj) => {
+    return (
+      <li key={obj}>
+        <p>{obj}</p>
+        <i
+          className="fa-solid fa-circle-minus"
+          onClick={() => removeFromArray(obj)}
+        ></i>
+      </li>
+    );
+  });
+
+  const validateInputField = (value) => {
+    if (value.length === 0) {
+      return false;
+    }
+
+    if (name === "rooms") {
+      return !isNaN(value * 1);
+    }
+
+    if (name === "types") {
+      return value.length !== 0;
+    }
+  };
+
+  const addToArray = () => {
+    if (!validateInputField(inputField)) {
+      return toastError("Invalid input");
+    }
+
+    setAddedArray((prevState) => [...prevState, inputField]);
+    setInputField("");
+    setIsOpenField(false);
+  };
+
+  const removeFromArray = (removeStr) => {
+    const newArray = addedArray.filter((str) => str !== removeStr);
+
+    setAddedArray(newArray);
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: newArray,
+    }));
+  };
+
   return (
     <>
       <div className="form-array">
         <div className="top-card">
-          <p>{title}</p>
+          <p>{name}</p>
           <div className="line"></div>
         </div>
-        <ul className="body-card">{renderArray}</ul>
+        <ul className="body-card">
+          {renderGivenArray}
+          {renderAddedArray}
+          {isOpenField ? (
+            <li className="addId_form">
+              <input
+                type="text"
+                onChange={(e) => setInputField(e.target.value)}
+              />
+              <i onClick={addToArray} className="fa-solid fa-circle-check"></i>
+            </li>
+          ) : (
+            <li onClick={() => setIsOpenField(true)}>
+              Add {name.slice(0, name.length - 1)}{" "}
+            </li>
+          )}
+        </ul>
       </div>
+      <input
+        className="hidden"
+        onChange={() => 1}
+        name={name}
+        value={addedArray}
+      />
     </>
   );
 }

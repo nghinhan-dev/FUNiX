@@ -121,6 +121,10 @@ a.btn {
   display: inline-block;
 }
 
+.fa-xmark::before {
+  color: red;
+}
+
 .add-form-container {
   display: flex;
   gap: 20px;
