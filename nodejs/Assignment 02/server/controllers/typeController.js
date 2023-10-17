@@ -1,6 +1,6 @@
 const TypeofRoom = require("../model/TypesofRoom");
 const Room = require("../model/Room");
-const { isValidObjectId } = require("../middleware/validate-fnc");
+const Hotel = require("../model/Hotel");
 const { ObjectId } = require("mongodb");
 
 exports.getSpecificType = async (req, res) => {
@@ -65,6 +65,7 @@ exports.getTypeRoom = async (req, res) => {
 
 exports.updateType = async (req, res) => {
   const typeId = req.params.id;
+  const newRoomsArr = req.body.rooms.split(",");
 
   const updateData = {
     price: req.body.price * 1,
@@ -74,20 +75,62 @@ exports.updateType = async (req, res) => {
   };
 
   try {
-    const updatedType = await TypeofRoom.findByIdAndUpdate(
-      typeId,
+    const updateType = await TypeofRoom.findById(typeId);
+
+    const [{ roomNums, roomIds }] = await TypeofRoom.aggregate([
       {
-        price: updateData.price,
-        desc: updateData.desc,
-        title: updateData.title,
-        maxPeople: updateData.maxPeople,
+        $match: {
+          _id: new ObjectId(typeId),
+        },
       },
       {
-        new: true,
-      }
-    );
+        $lookup: {
+          from: "rooms",
+          let: { roomIds: "$roomIds" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: [{ $toString: "$_id" }, "$$roomIds"],
+                },
+              },
+            },
+          ],
+          as: "roomNums",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          roomNums: {
+            $map: {
+              input: "$roomNums",
+              as: "room",
+              in: "$$room.number",
+            },
+          },
+          roomIds: 1,
+        },
+      },
+    ]);
 
-    if (!updatedType) {
+    for (const number of newRoomsArr) {
+      if (!roomNums.includes(number * 1)) {
+        const newRoom = new Room({
+          number: number * 1,
+        });
+
+        await newRoom.save();
+
+        roomIds.push(newRoom._id);
+      }
+    }
+
+    updateType.set({ ...updateData, roomIds: roomIds });
+
+    await updateType.save();
+
+    if (!updateType) {
       return res.status(404).send({ statusText: "Type room not found" });
     }
 
@@ -103,38 +146,30 @@ exports.updateType = async (req, res) => {
 exports.addType = async (req, res) => {
   const newTypeData = {
     price: req.body.price * 1,
-    roomNums: req.body.roomNums,
+    roomNums: req.body.roomNums.split(","),
     desc: req.body.desc,
     title: req.body.title,
     maxPeople: req.body.maxPeople * 1,
   };
 
   try {
-    const roomIds = await Promise.all(
-      newTypeData.roomNums.split(",").map(async (numRoom) => {
-        if (isValidObjectId(numRoom)) {
-          const newRoom = await Room.findById(numRoom);
+    const roomIds = [];
 
-          console.log(newRoom);
-          return newRoom._id.toString();
-        }
+    for (const number of newTypeData.roomNums) {
+      const newRoom = new Room({
+        number: number * 1,
+      });
 
-        const newRoom = new Room({
-          number: numRoom * 1,
-          bookedRange: [],
-        });
-        await newRoom.save();
+      await newRoom.save();
 
-        return newRoom._id.toString();
-      })
-    );
+      roomIds.push(newRoom._id);
+    }
 
-    newTypeData.roomNums = roomIds;
+    newTypeData.roomIds = roomIds;
 
     const newType = new TypeofRoom(newTypeData);
 
     await newType.save();
-    console.log("newType:", newType);
 
     if (!newType) {
       return res.status(404).send({ statusText: "Type room not found" });
@@ -144,5 +179,28 @@ exports.addType = async (req, res) => {
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send({ statusText: "Internal server error" });
+  }
+};
+
+exports.deType = async (req, res) => {
+  const typeID = req.params.typeID;
+  try {
+    const [hotel] = await Hotel.find({ typeIds: typeID });
+    const newTypeIds = hotel.typeIds.filter((id) => id !== typeID);
+
+    hotel.roomIds = newTypeIds;
+    hotel.save();
+
+    const response = await TypeofRoom.findByIdAndDelete(id);
+
+    if (!response) {
+      console.log(response);
+      throw new Error("Cannot delete");
+    }
+
+    res.status(200).send({ statusText: "Deleted" });
+  } catch (error) {
+    console.log("error:", error);
+    res.status(400).send({ statusText: "Server error" });
   }
 };
