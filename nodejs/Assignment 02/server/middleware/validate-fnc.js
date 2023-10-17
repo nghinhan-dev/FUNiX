@@ -38,6 +38,7 @@ function validateProperty(key, value) {
     case "type":
       return validateArrayNotEmpty(key, value);
 
+    case "rooms":
     case "roomNums":
       return validateArrayNumber(key, value);
 
