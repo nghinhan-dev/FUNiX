@@ -735,7 +735,7 @@ header .btn {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -781,4 +781,27 @@ header .btn {
 
 #booking .type_name {
   font-size: 1.2em;
+}
+
+#booking .overall > select,
+#booking .overall > button {
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  border: none;
+  font-size: 1.2em;
+  margin-right: 15px;
+}
+
+#booking .overall > select {
+  background: lightgray;
+}
+
+#booking .overall > button {
+  background-color: #003580;
+  color: #ebf3ff;
+  cursor: pointer;
+  transition: 0.4s all;
+}
+#booking .overall > button:hover {
+  background-color: #d8a005;
 }

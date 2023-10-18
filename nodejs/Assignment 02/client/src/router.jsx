@@ -13,6 +13,7 @@ import Booking from "./pages/booking/Booking";
 import { loader as getHotelDb } from "./pages/home/loader";
 import { loader as getSpecHotel } from "./pages/detail/loader";
 import { loader as getBookData } from "./pages/booking/loader";
+import { booking } from "./pages/booking/util";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
         path: "/book/:hotelId",
         element: <Booking />,
         loader: getBookData,
+        action: booking,
       },
     ],
   },

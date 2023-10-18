@@ -1,6 +1,9 @@
-import { useLoaderData } from "react-router-dom";
-import { DateRange } from "react-date-range";
+import { Form, useLoaderData } from "react-router-dom";
 import { useRef, useState } from "react";
+import UserInfoForm from "./Components/UserInfoForm";
+import DateRangeForm from "./Components/DateRangeForm";
+import SelectForm from "./Components/SelectForm";
+import TotalBill from "./Components/TotalBill";
 // import { formatDate } from "../../util/formatDate";
 
 export default function Booking() {
@@ -12,9 +15,7 @@ export default function Booking() {
       key: "selection",
     },
   ]);
-
-  let bookRange = dateInput;
-
+  const [total, setTotal] = useState(0);
   const roomNumberRefs = useRef(null);
 
   function getMap() {
@@ -25,144 +26,51 @@ export default function Booking() {
     return roomNumberRefs.current;
   }
 
-  function renderRoomNumCheckbox(roomIds, roomArr) {
-    return roomIds.map((id) => {
-      const roomIndex = roomArr.findIndex((room) => room._id === id);
+  function onChooseRoom(number) {
+    const dateGap = Math.abs(
+      (dateInput[0].startDate - dateInput[0].endDate) / 86400000
+    );
+    console.log("dateGap:", dateGap);
 
-      return (
-        <label key={id}>
-          {roomArr[roomIndex].number}
-          <input
-            ref={(node) => {
-              const map = getMap();
-              if (node) {
-                map.set(roomArr[roomIndex].number, node);
-              } else {
-                map.delete(roomArr[roomIndex].number);
-              }
-            }}
-            type="checkbox"
-            disabled={false}
-          />
-        </label>
-      );
-    });
-  }
+    const map = getMap();
+    const node = map.get(number);
 
-  function renderTypes(typeArr, roomArr) {
-    return typeArr.map((type) => {
-      return (
-        <div key={type._id} className="type_card">
-          <div className="type_info">
-            <p className="type_name">{type.title}</p>
-            <p className="desc">{type.desc}</p>
-            <p>
-              Max people : <span>{type.maxPeople}</span>
-            </p>
-            <p>
-              <span>${type.price}</span>
-            </p>
-          </div>
-          <div className="type_number">
-            {renderRoomNumCheckbox(type.roomIds, roomArr)}
-          </div>
-        </div>
-      );
-    });
+    if (node.checked) {
+      setTotal((prev) => prev + node.value * 1 * dateGap);
+    } else {
+      setTotal((prev) => prev - node.value * 1 * dateGap);
+    }
   }
 
   const selecDateHandler = (selection) => {
-    bookRange = selection;
     setDateInput([selection]);
+    setTotal(0);
   };
 
   return (
     <section id="booking">
       <p className="title fsize-l">{hotelData.name}</p>
       <p className="desc">{hotelData.desc}</p>
-      <form>
+      <Form method="POST">
         <div className="book-form">
-          <div className="date_range">
-            <p className="title">Date</p>
-            <DateRange
-              className="bookingCalendar"
-              editableDateInputs={true}
-              onChange={(item) => selecDateHandler(item.selection)}
-              onRangeFocusChange={(range) => {
-                updateCheckBox(range, getMap(), bookRange, hotelData.rooms);
-              }}
-              ranges={dateInput}
-            />
-          </div>
-          <div className="info-container">
-            <p className="title">Reserve Information</p>
-            <div className="info-form">
-              <label>
-                Your Full Name:
-                <input type="text" name="fullName" />
-              </label>
-              <label>
-                Your Email:
-                <input type="email" name="email" />
-              </label>
-              <label>
-                Your Phone Number:
-                <input type="number" name="phoneNumber" />
-              </label>
-              <label>
-                Your Identify Card Number:
-                <input type="number" name="identifyNumber" />
-              </label>
-            </div>
-          </div>
+          {/* DateRange */}
+          <DateRangeForm
+            selecDateHandler={selecDateHandler}
+            checkArray={hotelData.rooms}
+            dateInput={dateInput}
+            mapItems={getMap()}
+          />
+          {/* Reserve Information */}
+          <UserInfoForm />
         </div>
-        <div className="select-rooms">
-          <p className="title">Select Rooms</p>
-          <div className="select_container">
-            {renderTypes(hotelData.types, hotelData.rooms)}
-          </div>
-        </div>
-      </form>
+        <SelectForm
+          typeArr={hotelData.types}
+          roomArr={hotelData.rooms}
+          onChooseRoom={onChooseRoom}
+          map={getMap()}
+        />
+        <TotalBill total={total} />
+      </Form>
     </section>
   );
-}
-
-function totalBill(total) {}
-
-function unCheck(key, value) {
-  return (key.checked = false);
-}
-
-function unDisabled(key, value) {
-  return (key.disabled = false);
-}
-
-function validateDateRange(map, selection, rooms) {
-  // key = input
-  // value = number
-
-  for (const room of rooms) {
-    for (const { startDate, endDate } of room.bookedRange) {
-      const currentStart = new Date(startDate);
-      const currentEnd = new Date(endDate);
-
-      if (
-        !(
-          selection.startDate >= currentEnd || selection.endDate <= currentStart
-        )
-      ) {
-        const numberRoom = room.number;
-        const node = map.get(numberRoom);
-        node.disabled = true;
-      }
-    }
-  }
-}
-
-function updateCheckBox(range, map, selection, rooms) {
-  if (JSON.stringify(range) === JSON.stringify([0, 0])) {
-    map.forEach(unCheck);
-    map.forEach(unDisabled);
-    validateDateRange(map, selection, rooms);
-  }
 }
