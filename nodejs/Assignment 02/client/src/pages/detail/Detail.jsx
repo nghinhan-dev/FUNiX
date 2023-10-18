@@ -45,7 +45,9 @@ export default function Detail() {
               <strong>${hotelData.cheapestPrice}</strong> (1 night)
             </h3>
 
-            <Link className="btn">Reserve a Book Now!</Link>
+            <Link to={`/book/${hotelData._id}`} className="btn">
+              Reserve a Book Now!
+            </Link>
           </div>
         </div>
       </div>
