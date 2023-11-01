@@ -1,3 +1,5 @@
+const isValid = require("date-fns/isValid");
+
 function validator(data) {
   const validationErrors = [];
 
@@ -15,8 +17,12 @@ function validateProperty(key, value) {
   switch (key) {
     case "title":
     case "name":
+    case "email":
+    case "fullName":
     case "city":
     case "address":
+    case "user":
+    case "method":
     case "desc":
       return validateNotEmpty(key, value);
 
@@ -24,10 +30,14 @@ function validateProperty(key, value) {
     case "rating":
     case "number":
     case "price":
+    case "total":
     case "maxPeople":
     case "phoneNumber":
     case "distance":
       return validateNumber(key, value);
+
+    case "identifyNumber":
+      return validateIndentifyNumber(key, value);
 
     case "typeTitles":
       return validateArrayText(key, value);
@@ -41,6 +51,10 @@ function validateProperty(key, value) {
     case "rooms":
     case "roomNums":
       return validateArrayNumber(key, value);
+
+    case "dateStart":
+    case "dateEnd":
+      return validateDate(key, value);
 
     case "featured":
       return validateBoolean(key, value);
@@ -147,6 +161,23 @@ function validateBoolean(key, value) {
   if (!(value === "true" || value === "false")) {
     return [`Invalid ${key} value`];
   }
+}
+
+function validateIndentifyNumber(key, value) {
+  validateNumber(key, value);
+
+  if (value.length !== 12) {
+    return ["Incorrect ID number format"];
+  }
+  return null; // No error
+}
+
+function validateDate(key, value) {
+  if (!isValid(new Date(value))) {
+    return [`${key} is invalid date format`];
+  }
+
+  return null;
 }
 
 module.exports = { validator, isValidObjectId };

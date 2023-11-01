@@ -62,7 +62,7 @@ exports.addHotel = async (req, res, next) => {
   }
 };
 
-exports.validType = async (req, res, next) => {
+exports.validateReqBody = async (req, res, next) => {
   const data = req.body;
   const validationErrors = validator(data);
 
