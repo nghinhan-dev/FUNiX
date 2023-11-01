@@ -1,11 +1,14 @@
 import { useSearchContext } from "../../context/SearchContext";
+import { useUser } from "../../context/UserContext";
 import { DateRange } from "react-date-range";
 import { useState } from "react";
 import { formatDate } from "../../util/formatDate";
 import { search } from "../../util/search";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Search() {
+  const { user } = useUser();
   const { searchContext, setSearchContext } = useSearchContext();
   const [isShowDateInput, setShowState] = useState(false);
 
@@ -17,7 +20,6 @@ export default function Search() {
     },
   ]);
   const searchResult = searchContext.result;
-  console.log("searchResult:", searchResult);
 
   const renderSearchList = searchResult.map((hotel) => {
     return (
@@ -45,9 +47,18 @@ export default function Search() {
               <strong>${hotel.cheapestPrice}</strong>
             </p>
             <p className="tax">Includes taxes and price</p>
-            <Link to={`/hotel/${hotel._id}`} className="btn">
-              See availability
-            </Link>
+            {user ? (
+              <Link to={`/hotel/${hotel._id}`} className="btn">
+                See availability
+              </Link>
+            ) : (
+              <button
+                onClick={() => toast.warning("Must login first")}
+                className="btn"
+              >
+                See availability
+              </button>
+            )}
           </div>
         </div>
       </div>
