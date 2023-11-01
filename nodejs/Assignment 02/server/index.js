@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user");
 const hotelRoutes = require("./routes/hotel");
 const typeRoutes = require("./routes/type");
 const roomRoutes = require("./routes/room");
+const transactionRoutes = require("./routes/transaction");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(userRoutes);
 app.use(hotelRoutes);
 app.use(typeRoutes);
 app.use(roomRoutes);
+app.use(transactionRoutes);
 
 mongooseRun()
   .then(() => {
