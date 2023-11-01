@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const transactionSchema = new Schema({
   user: String,
   hotel: String,
-  room: [String],
+  roomIds: [String],
   dateStart: Date,
   dateEnd: Date,
   price: Number,
