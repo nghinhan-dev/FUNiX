@@ -22,7 +22,7 @@ function validateProperty(key, value) {
     case "city":
     case "address":
     case "user":
-    case "method":
+    case "payment":
     case "hotel":
     case "desc":
       return validateNotEmpty(key, value);
