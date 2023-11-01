@@ -20,7 +20,6 @@ export function validateDateRange(map, selection, rooms) {
           selection.startDate >= currentEnd || selection.endDate <= currentStart
         )
       ) {
-        console.log("I'm dedge");
         const numberRoom = room.number;
         const node = map.get(numberRoom);
         node.disabled = true;
@@ -34,7 +33,6 @@ export function unCheck(key) {
 }
 
 export function unDisabled(key) {
-  console.log("key:", key);
   return (key.disabled = false);
 }
 
@@ -73,8 +71,6 @@ export async function booking({ request }) {
     return errors;
   }
 
-  console.log(data);
-
   try {
     const res = await fetch("http://localhost:5000/booking", {
       method: "POST",
@@ -85,11 +81,12 @@ export async function booking({ request }) {
     });
 
     if (!res.ok) {
+      console.log("res:", res);
       throw new Error(res.message);
     }
 
     return toast.success("Booked");
   } catch (error) {
-    console.log("error:", error);
+    return console.log("error:", error);
   }
 }

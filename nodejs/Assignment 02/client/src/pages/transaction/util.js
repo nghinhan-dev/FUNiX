@@ -1,6 +1,5 @@
 export async function getTrans({ params }) {
   const username = params.username;
-  console.log("username:", username);
   try {
     const res = await fetch(`http://localhost:5000/${username}/transaction`);
 
