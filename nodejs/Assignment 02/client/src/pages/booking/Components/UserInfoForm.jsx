@@ -2,7 +2,7 @@ import React from "react";
 import { useUser } from "../../../context/UserContext";
 
 export default function UserInfoForm({ errors }) {
-  const { user, setUser } = useUser(null);
+  const { user } = useUser();
 
   return (
     <div className="info-container">
@@ -11,19 +11,23 @@ export default function UserInfoForm({ errors }) {
       <div className="info-form">
         <label>
           Your Full Name:
-          <input type="text" name="fullName" />
+          <input type="text" name="fullName" defaultValue={user?.fullName} />
           {errors?.fullName && (
             <span className="error-msg">{errors.fullName}</span>
           )}
         </label>
         <label>
           Your Email:
-          <input type="email" name="email" />
+          <input type="email" name="email" defaultValue={user?.email} />
           {errors?.email && <span className="error-msg">{errors.email}</span>}
         </label>
         <label>
           Your Phone Number:
-          <input type="number" name="phoneNumber" />
+          <input
+            type="number"
+            name="phoneNumber"
+            defaultValue={user?.phoneNumber}
+          />
           {errors?.phoneNumber && (
             <span className="error-msg">{errors.phoneNumber}</span>
           )}

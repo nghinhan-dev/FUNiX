@@ -1,6 +1,10 @@
 import React from "react";
+import { useUser } from "../../../context/UserContext";
+import { toast } from "react-toastify";
 
 export default function TotalBill({ total, errors }) {
+  const { user } = useUser();
+
   return (
     <div className="overall">
       <p className="title">Total Bill: ${total}</p>
@@ -11,7 +15,17 @@ export default function TotalBill({ total, errors }) {
         <option value="Credit Card">Credit Card</option>
       </select>
       {errors?.method && <p className="error-msg">{errors.method}</p>}
-      <button>Reserve</button>
+      {user ? (
+        <button type="submit">Reserve</button>
+      ) : (
+        <button
+          onClick={() => toast.warning("Must login first")}
+          type="button"
+          className="btn"
+        >
+          Reserve
+        </button>
+      )}
     </div>
   );
 }
