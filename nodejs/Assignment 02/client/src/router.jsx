@@ -14,6 +14,7 @@ import { loader as getHotelDb } from "./pages/home/loader";
 import { loader as getSpecHotel } from "./pages/detail/loader";
 import { loader as getBookData } from "./pages/booking/loader";
 import { booking } from "./pages/booking/util";
+import { getTrans } from "./pages/transaction/util";
 
 const router = createBrowserRouter([
   {
@@ -26,8 +27,9 @@ const router = createBrowserRouter([
         loader: getHotelDb,
       },
       {
-        path: "transaction",
+        path: ":username/transaction",
         element: <Transactions />,
+        loader: getTrans,
       },
       {
         path: "login",

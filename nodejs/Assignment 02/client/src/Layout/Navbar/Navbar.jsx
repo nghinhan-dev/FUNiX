@@ -55,7 +55,7 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <Link className="btn" to={`/transaction`}>
+                <Link className="btn" to={`/${user.username}/transaction`}>
                   <p className="homePage">Transactions</p>
                 </Link>
                 <button className="btn" onClick={logOut}>
