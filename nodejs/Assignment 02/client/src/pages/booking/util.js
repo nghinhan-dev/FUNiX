@@ -1,11 +1,9 @@
 import { toast } from "react-toastify";
 
-export function updateCheckBox(range, map, selection, rooms) {
-  if (JSON.stringify(range) === JSON.stringify([0, 0])) {
-    map.forEach(unCheck);
-    map.forEach(unDisabled);
-    validateDateRange(map, selection, rooms);
-  }
+export function updateCheckBox(map, selection, rooms) {
+  map.forEach(unCheck);
+  map.forEach(unDisabled);
+  validateDateRange(map, selection, rooms);
 }
 
 export function validateDateRange(map, selection, rooms) {
@@ -22,6 +20,7 @@ export function validateDateRange(map, selection, rooms) {
           selection.startDate >= currentEnd || selection.endDate <= currentStart
         )
       ) {
+        console.log("I'm dedge");
         const numberRoom = room.number;
         const node = map.get(numberRoom);
         node.disabled = true;
@@ -35,6 +34,7 @@ export function unCheck(key) {
 }
 
 export function unDisabled(key) {
+  console.log("key:", key);
   return (key.disabled = false);
 }
 
@@ -73,6 +73,8 @@ export async function booking({ request }) {
     return errors;
   }
 
+  console.log(data);
+
   try {
     const res = await fetch("http://localhost:5000/booking", {
       method: "POST",
@@ -82,7 +84,11 @@ export async function booking({ request }) {
       body: JSON.stringify(data),
     });
 
-    return res;
+    if (!res.ok) {
+      throw new Error(res.message);
+    }
+
+    return toast.success("Booked");
   } catch (error) {
     console.log("error:", error);
   }

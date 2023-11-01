@@ -6,6 +6,7 @@ import SelectForm from "./Components/SelectForm";
 import TotalBill from "./Components/TotalBill";
 import isPast from "date-fns/isPast";
 import { toast } from "react-toastify";
+import { updateCheckBox } from "./util";
 // import { formatDate } from "../../util/formatDate";
 
 export default function Booking() {
@@ -54,6 +55,8 @@ export default function Booking() {
     }
 
     setDateInput([selection]);
+    updateCheckBox(getMap(), selection, hotelData.rooms);
+
     setTotal(0);
   };
 
@@ -66,9 +69,7 @@ export default function Booking() {
           {/* DateRange */}
           <DateRangeForm
             selecDateHandler={selecDateHandler}
-            checkArray={hotelData.rooms}
             dateInput={dateInput}
-            mapItems={getMap()}
           />
           {/* Reserve Information */}
           <UserInfoForm errors={errors} />
