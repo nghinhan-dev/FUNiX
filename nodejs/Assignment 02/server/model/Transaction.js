@@ -7,7 +7,7 @@ const transactionSchema = new Schema({
   roomIds: [String],
   dateStart: Date,
   dateEnd: Date,
-  price: Number,
+  total: Number,
   payment: String,
   status: String,
 });
