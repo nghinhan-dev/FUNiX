@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export function updateCheckBox(range, map, selection, rooms) {
   if (JSON.stringify(range) === JSON.stringify([0, 0])) {
     map.forEach(unCheck);
@@ -28,17 +30,60 @@ export function validateDateRange(map, selection, rooms) {
   }
 }
 
-export function unCheck(key, value) {
+export function unCheck(key) {
   return (key.checked = false);
 }
 
-export function unDisabled(key, value) {
+export function unDisabled(key) {
   return (key.disabled = false);
 }
 
+// action
 export async function booking({ request }) {
+  const errors = {};
   const data = Object.fromEntries(await request.formData());
-  console.log("data:", data);
 
-  return 1;
+  // Validate
+  if (data.total * 1 === 0) {
+    return toast.error("Please choose room!");
+  }
+
+  if (data.email.length === 0) {
+    errors.email = "Email cannot be empty";
+  }
+
+  if (data.fullName.length === 0) {
+    errors.fullName = "FullName cannot be empty";
+  }
+
+  if (data.method === "") {
+    errors.method = "Please choose payment method";
+  }
+
+  if (isNaN(data.phoneNumber) || data.phoneNumber.length !== 10) {
+    errors.phoneNumber = "Phone number must be number and 10 characters";
+  }
+
+  if (isNaN(data.identifyNumber) || data.identifyNumber.length !== 12) {
+    errors.identifyNumber = "Identify number must be number and 12 characters";
+  }
+
+  // return data if we have errors
+  if (Object.keys(errors).length) {
+    return errors;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    return res;
+  } catch (error) {
+    console.log("error:", error);
+  }
 }

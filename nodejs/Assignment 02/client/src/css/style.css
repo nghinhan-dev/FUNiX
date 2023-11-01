@@ -728,6 +728,7 @@ header .btn {
   display: block;
   width: 100%;
   margin-top: 5px;
+  margin-bottom: 8px;
   padding: 0.4rem 0.2rem;
 }
 
@@ -804,4 +805,13 @@ header .btn {
 }
 #booking .overall > button:hover {
   background-color: #d8a005;
+}
+
+#booking .error-msg {
+  color: red;
+  font-size: 0.8rem;
+}
+
+#booking .overall .error-msg {
+  margin: 5px 0;
 }

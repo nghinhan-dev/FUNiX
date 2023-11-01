@@ -19,7 +19,7 @@ export default function SelectForm({ typeArr, roomArr, map, onChooseRoom }) {
             type="checkbox"
             disabled={false}
             value={price}
-            onChange={() => onChooseRoom(roomArr[roomIndex].number)}
+            onChange={() => onChooseRoom(roomArr[roomIndex].number, id)}
           />
         </label>
       );
