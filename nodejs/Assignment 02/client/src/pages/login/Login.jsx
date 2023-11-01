@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
@@ -76,18 +76,6 @@ export default function Login() {
           </form>
         </div>
       </section>
-      <ToastContainer
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
     </>
   );
 }
