@@ -1,5 +1,4 @@
 export async function search(searchContext) {
-  console.log("searchContext:", searchContext);
   try {
     const res = await fetch("http://localhost:5000/search", {
       method: "POST",
