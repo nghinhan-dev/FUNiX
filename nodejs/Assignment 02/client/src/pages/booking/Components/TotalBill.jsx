@@ -9,12 +9,12 @@ export default function TotalBill({ total, errors }) {
     <div className="overall">
       <p className="title">Total Bill: ${total}</p>
       <input type="hidden" name="total" value={total} />
-      <select name="method">
+      <select name="payment">
         <option value="">Select Payment Method</option>
         <option value="Cash">Cash</option>
         <option value="Credit Card">Credit Card</option>
       </select>
-      {errors?.method && <p className="error-msg">{errors.method}</p>}
+      {errors?.payment && <p className="error-msg">{errors.payment}</p>}
       {user ? (
         <button type="submit">Reserve</button>
       ) : (

@@ -54,7 +54,7 @@ export async function booking({ request }) {
     errors.fullName = "FullName cannot be empty";
   }
 
-  if (data.method === "") {
+  if (data.payment === "") {
     errors.method = "Please choose payment method";
   }
 
@@ -81,8 +81,8 @@ export async function booking({ request }) {
     });
 
     if (!res.ok) {
-      console.log("res:", res);
-      throw new Error(res.message);
+      const error = await res.json();
+      throw new Error(error);
     }
 
     return toast.success("Booked");

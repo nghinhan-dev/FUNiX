@@ -65,6 +65,7 @@ export default function Booking() {
       <p className="title fsize-l">{hotelData.name}</p>
       <p className="desc">{hotelData.desc}</p>
       <Form method="POST">
+        <input type="hidden" name="hotel" defaultValue={hotelData.name} />
         <div className="book-form">
           {/* DateRange */}
           <DateRangeForm

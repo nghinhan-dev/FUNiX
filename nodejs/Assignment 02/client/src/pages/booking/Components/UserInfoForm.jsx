@@ -34,7 +34,11 @@ export default function UserInfoForm({ errors }) {
         </label>
         <label>
           Your Identify Card Number:
-          <input type="number" name="identifyNumber" />
+          <input
+            type="number"
+            name="identifyNumber"
+            defaultValue={user?.identifyNumber}
+          />
           {errors?.identifyNumber && (
             <span className="error-msg">{errors.identifyNumber}</span>
           )}
