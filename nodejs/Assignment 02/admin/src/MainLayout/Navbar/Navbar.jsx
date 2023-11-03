@@ -12,7 +12,7 @@ export default function Navbar() {
         <Link to={"/users"}>
           <i className="fa-solid fa-user"></i>users
         </Link>
-        <Link to={"/hotels"}>
+        <Link to={"/hotel"}>
           <i className="fa-solid fa-hotel"></i>hotels
         </Link>
         <Link to={"/room_type"}>

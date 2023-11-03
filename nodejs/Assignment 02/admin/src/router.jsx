@@ -47,80 +47,104 @@ const router = createBrowserRouter([
     path: "/",
     element: <MainLayout />,
     children: [
+      // hotel paths
       {
-        path: "/hotels",
-        element: <Hotel />,
-        loader: getHotel,
+        path: "hotel",
+        children: [
+          {
+            path: "",
+            element: <Hotel />,
+            loader: getHotel,
+          },
+          {
+            path: ":hotelId/delete",
+            action: delHotel,
+          },
+          {
+            path: ":hotelId",
+            element: <EditHotel />,
+            loader: getSpecificHotel,
+            action: updateHotel,
+          },
+          {
+            path: "add_hotel",
+            element: <AddHotel />,
+            action: addHotel,
+          },
+        ],
       },
+
+      // room_type paths
       {
-        path: "/hotels/:hotelId/delete",
-        action: delHotel,
+        path: "room_type",
+        children: [
+          {
+            path: "",
+            element: <TypeRoom />,
+            loader: getRoomTypes,
+          },
+          {
+            path: "add_roomType",
+            element: <AddRoomType />,
+            action: addType,
+          },
+          {
+            path: ":typeId",
+            element: <EditType />,
+            loader: getSpecificType,
+            action: updateType,
+          },
+        ],
       },
+
+      // room  paths
       {
-        path: "/hotel/:hotelId",
-        element: <EditHotel />,
-        loader: getSpecificHotel,
-        action: updateHotel,
+        path: "rooms",
+        children: [
+          {
+            path: "",
+            element: <Room />,
+            loader: getRooms,
+          },
+          {
+            path: "add_room",
+            element: <AddRoom />,
+            action: addRoom,
+          },
+          {
+            path: ":roomId",
+            element: <EditRoom />,
+            loader: getSpecRoom,
+            action: updateRoom,
+          },
+          {
+            path: ":roomId/delete",
+            action: delRoom,
+          },
+        ],
       },
-      {
-        path: "/add_hotel",
-        element: <AddHotel />,
-        action: addHotel,
-      },
-      // room_type related paths
-      {
-        path: "/room_type",
-        element: <TypeRoom />,
-        loader: getRoomTypes,
-      },
-      {
-        path: "/add_roomType",
-        element: <AddRoomType />,
-        action: addType,
-      },
-      {
-        path: "/type/:typeId",
-        element: <EditType />,
-        loader: getSpecificType,
-        action: updateType,
-      },
-      // room related paths
-      {
-        path: "/rooms",
-        element: <Room />,
-        loader: getRooms,
-      },
-      {
-        path: "/add_room",
-        element: <AddRoom />,
-        action: addRoom,
-      },
-      {
-        path: "/room/:roomId",
-        element: <EditRoom />,
-        loader: getSpecRoom,
-        action: updateRoom,
-      },
-      {
-        path: "/rooms/:roomId/delete",
-        action: delRoom,
-      },
+
       // User related paths
       {
-        path: "/users",
-        element: <User />,
-        loader: getUsers,
-      },
-      {
-        path: "/users/:userId",
-        element: <EditUser />,
-        loader: getSpecificUser,
-        action: updateUser,
-      },
-      {
-        path: "/add_user",
-        element: <AddUser />,
-        action: addUser,
+        path: "users",
+        children: [
+          {
+            path: "",
+            element: <User />,
+            loader: getUsers,
+          },
+          {
+            path: ":userId",
+            element: <EditUser />,
+            loader: getSpecificUser,
+            action: updateUser,
+          },
+          {
+            path: "add_user",
+            element: <AddUser />,
+            action: addUser,
+          },
+        ],
       },
     ],
   },

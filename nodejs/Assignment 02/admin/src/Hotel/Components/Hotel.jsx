@@ -69,7 +69,7 @@ export default function Hotel() {
       <section id="render_data">
         <div className="header">
           <h3>Hotels List</h3>
-          <Link className="btn btn-submit" to={"/add_hotel"}>
+          <Link className="btn btn-submit" to={"add_hotel"}>
             Add New
           </Link>
         </div>

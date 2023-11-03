@@ -65,7 +65,7 @@ export default function User() {
       <section id="render_data">
         <div className="header">
           <h3>Users List</h3>
-          <Link className="btn btn-submit" to={"/add_user"}>
+          <Link className="btn btn-submit" to={"add_user"}>
             Add New
           </Link>
         </div>

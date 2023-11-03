@@ -58,7 +58,7 @@ export default function TypeRoom() {
           <button type="button" className="btn btn-del">
             Delete
           </button>
-          <Link to={`/type/${type._id}`} type="button" className="btn btn-edit">
+          <Link to={`${type._id}`} type="button" className="btn btn-edit">
             Edit
           </Link>
         </td>
@@ -85,7 +85,7 @@ export default function TypeRoom() {
             >
               {`${isShowMissingFields ? "Show Data" : "Show Missing Data"}`}
             </button>
-            <Link className="btn btn-submit" to={"/add_roomType"}>
+            <Link className="btn btn-submit" to={"add_roomType"}>
               Add New
             </Link>
           </div>

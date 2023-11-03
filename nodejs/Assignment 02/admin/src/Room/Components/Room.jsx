@@ -61,7 +61,7 @@ export default function Room() {
               Delete
             </button>
           </Form>
-          <Link to={`/room/${room._id}`} type="button" className="btn btn-edit">
+          <Link to={`${room._id}`} type="button" className="btn btn-edit">
             Edit
           </Link>
         </td>
@@ -89,7 +89,7 @@ export default function Room() {
               {`${isShowMissingFields ? "Show Data" : "Show Missing Data"}`}
             </button>
 
-            <Link className="btn btn-submit" to={"/add_room"}>
+            <Link className="btn btn-submit" to={"add_room"}>
               Add New
             </Link>
           </div>
