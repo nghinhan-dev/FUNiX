@@ -815,3 +815,50 @@ header .btn {
 #booking .overall .error-msg {
   margin: 5px 0;
 }
+
+.transaction__container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.transaction__container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction__container thead {
+  background-color: #32a4c1;
+  color: white;
+  text-align: left;
+}
+
+.transaction__container th,
+.transaction__container td {
+  padding: 10px 0 10px 5px;
+  border: 1px solid rgb(236, 236, 236);
+}
+
+.transaction__container tbody tr:nth-child(odd) {
+  background: #e0e0e0;
+}
+
+.transaction__container tbody tr:nth-child(even) {
+  background: white;
+}
+
+.transaction__container .status {
+  color: #0f991b;
+  padding: 6px 8px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.transaction__container .status-booked {
+  background: #f69685;
+}
+.transaction__container .status-checkin {
+  background: #39d139;
+}
+.transaction__container .status-checkout {
+  background: #d3d0f2;
+}
