@@ -322,12 +322,14 @@ function EditArray({ name, givenArray, setFormInput }) {
           )}
         </ul>
       </div>
-      <input
-        className="hidden"
-        onChange={() => 1}
-        name={name}
-        value={addedArray}
-      />
+      {addedArray.length !== 0 && (
+        <input
+          className="hidden"
+          onChange={() => 1}
+          name={name}
+          value={addedArray}
+        />
+      )}
     </>
   );
 }
