@@ -21,7 +21,7 @@ export default function TypeRoom() {
   const [isShowMissingFields, setIsShowMissingFields] = useState(false);
 
   // make 6 per page is default
-  const itemsPerPage = 5;
+  const itemsPerPage = 6;
 
   const endOffSet = pageOffSet + itemsPerPage;
   let currentItems = isShowMissingFields
@@ -43,7 +43,9 @@ export default function TypeRoom() {
           <p>{type.title}</p>
         </td>
         <td>
-          <p>{type?.desc}</p>
+          <p className="id-col" style={{ width: "300px" }}>
+            {type?.desc}
+          </p>
         </td>
         <td>
           <p className="type-col">{type?.price}</p>
