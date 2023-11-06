@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import { Form } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 export default function FormContainer({ title, children }) {
   return (
@@ -17,7 +16,6 @@ export default function FormContainer({ title, children }) {
           <div className="add-form-container">{children}</div>
         </Form>
       </section>
-      <ToastContainer />
     </>
   );
 }
