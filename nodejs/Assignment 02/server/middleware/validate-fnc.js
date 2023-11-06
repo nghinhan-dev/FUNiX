@@ -22,6 +22,8 @@ function validateProperty(key, value) {
     case "city":
     case "address":
     case "user":
+    case "username":
+    case "password":
     case "payment":
     case "hotel":
     case "desc":
