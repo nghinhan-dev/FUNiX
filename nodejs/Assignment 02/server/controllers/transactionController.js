@@ -46,7 +46,43 @@ exports.booking = async (req, res) => {
 
 exports.getTrans = async (req, res) => {
   try {
-    const trans = await Transaction.find({});
+    // const trans = await Transaction.find({});
+    const trans = await Transaction.aggregate([
+      {
+        $lookup: {
+          from: "rooms",
+          let: { roomIds: "$roomIds" },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $in: [{ $toString: "$_id" }, "$$roomIds"],
+                },
+              },
+            },
+          ],
+          as: "roomNums",
+        },
+      },
+      {
+        $project: {
+          roomNums: {
+            $map: {
+              input: "$roomNums",
+              as: "room",
+              in: "$$room.number",
+            },
+          },
+          dateStart: 1,
+          dateEnd: 1,
+          user: 1,
+          hotel: 1,
+          total: 1,
+          payment: 1,
+          status: 1,
+        },
+      },
+    ]);
 
     if (trans.length === 0) {
       throw new Error("Cant fetch hotel database");
