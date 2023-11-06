@@ -42,11 +42,28 @@ import {
   delRoom,
 } from "./Room/util";
 
+import { login } from "./Login/util";
+
+// Dashboard
+import Dashboard from "./Dashboard/Dashboard";
+
+// Transaction
+import Transaction from "./Transaction/Transaction";
+import { getTrans } from "./Transaction/util";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    action: login,
     children: [
+      //index
+      {
+        index: true,
+        element: <Dashboard />,
+        loader: getTrans,
+      },
+
       // hotel paths
       {
         path: "hotel",
@@ -144,6 +161,24 @@ const router = createBrowserRouter([
             element: <AddUser />,
             action: addUser,
           },
+        ],
+      },
+
+      // Transactions related paths
+      {
+        path: "transactions",
+        children: [
+          {
+            path: "",
+            element: <Transaction />,
+            loader: getTrans,
+          },
+
+          // {
+          //   path: "add_user",
+          //   element: <AddUser />,
+          //   action: addUser,
+          // },
         ],
       },
     ],

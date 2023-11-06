@@ -222,7 +222,8 @@ a.btn {
   text-overflow: ellipsis;
   padding-left: 5px;
 }
-.add-form-container .form-inputs .form-array .addId_form input[type=text] {
+.add-form-container .form-inputs .form-array .addId_form input[type=text],
+.add-form-container .form-inputs .form-array .addId_form input[type=password] {
   padding: 5px;
   font-size: 15px;
   width: 150px;
@@ -288,6 +289,27 @@ a.btn {
   margin-left: 5px;
 }
 
+.status {
+  color: #0f991b;
+  width: -moz-min-content;
+  width: min-content;
+  padding: 6px 8px !important;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.status-booked {
+  background: #f69685;
+}
+
+.status-checkin {
+  background: #39d139;
+}
+
+.status-checkout {
+  background: #d3d0f2;
+}
+
 #main-layout {
   width: 220px;
   color: #5735df;
@@ -296,6 +318,9 @@ a.btn {
   font-size: 18px;
   display: inline-block;
   flex-shrink: 0;
+}
+#main-layout h2:hover {
+  cursor: pointer;
 }
 
 h2 {
@@ -333,6 +358,7 @@ h2 {
 #layout-nav ul p:hover,
 #layout-nav ul a:hover {
   color: #5735df;
+  cursor: pointer;
 }
 
 #render_data {
