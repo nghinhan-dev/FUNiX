@@ -88,7 +88,7 @@ export async function delHotel({ params }) {
     }
 
     toastSuccess("Updated");
-    return redirect("/hotels");
+    return redirect("/hotel");
   } catch (error) {
     toastError(error?.message ?? "Lost connect to server");
   }

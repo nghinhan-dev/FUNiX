@@ -20,7 +20,7 @@ export default function Navbar() {
             <Link to={"/hotel"}>
               <i className="fa-solid fa-hotel"></i>hotels
             </Link>
-            <Link to={"/room_type"}>
+            <Link to={"/type"}>
               <i className="fa-solid fa-grip-vertical"></i>room_type
             </Link>
             <Link to={"/rooms"}>

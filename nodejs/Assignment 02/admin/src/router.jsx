@@ -93,7 +93,7 @@ const router = createBrowserRouter([
 
       // room_type paths
       {
-        path: "room_type",
+        path: "type",
         children: [
           {
             path: "",
