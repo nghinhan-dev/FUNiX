@@ -65,7 +65,6 @@ exports.getTypeRoom = async (req, res) => {
 
 exports.updateType = async (req, res) => {
   const typeId = req.params.id;
-  const newRoomsArr = req.body.rooms.split(",");
 
   const updateData = {
     price: req.body.price * 1,
@@ -76,57 +75,62 @@ exports.updateType = async (req, res) => {
 
   try {
     const updateType = await TypeofRoom.findById(typeId);
+    if (req.body.rooms) {
+      const newRoomsArr = req.body.rooms.split(",");
 
-    const [{ roomNums, roomIds }] = await TypeofRoom.aggregate([
-      {
-        $match: {
-          _id: new ObjectId(typeId),
+      const [{ roomNums, roomIds }] = await TypeofRoom.aggregate([
+        {
+          $match: {
+            _id: new ObjectId(typeId),
+          },
         },
-      },
-      {
-        $lookup: {
-          from: "rooms",
-          let: { roomIds: "$roomIds" },
-          pipeline: [
-            {
-              $match: {
-                $expr: {
-                  $in: [{ $toString: "$_id" }, "$$roomIds"],
+        {
+          $lookup: {
+            from: "rooms",
+            let: { roomIds: "$roomIds" },
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $in: [{ $toString: "$_id" }, "$$roomIds"],
+                  },
                 },
               },
-            },
-          ],
-          as: "roomNums",
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          roomNums: {
-            $map: {
-              input: "$roomNums",
-              as: "room",
-              in: "$$room.number",
-            },
+            ],
+            as: "roomNums",
           },
-          roomIds: 1,
         },
-      },
-    ]);
+        {
+          $project: {
+            _id: 0,
+            roomNums: {
+              $map: {
+                input: "$roomNums",
+                as: "room",
+                in: "$$room.number",
+              },
+            },
+            roomIds: 1,
+          },
+        },
+      ]);
 
-    for (const number of newRoomsArr) {
-      if (!roomNums.includes(number * 1)) {
-        const newRoom = new Room({
-          number: number * 1,
-        });
+      for (const number of newRoomsArr) {
+        if (!roomNums.includes(number * 1)) {
+          const newRoom = new Room({
+            number: number * 1,
+          });
 
-        await newRoom.save();
+          await newRoom.save();
 
-        roomIds.push(newRoom._id);
+          roomIds.push(newRoom._id);
+        }
       }
+
+      updateType.set({ ...updateData, roomIds: roomIds });
     }
 
-    updateType.set({ ...updateData, roomIds: roomIds });
+    updateType.set({ ...updateData });
 
     await updateType.save();
 
