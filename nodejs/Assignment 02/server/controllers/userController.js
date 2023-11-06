@@ -117,3 +117,38 @@ exports.updateUser = async (req, res) => {
 
   res.status(200).send(updatedUser);
 };
+
+exports.loginAdmin = async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.find({ username: username });
+
+    if (user.length === 0) {
+      throw new Error("Incorrect username");
+    }
+
+    if (user[0].password !== password) {
+      throw new Error("Incorrect password");
+    }
+
+    if (!user[0].isAdmin) {
+      throw new Error("Unauthorize account");
+    }
+
+    res.status(200).send(user[0]);
+  } catch (error) {
+    console.log("error:", error);
+    switch (error.message) {
+      case "Incorrect username":
+        return res.status(404).send({ message: error.message });
+      case "Incorrect password":
+        return res.status(404).send({ message: error.message });
+      case "Unauthorize account":
+        return res.status(401).send({ message: error.message });
+
+      default:
+        return res.status(400).send("Something wrong!");
+    }
+  }
+};
