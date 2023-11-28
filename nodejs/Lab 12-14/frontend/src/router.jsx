@@ -16,6 +16,7 @@ import { orderLoader } from "./Order/orderLoader";
 // util
 import { action as addCart } from "./util/addCart";
 import { action as delBook } from "./util/delBook";
+import Login from "./Login/Login";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
         path: "checkout",
         element: <Order />,
         loader: orderLoader,
+      },
+      {
+        path: "login",
+        element: <Login />,
+        // loader: orderLoader,
       },
     ],
   },

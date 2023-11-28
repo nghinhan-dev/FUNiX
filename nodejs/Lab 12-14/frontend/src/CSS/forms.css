@@ -21,3 +21,20 @@
 .form-control textarea:focus {
   outline-color: #00695c;
 }
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.link-form {
+  color: darkblue;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.5s all;
+  cursor: pointer;
+}
+
+.link-form:hover {
+  text-decoration: underline;
+}

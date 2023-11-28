@@ -40,6 +40,14 @@ export default function Layout() {
               Order
             </NavLink>
           </ul>
+          <NavLink
+            to={"/login"}
+            className={({ isActive }) =>
+              isActive ? "active main-header__item" : "main-header__item"
+            }
+          >
+            Login
+          </NavLink>
         </nav>
       </header>
       <Outlet />
