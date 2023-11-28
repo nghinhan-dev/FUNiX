@@ -2,7 +2,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 
 // Replace the placeholder with your Atlas connection string
 const uri =
-  "mongodb+srv://sillywhale:Q0wfauvCoGydCKuS@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://sillywhale:fDkzMGaq6378ATEr@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
