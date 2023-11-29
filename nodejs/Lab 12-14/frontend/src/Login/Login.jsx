@@ -7,7 +7,7 @@ export default function Login() {
   return (
     <>
       <div className="form-container">
-        <Form className="form-control">
+        <Form method="POST" className="form-control">
           <label>
             Username
             <input type="text" name="username" />

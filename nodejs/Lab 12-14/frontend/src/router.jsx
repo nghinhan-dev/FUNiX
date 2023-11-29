@@ -17,6 +17,7 @@ import { orderLoader } from "./Order/orderLoader";
 import { action as addCart } from "./util/addCart";
 import { action as delBook } from "./util/delBook";
 import Login from "./Login/Login";
+import { loginAction } from "./Login/action";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+        action: loginAction,
         // loader: orderLoader,
       },
     ],
