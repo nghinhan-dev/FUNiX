@@ -15,7 +15,11 @@ exports.login = async (req, res) => {
       throw new Error("Wrong password");
     }
 
-    res.cookie("isLogin", true);
+    res.cookie("isLogin", true, {
+      httpOnly: true,
+      sameSite: "Lax",
+      secure: true,
+    });
     res.status(200).send("Succesfully login");
   } catch (error) {
     console.log("error:", error);
