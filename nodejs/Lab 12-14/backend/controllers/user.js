@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
       sameSite: "Lax",
       secure: true,
     });
-    res.status(200).send("Succesfully login");
+    res.status(200).send({ statusText: "Succesfully login" });
   } catch (error) {
     console.log("error:", error);
     res.status(400).send({ statusText: error });
