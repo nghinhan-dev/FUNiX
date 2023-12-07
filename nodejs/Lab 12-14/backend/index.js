@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { connectToDB } = require("./util/database");
+const session = require("express-session");
+const mongoDBStore = require("connect-mongo");
 
 // routes
 const adminRoutes = require("./routes/admin");
@@ -17,6 +19,19 @@ app.use(
   cors({
     origin: "http://localhost:5000",
     credentials: true,
+  })
+);
+
+app.use(
+  session({
+    secret: "1a7sd1af2ew7r9wer",
+    resave: false,
+    saveUninitialized: false,
+    store: mongoDBStore.create({
+      mongoUrl:
+        "mongodb+srv://sillywhale:fDkzMGaq6378ATEr@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority",
+      collectionName: "sessions",
+    }),
   })
 );
 
