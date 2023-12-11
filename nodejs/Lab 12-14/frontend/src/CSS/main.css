@@ -43,6 +43,7 @@ a {
 .main-header__item {
   margin: 0 1rem;
   padding: 0;
+  cursor: pointer;
 }
 
 .main-header__item {
