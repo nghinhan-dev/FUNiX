@@ -20,5 +20,6 @@ export async function loginAction({ request }) {
     return res;
   } catch (error) {
     console.log("error:", error);
+    return null;
   }
 }
