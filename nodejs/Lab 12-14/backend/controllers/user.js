@@ -15,14 +15,22 @@ exports.login = async (req, res) => {
       throw new Error("Wrong password");
     }
 
-    res.cookie("isLogin", true, {
-      httpOnly: true,
-      sameSite: "Lax",
-      secure: true,
-    });
+    // req.session.cookie = {
+    //   secure: true,
+    //   maxAge: 300,
+    //   sameSite: "none",
+    // };
+    req.session.isLogined = true;
+
     res.status(200).send({ statusText: "Succesfully login" });
   } catch (error) {
     console.log("error:", error);
     res.status(400).send({ statusText: error });
   }
+};
+
+exports.logout = async (req, res) => {
+  req.session.destroy();
+
+  res.status(200);
 };
