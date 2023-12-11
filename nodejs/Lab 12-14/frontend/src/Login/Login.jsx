@@ -1,8 +1,20 @@
-import { useState } from "react";
-import { Form } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Form, useActionData, useNavigate } from "react-router-dom";
+import { useLogin } from "../Auth/LoginContext";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
+  const { user, setUser } = useLogin();
+  const loginResult = useActionData();
+  console.log("loginResult:", loginResult);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginResult) {
+      setUser(loginResult);
+      navigate("/");
+    }
+  }, [loginResult, navigate, user, setUser]);
 
   return (
     <>
