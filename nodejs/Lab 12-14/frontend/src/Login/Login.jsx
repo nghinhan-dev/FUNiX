@@ -6,7 +6,6 @@ export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const { user, setUser } = useLogin();
   const loginResult = useActionData();
-  console.log("loginResult:", loginResult);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,7 @@ export default function Login() {
         <Form method="POST" className="form-control">
           <label>
             Username
-            <input type="text" name="username" />
+            <input type="text" name="userName" />
           </label>
           <label>
             Password <input type="text" name="password" />
@@ -31,7 +30,7 @@ export default function Login() {
             <>
               <label>
                 Confirm password
-                <input type="text" name="confirm" />
+                <input type="text" name="confirmPassword" />
               </label>
               <label>
                 Email
