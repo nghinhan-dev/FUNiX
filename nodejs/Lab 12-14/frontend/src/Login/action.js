@@ -1,15 +1,30 @@
 export async function loginAction({ request }) {
-  const data = Object.fromEntries(await request.formData());
+  const { intent, ...data } = Object.fromEntries(await request.formData());
 
   try {
-    const res = await fetch("http://localhost:3000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      credentials: "include",
-    });
+    let res;
+
+    if (intent === "login") {
+      res = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
+      });
+    }
+
+    if (intent === "signup") {
+      res = await fetch("http://localhost:3000/sigup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+        credentials: "include",
+      });
+    }
 
     if (!res.ok) {
       const result = await res.json();
