@@ -1,4 +1,5 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const mongoose = require("mongoose");
 
 // Replace the placeholder with your Atlas connection string
 const uri =
@@ -16,7 +17,7 @@ const client = new MongoClient(uri, {
 async function connectToDB() {
   try {
     // Connect the client to the server (optional starting in v4.7)
-    await client.connect();
+    await mongoose.connect(uri);
   } catch (error) {
     console.log("Error connecting to MongoDB:", error);
     throw error;

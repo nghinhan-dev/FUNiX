@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const { connectToDB } = require("./util/database");
 const session = require("express-session");
 const mongoDBStore = require("connect-mongo");
+const User = require("./model/user");
 
 // routes
 const adminRoutes = require("./routes/admin");
