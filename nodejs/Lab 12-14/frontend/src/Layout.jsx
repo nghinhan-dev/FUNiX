@@ -60,7 +60,7 @@ export default function Layout() {
               Order
             </NavLink>
           </ul>
-          {user ? (
+          {user !== null ? (
             <a className="main-header__item" onClick={logOut}>
               Logout
             </a>
