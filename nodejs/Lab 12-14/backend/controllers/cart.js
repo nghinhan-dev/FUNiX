@@ -1,10 +1,16 @@
 const Book = require("../model/books");
 
-exports.getCart = async (req, res, next) => {
+exports.getCart = async (req, res) => {
   try {
-    const cart = await req.user.getCart();
+    const cartItems = req.user.cart.items;
 
-    res.send(cart);
+    const result = await Promise.all(
+      cartItems.map(async (prd) => {
+        return { ...(await Book.findById(prd.id)), quantity: prd.quantity };
+      })
+    );
+
+    res.status(200).send(result);
   } catch (error) {
     console.log("error:", error);
   }
@@ -17,7 +23,7 @@ exports.postToCart = async (req, res, next) => {
     const addedItem = await Book.findById(prdId);
     await req.user.addToCart(addedItem);
 
-    res.sendStatus(200);
+    res.status(200).send(req.user.cart);
   } catch (error) {
     console.log("error:", error);
   }
