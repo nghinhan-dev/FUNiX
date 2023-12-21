@@ -19,6 +19,7 @@ export async function action({ request }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newBookData),
+      credentials: "include",
     }
   );
 
