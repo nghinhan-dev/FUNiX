@@ -35,30 +35,34 @@ export default function Layout() {
               Shop
             </NavLink>
 
-            <NavLink
-              to={"/add-product"}
-              className={({ isActive }) =>
-                isActive ? "active main-header__item" : "main-header__item"
-              }
-            >
-              Add Product
-            </NavLink>
-            <NavLink
-              to={"/cart"}
-              className={({ isActive }) =>
-                isActive ? "active main-header__item" : "main-header__item"
-              }
-            >
-              Cart
-            </NavLink>
-            <NavLink
-              to={"/checkout"}
-              className={({ isActive }) =>
-                isActive ? "active main-header__item" : "main-header__item"
-              }
-            >
-              Order
-            </NavLink>
+            {user !== null && (
+              <>
+                <NavLink
+                  to={"/add-product"}
+                  className={({ isActive }) =>
+                    isActive ? "active main-header__item" : "main-header__item"
+                  }
+                >
+                  Add Product
+                </NavLink>
+                <NavLink
+                  to={"/cart"}
+                  className={({ isActive }) =>
+                    isActive ? "active main-header__item" : "main-header__item"
+                  }
+                >
+                  Cart
+                </NavLink>
+                <NavLink
+                  to={"/checkout"}
+                  className={({ isActive }) =>
+                    isActive ? "active main-header__item" : "main-header__item"
+                  }
+                >
+                  Order
+                </NavLink>
+              </>
+            )}
           </ul>
           {user !== null ? (
             <a className="main-header__item" onClick={logOut}>
