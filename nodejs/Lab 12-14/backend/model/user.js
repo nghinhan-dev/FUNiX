@@ -1,3 +1,4 @@
+const { getDB } = require("../util/database");
 const mongoose = require("mongoose");
 const { ObjectId } = require("mongodb");
 
@@ -45,7 +46,15 @@ userSchema.methods.addToCart = async function addToCart(product) {
   return cart;
 };
 
-userSchema.methods.getOrder = async function getOrder() {};
+userSchema.methods.getOrder = async function getOrder() {
+  const db = getDB();
+  console.log("this._id):", this._id);
+
+  return db
+    .collection("orders")
+    .find({ "user._id": new ObjectId(this._id) })
+    .toArray();
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
