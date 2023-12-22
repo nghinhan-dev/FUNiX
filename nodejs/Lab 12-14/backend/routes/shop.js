@@ -10,9 +10,8 @@ const auth = require("../middleware/auth");
 router.get("/book_list", booksController.getBookList);
 
 router.get("/cart", auth.loginAuth, shopController.getCart);
-router.post("/edit-book", auth.loginAuth, booksController.updateBook);
+
 router.post("/add-cart", auth.loginAuth, shopController.postToCart);
-router.post("/delete-item", auth.loginAuth, shopController.delFromCart);
 
 // order
 router.post("/create-order", auth.loginAuth, orderController.postOrder);
