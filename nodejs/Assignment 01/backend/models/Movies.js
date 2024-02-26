@@ -176,6 +176,7 @@ module.exports = class Movies {
 
   static search(callback, query, page) {
     const q = query.toLowerCase();
+    console.log("q:", q);
     try {
       if (q === "") {
         throw new Error("Not found keyword parram");

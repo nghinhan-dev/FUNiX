@@ -4,6 +4,7 @@ import { loader as getMovies } from "./service/loader";
 import Search from "./pages/search/Search";
 import Navbar from "./navbar/Navbar";
 import ErrorPage from "./pages/error/error-page";
+import { searchAction } from "./service/action";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />,
+        action: searchAction,
       },
     ],
   },

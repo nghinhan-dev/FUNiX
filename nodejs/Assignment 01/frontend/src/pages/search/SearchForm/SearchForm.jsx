@@ -1,27 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { Form } from "react-router-dom";
 
-export default function SearchForm({ getQuery }) {
-  const [query, setQuery] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    getQuery(query);
-  };
-
+export default function SearchForm() {
   const handleReset = (event) => {
     event.preventDefault();
-    setQuery("");
     document.getElementById("search-form").reset();
   };
 
   return (
-    <form id="search-form" onSubmit={handleSubmit}>
+    <Form method="POST" id="search-form">
       <div className="container">
         <div className="search-form-container">
           <label htmlFor="search">
             <input
-              onChange={(e) => setQuery(e.target.value)}
               type="text"
               name="search"
               id="search"
@@ -31,13 +22,13 @@ export default function SearchForm({ getQuery }) {
           </label>
           <hr />
           <div className="button-grp">
-            <button className="btn" onClick={handleReset}>
+            <div className="btn" onClick={handleReset}>
               Reset
-            </button>
+            </div>
             <input className="btn" type="submit" value="Submit" />
           </div>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }

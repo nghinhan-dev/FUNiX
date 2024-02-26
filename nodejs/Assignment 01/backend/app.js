@@ -26,4 +26,6 @@ app.use("/", (req, res, next) => {
   res.status(200).send({ message: "Hello World!" });
 });
 
-app.listen(3000);
+app.listen(3000, () => {
+  console.log("Rocking on 3000!!! 🚀");
+});

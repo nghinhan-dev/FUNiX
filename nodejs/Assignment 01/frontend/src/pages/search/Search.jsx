@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { createPortal } from "react-dom";
 import SearchForm from "./SearchForm/SearchForm";
+import { useActionData } from "react-router-dom";
 
 export default function Search() {
-  const [q, setQ] = useState("");
+  const actionResult = useActionData();
+  console.log("actionResult:", actionResult);
   const [result, setResult] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -18,49 +20,26 @@ export default function Search() {
     video: {},
   });
 
-  const getQuery = (str) => {
-    setQ(encodeURIComponent(str));
-  };
-
   // use for fecth Search results
   useEffect(() => {
     let active = true;
-    const fetchVideo = async () => {
-      try {
-        // a41e04665d0188e4b15ad25b23931766
-        const respond = await fetch(
-          `http://localhost:3000/movies/search/?token=8qlOkxz4wq&query=${q}`,
-          {
-            method: "POST",
-          }
-        );
 
-        const searchResult = await respond.json();
+    if (!actionResult) {
+      return;
+    }
 
-        if (!respond.ok) {
-          setResult([]);
-          setErrorMsg(searchResult.message);
-        }
-
-        if (active) {
-          if (searchResult.result.length === 0) {
-            return setErrorMsg("Found no movie!");
-          }
-
-          setErrorMsg("");
-          setResult(searchResult.result);
-        }
-      } catch (error) {
-        console.log(error.message);
+    if (active) {
+      if (actionResult.result.length === 0) {
+        return setErrorMsg("Found no movie!");
       }
-    };
 
-    if (q !== "") fetchVideo();
+      setErrorMsg("");
+      setShowPortal((prevState) => ({ ...prevState, isShow: false }));
+      setResult(actionResult.result);
+    }
 
-    return () => {
-      active = false;
-    };
-  }, [q]);
+    return () => (active = false);
+  }, [actionResult]);
 
   // use for fecth portal's data
   useEffect(() => {
@@ -87,6 +66,8 @@ export default function Search() {
           ...prevState,
           video: vidData,
         }));
+
+        window.scrollTo({ top: 1500, behavior: "smooth" });
       } catch (error) {
         showPortal.id !== "" && console.log(error.message);
       }
@@ -98,7 +79,7 @@ export default function Search() {
   return (
     <section id="searchPage">
       <div className="container">
-        <SearchForm getQuery={getQuery} />
+        <SearchForm />
         <div className="poster__container">
           {!errorMsg ? (
             displaySearchResult(result)
