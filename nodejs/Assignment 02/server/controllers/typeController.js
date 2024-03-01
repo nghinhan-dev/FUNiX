@@ -195,7 +195,7 @@ exports.deType = async (req, res) => {
     hotel.roomIds = newTypeIds;
     hotel.save();
 
-    const response = await TypeofRoom.findByIdAndDelete(id);
+    const response = await TypeofRoom.findByIdAndDelete(typeID);
 
     if (!response) {
       console.log(response);

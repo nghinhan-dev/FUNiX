@@ -91,7 +91,7 @@ exports.delRoom = async (req, res) => {
     type.roomIds = newRoomIds;
     type.save();
 
-    const response = await Room.findByIdAndDelete(id);
+    const response = await Room.findByIdAndDelete(roomId);
 
     if (!response) {
       console.log(response);

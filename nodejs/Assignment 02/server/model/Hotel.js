@@ -12,7 +12,10 @@ const hotelSchema = new Schema({
   desc: String,
   rating: Number,
   featured: String,
-  typeIds: [String],
+  typeIds: {
+    type: [String],
+    default: [],
+  },
   cheapestPrice: Number,
 });
 

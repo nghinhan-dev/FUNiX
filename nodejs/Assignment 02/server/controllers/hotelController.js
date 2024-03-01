@@ -268,7 +268,17 @@ exports.addHotel = async (req, res) => {
     title,
     type,
     rating,
+    typeTitles,
   } = req.body;
+
+  let typeIds = [];
+  await Promise.all(
+    typeTitles.split(",").map(async (title) => {
+      const newType = new TypeofRoom({ title: title });
+      await newType.save();
+      return typeIds.push(newType._id);
+    })
+  );
 
   const newHotel = new Hotel({
     address: address,
@@ -282,11 +292,15 @@ exports.addHotel = async (req, res) => {
     title: title,
     type: type.split(","),
     rating: rating,
+    typeIds: typeIds,
   });
 
   await newHotel.save();
 
-  res.status(200).send({ statusText: "Create new hotel successfully" });
+  res.status(200).send({
+    message: "Create sucessfully",
+    hotel: newHotel,
+  });
 };
 
 exports.updateHotel = async (req, res) => {
@@ -309,45 +323,50 @@ exports.updateHotel = async (req, res) => {
 
   try {
     let typeIds = [];
-    // Create/update TypeofRoom documents
-    await Promise.all(
-      types.split(",").map(async (title) => {
-        let existingType = await TypeofRoom.findOne({ title: title });
-        if (!existingType) {
-          // If TypeofRoom doesn't exist, create it
-          const newType = new TypeofRoom({ title: title });
-          await newType.save();
-        } else {
-          typeIds.push(existingType._id);
-        }
-      })
-    );
+    if (types) {
+      console.log("types:", types.split(","));
+      // Create/update TypeofRoom documents
+      await Promise.all(
+        types.split(",").map(async (title) => {
+          let existingType = await TypeofRoom.findOne({ title: title });
+          if (!existingType) {
+            // If TypeofRoom doesn't exist, create it
+            const newType = new TypeofRoom({ title: title });
+            await newType.save();
+            typeIds.push(newType._id);
+          } else {
+            typeIds.push(existingType._id);
+          }
+        })
+      );
+    }
 
     // Find and update the hotel document
-    let updatedHotel = await Hotel.findByIdAndUpdate(
-      id,
-      {
-        address: address,
-        cheapestPrice: cheapestPrice * 1,
-        city: city,
-        desc: desc,
-        distance: distance * 1,
-        featured: !!featured,
-        name: name,
-        photos: photos.split(","),
-        title: title,
-        type: type.split(","),
-        rating: rating * 1,
-        typeIds: typeIds,
-      },
-      { new: true } // Return the updated document
-    );
+    const updatedHotel = await Hotel.findById(id);
 
     if (!updatedHotel) {
       return res.status(404).send({ statusText: "Hotel not found" });
     }
 
-    res.status(200).send(updatedHotel);
+    updatedHotel.address = address;
+    updatedHotel.cheapestPrice = cheapestPrice * 1;
+    updatedHotel.city = city;
+    updatedHotel.desc = desc;
+    updatedHotel.distance = distance * 1;
+    updatedHotel.featured = !!featured;
+    updatedHotel.name = name;
+    updatedHotel.photos = photos.split(",");
+    updatedHotel.title = title;
+    updatedHotel.type = type.split(",");
+    updatedHotel.rating = rating * 1;
+    updatedHotel.typeIds = updatedHotel.typeIds.concat(typeIds);
+
+    await updatedHotel.save();
+
+    res.status(200).send({
+      message: "Success",
+      hotel: updatedHotel,
+    });
   } catch (error) {
     console.error("Error:", error);
     res.status(500).send({ error: "Internal Server Error" });
@@ -369,12 +388,6 @@ exports.delHotel = async (req, res) => {
         transactions: transactions,
       });
     }
-
-    if (!hotel) {
-      return res.status(400).send({ statusText: "Cannot delete " });
-    }
-
-    await Hotel.findByIdAndDelete(id);
 
     res.status(200).send({ statusText: "Deleted" });
   } catch (error) {
@@ -469,3 +482,7 @@ exports.getBookData = async (req, res) => {
 
   res.status(200).send(result);
 };
+
+async function deleteFromDB(model, idArray) {
+  if (idArray.length === 0) return;
+}

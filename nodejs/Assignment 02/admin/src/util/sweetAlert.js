@@ -17,7 +17,7 @@ export function deleteInEditPage(name, value, url) {
         const result = await response.json();
 
         if (result.errors) {
-          throw new Error(response.errors[0]);
+          Swal.showValidationMessage(response.errors[0]);
         }
 
         Swal.fire({
@@ -25,7 +25,7 @@ export function deleteInEditPage(name, value, url) {
           title: "Deleted",
         });
       } catch (error) {
-        Swal.showValidationMessage(`${error?.message}`);
+        console.log("error:", error);
       }
     },
   });
