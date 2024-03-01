@@ -195,12 +195,7 @@ exports.deType = async (req, res) => {
     hotel.roomIds = newTypeIds;
     hotel.save();
 
-    const response = await TypeofRoom.findByIdAndDelete(typeID);
-
-    if (!response) {
-      console.log(response);
-      throw new Error("Cannot delete");
-    }
+    await TypeofRoom.findByIdAndDelete(typeID);
 
     res.status(200).send({ statusText: "Deleted" });
   } catch (error) {

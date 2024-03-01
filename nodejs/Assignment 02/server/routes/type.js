@@ -10,5 +10,6 @@ router.post("/add_type", validate.validateReqBody, typeController.addType);
 router.get("/get_type_rooms", typeController.getTypeRoom);
 router.get("/type/:id", typeController.getSpecificType);
 router.put("/type/:id", validate.validateReqBody, typeController.updateType);
+router.delete("/type/:typeID/delete", typeController.deType);
 
 module.exports = router;

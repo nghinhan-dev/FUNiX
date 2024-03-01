@@ -245,7 +245,16 @@ function EditArray({ name, givenArray, setFormInput }) {
           <Link to={`/type/${obj._id}`}>
             <p>{obj.title}</p>
           </Link>
-          <i className="fa-solid fa-xmark"></i>
+          <i
+            onClick={() =>
+              deleteInEditPage(
+                name.slice(0, name.length - 1),
+                obj.title,
+                `type/${obj._id}`
+              )
+            }
+            className="fa-solid fa-xmark"
+          ></i>
         </li>
       );
     }

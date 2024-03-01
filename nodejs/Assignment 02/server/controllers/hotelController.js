@@ -1,6 +1,7 @@
 const Hotel = require("../model/Hotel");
 const Transaction = require("../model/Transaction");
 const TypeofRoom = require("../model/TypesofRoom");
+const Room = require("../model/Room");
 const { ObjectId } = require("mongodb");
 
 exports.getHotel = async (req, res) => {
@@ -374,10 +375,17 @@ exports.updateHotel = async (req, res) => {
 };
 
 exports.delHotel = async (req, res) => {
-  const id = req.params.hotelId;
+  const hotelId = req.params.hotelId;
 
   try {
-    const hotel = await Hotel.findById(id);
+    const hotel = await Hotel.findById(hotelId);
+
+    if (!hotel) {
+      return res.status(404).send({
+        error: "Hotel cant be found",
+        message: "Cannot delete hotel",
+      });
+    }
 
     const transactions = await Transaction.find({ hotel: hotel.name });
 
@@ -389,7 +397,29 @@ exports.delHotel = async (req, res) => {
       });
     }
 
-    res.status(200).send({ statusText: "Deleted" });
+    let typeIds = hotel.typeIds;
+    let roomIds = [];
+
+    await Promise.all(
+      typeIds.map(async (id) => {
+        const type = await TypeofRoom.findById(id);
+        if (type && type.roomIds.length !== 0) {
+          console.log("roomIds:", type.roomIds);
+          roomIds = roomIds.concat(type.roomIds);
+        }
+
+        return await TypeofRoom.findByIdAndDelete(id);
+      })
+    );
+
+    await Promise.all(
+      roomIds.map(async (id) => await Room.findByIdAndDelete(id))
+    );
+
+    await Hotel.findByIdAndDelete(hotelId);
+    res.status(200).send({
+      message: "Success",
+    });
   } catch (error) {
     console.log("error:", error);
   }
@@ -482,7 +512,3 @@ exports.getBookData = async (req, res) => {
 
   res.status(200).send(result);
 };
-
-async function deleteFromDB(model, idArray) {
-  if (idArray.length === 0) return;
-}

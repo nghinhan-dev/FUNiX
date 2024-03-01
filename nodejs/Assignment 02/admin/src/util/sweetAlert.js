@@ -21,8 +21,8 @@ export function deleteInEditPage(name, value, url) {
         }
 
         Swal.fire({
-          icon: "success",
-          title: "Deleted",
+          icon: "🗑",
+          title: result.message,
         });
       } catch (error) {
         console.log("error:", error);
