@@ -53,7 +53,7 @@ export async function updateHotel({ params, request }) {
 
   try {
     const res = await fetch(`http://localhost:5000/hotel/${id}`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -66,7 +66,8 @@ export async function updateHotel({ params, request }) {
       throw new Error(response.errors[0]);
     }
 
-    return toastSuccess("Updated");
+    toastSuccess("Updated");
+    return redirect("/hotel");
   } catch (error) {
     return toastError(error?.message ?? "Lost connect to server");
   }
@@ -82,9 +83,10 @@ export async function delHotel({ params }) {
         "Content-Type": "application/json",
       },
     });
-
-    if (!res) {
-      throw new Error("Cannot deleted");
+    const { error } = await res.json();
+    if (error) {
+      toastError(error);
+      return redirect("/hotel");
     }
 
     toastSuccess("Updated");

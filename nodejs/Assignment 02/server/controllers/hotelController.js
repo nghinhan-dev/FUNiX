@@ -1,4 +1,6 @@
 const Hotel = require("../model/Hotel");
+const Transaction = require("../model/Transaction");
+const TypeofRoom = require("../model/TypesofRoom");
 const { ObjectId } = require("mongodb");
 
 exports.getHotel = async (req, res) => {
@@ -301,30 +303,48 @@ exports.updateHotel = async (req, res) => {
     photos,
     title,
     type,
+    types,
     rating,
   } = req.body;
 
   try {
-    const updateData = {
-      address: address,
-      cheapestPrice: cheapestPrice * 1,
-      city: city,
-      desc: desc,
-      distance: distance * 1,
-      featured: !!featured,
-      name: name,
-      photos: photos.split(","),
-      title: title,
-      type: type.split(","),
-      rating: rating * 1,
-    };
+    let typeIds = [];
+    // Create/update TypeofRoom documents
+    await Promise.all(
+      types.split(",").map(async (title) => {
+        let existingType = await TypeofRoom.findOne({ title: title });
+        if (!existingType) {
+          // If TypeofRoom doesn't exist, create it
+          const newType = new TypeofRoom({ title: title });
+          await newType.save();
+        } else {
+          typeIds.push(existingType._id);
+        }
+      })
+    );
 
-    const updatedHotel = await Hotel.findByIdAndUpdate(id, updateData, {
-      new: true,
-    });
+    // Find and update the hotel document
+    let updatedHotel = await Hotel.findByIdAndUpdate(
+      id,
+      {
+        address: address,
+        cheapestPrice: cheapestPrice * 1,
+        city: city,
+        desc: desc,
+        distance: distance * 1,
+        featured: !!featured,
+        name: name,
+        photos: photos.split(","),
+        title: title,
+        type: type.split(","),
+        rating: rating * 1,
+        typeIds: typeIds,
+      },
+      { new: true } // Return the updated document
+    );
 
     if (!updatedHotel) {
-      return res.status(404).send({ statusText: "User not found" });
+      return res.status(404).send({ statusText: "Hotel not found" });
     }
 
     res.status(200).send(updatedHotel);
@@ -338,17 +358,27 @@ exports.delHotel = async (req, res) => {
   const id = req.params.hotelId;
 
   try {
-    const response = await Hotel.findByIdAndDelete(id);
+    const hotel = await Hotel.findById(id);
 
-    if (!response) {
-      console.log(response);
-      throw new Error("Cannot delete");
+    const transactions = await Transaction.find({ hotel: hotel.name });
+
+    if (transactions.length !== 0) {
+      return res.status(400).send({
+        error: "Hotel has associated transactions",
+        message: "Cannot delete hotel",
+        transactions: transactions,
+      });
     }
+
+    if (!hotel) {
+      return res.status(400).send({ statusText: "Cannot delete " });
+    }
+
+    await Hotel.findByIdAndDelete(id);
 
     res.status(200).send({ statusText: "Deleted" });
   } catch (error) {
     console.log("error:", error);
-    res.status(500).send({ statusText: "Server error" });
   }
 };
 

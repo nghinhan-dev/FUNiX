@@ -221,7 +221,7 @@ function EditArray({ name, givenArray, setFormInput }) {
     if (name === "rooms") {
       return (
         <li key={obj._id}>
-          <Link to={`/room/${obj._id}`}>
+          <Link to={`/rooms/${obj._id}`}>
             <p>{obj.number}</p>
           </Link>
 
@@ -283,6 +283,7 @@ function EditArray({ name, givenArray, setFormInput }) {
     }
 
     setAddedArray((prevState) => [...prevState, inputField]);
+
     setInputField("");
     setIsOpenField(false);
   };

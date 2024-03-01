@@ -4,6 +4,7 @@ function validator(data) {
   const validationErrors = [];
 
   for (const [key, value] of Object.entries(data)) {
+    // console.log(key, ": ", value);
     const errors = validateProperty(key, value);
     if (errors) {
       validationErrors.push(...errors);
@@ -42,6 +43,7 @@ function validateProperty(key, value) {
     case "identifyNumber":
       return validateIndentifyNumber(key, value);
 
+    case "types":
     case "typeTitles":
       return validateArrayText(key, value);
 

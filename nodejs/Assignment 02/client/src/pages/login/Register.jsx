@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,10 +31,7 @@ export default function Register() {
         progress: undefined,
         theme: "dark",
       });
-
-      setTimeout(() => {
-        navigate("/");
-      }, 700);
+      navigate("/login");
     }
   };
 
@@ -101,7 +100,7 @@ async function createUser(userObj) {
       throw new Error("Cannot find your account");
     }
 
-    return 200;
+    return res;
   } catch (error) {
     console.log("error:", error);
     return 404;

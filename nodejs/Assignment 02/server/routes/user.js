@@ -8,11 +8,7 @@ const validate = require("../middleware/validate");
 
 router.get("/get_users", userController.getUsers);
 router.post("/login", userController.loginUser);
-router.post(
-  "/createUser",
-  validate.createUser,
-  userController.clientCreateUser
-);
+router.post("/createUser", userController.clientCreateUser);
 router.post("/admin_create_user", userController.adminCreateUser);
 router.get("/user/:id", userController.getSpecificUser);
 router.put("/user/:id", userController.updateUser);
