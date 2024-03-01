@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { Link, useActionData, useLoaderData } from "react-router-dom";
+import { Link, useActionData, useLoaderData, Form } from "react-router-dom";
 import { toastSuccess } from "../../util/toast";
 
 export default function TypeRoom() {
@@ -57,9 +57,16 @@ export default function TypeRoom() {
           <p>{type?.updatedAt?.slice(0, 10)}</p>
         </td>
         <td style={{ textAlign: "center" }}>
-          <button type="button" className="btn btn-del">
-            Delete
-          </button>
+          <Form
+            method="DELETE"
+            className="form-btn"
+            action={`${type._id}/delete`}
+          >
+            <button type="submit" className="btn btn-del">
+              Delete
+            </button>
+          </Form>
+
           <Link to={`${type._id}`} type="button" className="btn btn-edit">
             Edit
           </Link>

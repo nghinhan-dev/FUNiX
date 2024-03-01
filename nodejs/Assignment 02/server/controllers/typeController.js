@@ -2,6 +2,7 @@ const TypeofRoom = require("../model/TypesofRoom");
 const Room = require("../model/Room");
 const Hotel = require("../model/Hotel");
 const { ObjectId } = require("mongodb");
+const { isWithinInterval, isBefore } = require("date-fns");
 
 exports.getSpecificType = async (req, res) => {
   const typeId = req.params.id;
@@ -189,15 +190,47 @@ exports.addType = async (req, res) => {
 exports.deType = async (req, res) => {
   const typeID = req.params.typeID;
   try {
-    const [hotel] = await Hotel.find({ typeIds: typeID });
-    const newTypeIds = hotel.typeIds.filter((id) => id !== typeID);
+    const type = await TypeofRoom.findById(typeID);
 
-    hotel.roomIds = newTypeIds;
-    hotel.save();
+    let bookedRoom = [];
+    if (type.roomIds.length !== 0) {
+      await Promise.all(
+        type.roomIds.map(async (id) => {
+          const room = await Room.findById(id);
 
-    await TypeofRoom.findByIdAndDelete(typeID);
+          if (room.bookedRange.length === 0) return;
 
-    res.status(200).send({ statusText: "Deleted" });
+          room.bookedRange.map((range) => {
+            let isWithin = isWithinInterval(new Date(), {
+              start: range.startDate,
+              end: range.endDate,
+            });
+
+            let isBeforeBooked = isBefore(new Date(), range.startDate);
+
+            if (isWithin || isBeforeBooked) bookedRoom.push(room);
+          });
+        })
+      );
+    }
+
+    if (bookedRoom.length !== 0) {
+      return res.status(400).send({
+        error: "Room type has associated transactions",
+        message: "Cannot delete hotel",
+        bookedRoom: bookedRoom,
+      });
+    }
+
+    // const [hotel] = await Hotel.find({ typeIds: typeID });
+    // const newTypeIds = hotel.typeIds.filter((id) => id !== typeID);
+
+    // hotel.roomIds = newTypeIds;
+    // hotel.save();
+
+    // await TypeofRoom.findByIdAndDelete(typeID);
+
+    res.status(200).send({ bookedRoom: bookedRoom });
   } catch (error) {
     console.log("error:", error);
     res.status(400).send({ statusText: "Server error" });

@@ -1,4 +1,5 @@
 import { toastError, toastSuccess } from "../util/toast";
+import { redirect } from "react-router-dom";
 
 export async function getRoomTypes() {
   try {
@@ -68,5 +69,28 @@ export async function addType({ request }) {
     return toastSuccess(respone.statusText);
   } catch (error) {
     console.log("error:", error);
+  }
+}
+
+export async function delType({ params }) {
+  const id = params.hotelId;
+
+  try {
+    const res = await fetch(`http://localhost:5000/type/${id}/delete`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const { error } = await res.json();
+    if (error) {
+      toastError(error);
+      return redirect("/type");
+    }
+
+    toastSuccess("Deleted");
+    return redirect("/type");
+  } catch (error) {
+    toastError(error?.message ?? "Lost connect to server");
   }
 }
