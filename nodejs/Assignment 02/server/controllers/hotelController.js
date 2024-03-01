@@ -404,7 +404,6 @@ exports.delHotel = async (req, res) => {
       typeIds.map(async (id) => {
         const type = await TypeofRoom.findById(id);
         if (type && type.roomIds.length !== 0) {
-          console.log("roomIds:", type.roomIds);
           roomIds = roomIds.concat(type.roomIds);
         }
 

@@ -98,7 +98,7 @@ exports.delRoom = async (req, res) => {
       throw new Error("Cannot delete");
     }
 
-    res.status(200).send({ statusText: "Deleted" });
+    res.status(200).send({ message: "Deleted from Room" });
   } catch (error) {
     console.log("error:", error);
     res.status(400).send({ statusText: "Server error" });

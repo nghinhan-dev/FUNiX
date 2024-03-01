@@ -21,7 +21,7 @@ export function deleteInEditPage(name, value, url) {
         }
 
         Swal.fire({
-          icon: "🗑",
+          icon: "success",
           title: result.message,
         });
       } catch (error) {
