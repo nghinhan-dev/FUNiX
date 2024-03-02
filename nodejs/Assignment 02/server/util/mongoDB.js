@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const uri =
-  "mongodb+srv://sillywhale:bkqhNe9GOFKpkRoq@funix-sw.v8apyjj.mongodb.net/asm2-nj2?retryWrites=true&w=majority";
+const uri = process.env.DATABASE_URI;
 
 async function mongooseRun() {
   try {
