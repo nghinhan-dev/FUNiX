@@ -42,18 +42,31 @@ userSchema.methods.addToCart = async function addToCart(product) {
   this.cart.items = cart;
   await this.save();
 
-  // You can also return the updated cart if needed
   return cart;
 };
 
 userSchema.methods.getOrder = async function getOrder() {
   const db = getDB();
-  console.log("this._id):", this._id);
 
   return db
     .collection("orders")
     .find({ "user._id": new ObjectId(this._id) })
     .toArray();
+};
+
+userSchema.methods.delFromCart = async function delFromCart(itemID) {
+  const cart = this.cart;
+
+  const itemIndex = cart.items.findIndex((item) => {
+    return item.id === itemID;
+  });
+
+  cart.items.splice(itemIndex);
+
+  // this.cart.items = cart;
+  await this.save();
+
+  return;
 };
 
 const User = mongoose.model("User", userSchema);
