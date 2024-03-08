@@ -10,7 +10,7 @@ const shopController = require("../controllers/cart");
 router.post(
   "/add-product",
   auth.loginAuth,
-  validator.signUpValidator,
+  validator.addPrdValidator(),
   productsController.postBook
 );
 

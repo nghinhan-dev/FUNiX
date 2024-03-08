@@ -1,4 +1,4 @@
-import { json, redirect } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 export async function action({ request }) {
   const data = await request.formData();
@@ -19,11 +19,16 @@ export async function action({ request }) {
     credentials: "include",
   });
 
-  if (!res.ok) {
-    throw json(
-      { message: "Couldnot post new book to backend" },
-      { status: 500 }
-    );
+  const actionData = await res.json();
+
+  if (actionData?.errors) {
+    let errorsObject = actionData.errors.reduce((acc, error) => {
+      acc[error.path] = error.msg;
+
+      return acc;
+    }, {});
+
+    return errorsObject;
   }
 
   return redirect("/");
