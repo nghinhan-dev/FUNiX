@@ -15,6 +15,7 @@ export async function action({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(cartitem),
     });
 
@@ -32,27 +33,23 @@ export async function action({ request }) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(cartitem),
     });
 
     if (!res.ok) {
-      throw json(
-        { message: "Couldnot post new book to backend" },
-        { status: 500 }
-      );
+      throw json({ message: "Couldn't post delete" }, { status: 500 });
     }
   }
 
   if (intent === "create-order") {
     const res = await fetch("http://localhost:3000/create-order", {
       method: "POST",
+      credentials: "include",
     });
 
     if (!res.ok) {
-      throw json(
-        { message: "Couldnot post new book to backend" },
-        { status: 500 }
-      );
+      throw json({ message: "Couldnot create new order" }, { status: 500 });
     }
 
     return redirect("/checkout");

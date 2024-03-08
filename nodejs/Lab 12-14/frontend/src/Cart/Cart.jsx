@@ -1,16 +1,12 @@
-import { useLoaderData, Form } from "react-router-dom";
+import { useLoaderData, Form, useFetcher } from "react-router-dom";
 
 export default function Cart() {
   // Lab 7
   // const { products, totalPrice } = useLoaderData();
+  const fetcher = useFetcher();
+  const { items, total } = useLoaderData();
 
-  const products = useLoaderData();
-  const totalPrice = products.reduce((acc, cur) => {
-    acc += cur.price * cur.quantity;
-    return acc;
-  }, 0);
-
-  const renderCart = products.map((book) => {
+  const renderCart = items.map((book) => {
     return (
       <>
         <div key={book._id} className="item_container">
@@ -18,7 +14,7 @@ export default function Cart() {
             <p>{book.title}</p>
             <p>Quantity: {book.quantity}</p>
           </div>
-          <Form style={{ display: "inline" }} method="POST">
+          <fetcher.Form style={{ display: "inline" }} method="POST">
             <input type="hidden" name="id" value={book._id} />
             <input type="hidden" name="title" value={book.title} />
             <input type="hidden" name="price" value={book.price} />
@@ -26,7 +22,7 @@ export default function Cart() {
             <button type="submit" className="btn" name="intent" value="del">
               Delete
             </button>
-          </Form>
+          </fetcher.Form>
         </div>
       </>
     );
@@ -34,8 +30,8 @@ export default function Cart() {
 
   return (
     <>
-      {products.length !== 0 ? renderCart : <h1>Empty cart!</h1>}
-      <h5>Total Price : {totalPrice}</h5>
+      {items.length !== 0 ? renderCart : <h1>Empty cart!</h1>}
+      <h5>Total Price : {total}</h5>
       <Form style={{ display: "inline" }} method="POST">
         <button
           type="submit"

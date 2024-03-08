@@ -3,8 +3,5 @@ export async function loader() {
     credentials: "include",
   });
 
-  if (res.ok) {
-    const resData = await res.json();
-    return resData;
-  }
+  return res;
 }
