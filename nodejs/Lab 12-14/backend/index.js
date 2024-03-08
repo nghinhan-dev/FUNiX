@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const { connectToDB } = require("./util/database");
 const session = require("express-session");
 const mongoDBStore = require("connect-mongo");
-const User = require("./model/user");
 
 // routes
 const adminRoutes = require("./routes/admin");
@@ -30,7 +29,7 @@ app.use(
     saveUninitialized: false,
     store: mongoDBStore.create({
       mongoUrl:
-        "mongodb+srv://sillywhale:fDkzMGaq6378ATEr@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority",
+        "mongodb+srv://sillywhale:bkqhNe9GOFKpkRoq@funix-sw.v8apyjj.mongodb.net/test",
       collectionName: "sessions",
     }),
   })
@@ -52,8 +51,15 @@ app.use(shopRoutes);
 app.use(detailRoutes);
 app.use(userRoutes);
 
+app.use((error, req, res, next) => {
+  console.log("error:", error);
+  res.status(500).send({
+    error: error,
+  });
+});
+
 connectToDB()
   .then(() => {
     app.listen(3000, () => console.log("Rocking on 3000!!"));
   })
-  .catch((err) => console.log(err));
+  .catch((err) => console.log("Start error :", err));

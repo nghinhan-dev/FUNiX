@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 // Replace the placeholder with your Atlas connection string
 const uri =
-  "mongodb+srv://sillywhale:fDkzMGaq6378ATEr@funix-sw.v8apyjj.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://sillywhale:bkqhNe9GOFKpkRoq@funix-sw.v8apyjj.mongodb.net/test";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {

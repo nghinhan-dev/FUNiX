@@ -2,7 +2,7 @@ const { getDB } = require("../util/database");
 const User = require("../model/user");
 const brcypt = require("bcrypt");
 
-exports.login = async (req, res) => {
+exports.login = async (req, res, next) => {
   const { userName, password } = req.body;
   const db = getDB();
 
@@ -25,12 +25,11 @@ exports.login = async (req, res) => {
 
     res.status(200).send({ statusText: "Succesfully login" });
   } catch (error) {
-    console.log("error:", error);
-    res.status(400).send({ statusText: error.message });
+    next(error);
   }
 };
 
-exports.signUp = async (req, res) => {
+exports.signUp = async (req, res, next) => {
   const { username, password, confirmPassword, email } = req.body;
   const db = getDB();
 
@@ -58,8 +57,7 @@ exports.signUp = async (req, res) => {
 
     return res.status(200).send({ statusText: "Create sucessfully" });
   } catch (error) {
-    console.log("error:", error);
-    res.status(400).send({ statusText: error.message });
+    next(error);
   }
 };
 
